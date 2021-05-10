@@ -1,21 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Code ursprunglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Your first Spring application</title>
+    <link rel="stylesheet" href="css/home.css">
+    <script src="js/home.js"></script>
+    <title>Homepage</title>
 </head>
-<body>
-    <p><a href="/hello"> Greet the world!</a></p>
 
-    <form action="/hello" method="GET" id="nameForm">
-        <div>
-            <input name="Vorlesung" id="vorlField">
-            <input name="UebungOdVorlesung" id="typField"> <!-- Auswahl aus 2 Optionen (Dropdown oder so) -->
-            <input name="Name" id="nameField">
-            <input name="Kontakt" id="kontaktField">
-            <input name="Nachricht" id="nachrichtField"> <!-- soll optional sein -->
-            <button>Greet me!</button>
-        </div>
-    </form>
-</body>
-</html>
+<h2>Annance erstellen</h2>
+<div class="container" id="container">
+
+
+
+    <div class="form-container sign-in-container">
+        <form action="/hello" method="GET" id="nameForm" >
+            <h1>Fülle das Formular aus</h1>
+
+
+            <input name="myVorlesung" placeholder="Vorlesung" />
+            <input name="choice" list="uorl" placeholder="Ubung oder Lerngruppe" />
+            <datalist id="uorl">
+                <option>Ubung</option>
+                <option>Lerngruppe</option>
+            </datalist>
+            <input name="email" type="email" placeholder="Email" />
+            <input name="Nachricht" placeholder="Nachricht (optional)">
+
+            <button>Abschicken</button>
+        </form>
+    </div>
+
+</div>
+
