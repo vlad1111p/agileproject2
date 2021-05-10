@@ -1,4 +1,4 @@
-<!-- Code ursprunglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
+<!-- Code ursprünglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
 <head>
     <link rel="stylesheet" href="css/home.css">
     <script src="js/home.js"></script>
@@ -11,17 +11,20 @@
 
 
     <div class="form-container sign-in-container">
-        <form action="/hello" method="GET" id="nameForm" >
-            <h1>Fülle das Formular aus</h1>
+        <form action="/annance_created" method="GET" id="nameForm" >
 
 
+            <label>Für welche Vorlesung suchst du?</label>
             <input name="myVorlesung" placeholder="Vorlesung" />
-            <input name="choice" list="uorl" placeholder="Ubung oder Lerngruppe" />
+            <label>Lern oder Übungsgruppe</label>
+            <input name="choice" list="uorl" placeholder="Übung oder Lerngruppe" />
             <datalist id="uorl">
-                <option>Ubung</option>
+                <option>Übung</option>
                 <option>Lerngruppe</option>
             </datalist>
+            <label>Wie kann man dich erreichen?</label>
             <input name="email" type="email" placeholder="Email" />
+            <label>Was mochtest du noch sagen?</label>
             <input name="Nachricht" placeholder="Nachricht (optional)">
 
             <button>Abschicken</button>
