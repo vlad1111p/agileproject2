@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @SpringBootApplication
-@Controller
+@RestController
 public class LearngroupTuApplication {
 
     public static void main(String[] args) {
@@ -16,12 +16,9 @@ public class LearngroupTuApplication {
 
 
 
-    @RequestMapping("/annance_created")
-    public ModelAndView index () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("homepage");
-        return modelAndView;
-
+    @GetMapping("/annance_created")
+    public String index (@RequestParam(value = "choice", required = true) String name) {
+        return name;
     }
 }
 

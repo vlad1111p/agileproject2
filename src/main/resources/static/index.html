@@ -14,18 +14,17 @@
         <form action="/annance_created" method="GET" id="nameForm" >
 
 
-            <label>Für welche Vorlesung suchst du?</label>
-            <input name="myVorlesung" placeholder="Vorlesung" />
-            <label>Lern oder Übungsgruppe</label>
-            <input name="choice" list="uorl" placeholder="Übung oder Lerngruppe" />
-            <datalist id="uorl">
-                <option>Übung</option>
+            <label for="myVorlesung">Für welche Vorlesung suchst du KommilitonInnen?</label>
+            <input id="myVorlesung" name="myVorlesung" placeholder="Vorlesung" required="true"/>
+            <label for="choice">Lern oder Übungsgruppe</label>
+            <select id="choice" name="choice" placeholder="Lerngruppe oder Übung" required="true">
                 <option>Lerngruppe</option>
-            </datalist>
-            <label>Wie kann man dich erreichen?</label>
-            <input name="email" type="email" placeholder="Email" />
-            <label>Was mochtest du noch sagen?</label>
-            <input name="Nachricht" placeholder="Nachricht (optional)">
+                <option>Übung</option>
+            </select>
+            <label for="kontakt">Wie kann man dich erreichen?</label>
+            <input id="kontakt" name="kontakt" placeholder="z.B. Email" required="true"/>
+            <label for="Nachricht">Was möchtest du noch sagen?</label>
+            <input id="Nachricht" name="Nachricht" placeholder="Nachricht (optional)" />
 
             <button>Abschicken</button>
         </form>
