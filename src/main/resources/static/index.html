@@ -1,21 +1,19 @@
 <!-- Code ursprünglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
 <head>
     <link rel="stylesheet" href="css/home.css">
-    <script src="js/home.js"></script>
     <title>Homepage</title>
 </head>
 
-<h2>Annance erstellen</h2>
+<h2>Annonce erstellen</h2>
 <div class="container" id="container">
 
 
 
     <div class="form-container sign-in-container">
-        <form action="/annance_created" method="GET" id="nameForm" >
+        <form action="/annonce_created" method="GET" id="nameForm" >
 
-
-            <label for="myVorlesung">Für welche Vorlesung suchst du KommilitonInnen?</label>
-            <input id="myVorlesung" name="myVorlesung" placeholder="Vorlesung" required="true"/>
+            <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
+            <input id="vorlName" name="vorlName" placeholder="Vorlesung" required="true"/>
             <label for="choice">Lern oder Übungsgruppe</label>
             <select id="choice" name="choice" placeholder="Lerngruppe oder Übung" required="true">
                 <option>Lerngruppe</option>

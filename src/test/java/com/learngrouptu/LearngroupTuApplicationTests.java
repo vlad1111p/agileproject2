@@ -1,4 +1,4 @@
-package com.example.learngrouptu;
+package com.learngrouptu;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

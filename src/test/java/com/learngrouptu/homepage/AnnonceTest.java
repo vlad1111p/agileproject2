@@ -1,4 +1,4 @@
-package com.example.learngrouptu;
+package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -9,27 +9,24 @@ import org.openqa.selenium.support.ui.Select;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LearngroupTuApplicationTest {
+class AnnonceTest {
 
     @Test
     public void testUrlCorrectForCorrectInput() throws InterruptedException {
-
-
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8080/");
-
-        driver.findElement(By.id("myVorlesung")).sendKeys("vlad");
+        driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("button1")).click();
-        String at=driver.getCurrentUrl();
-        String et="http://localhost:8080/annance_created?myVorlesung=vlad&choice=Lerngruppe&kontakt=vlad1111p%40gmail.com&Nachricht=";
+        String realUrl=driver.getCurrentUrl();
+        String expectedUrl="http://localhost:8080/annonce_created?vorlName=vlad&choice=Lerngruppe&kontakt=vlad1111p%40gmail.com&Nachricht=";
 
-        assertEquals(et, at);
+        assertEquals(expectedUrl, realUrl);
     }
     @Test
     public void testContentCorrectForCorrectInput() throws InterruptedException {
@@ -41,16 +38,15 @@ class LearngroupTuApplicationTest {
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8080/");
 
-        driver.findElement(By.id("myVorlesung")).sendKeys("vlad");
+        driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
-        String at=driver.getPageSource().toString();
-        String et="vlad Lerngruppe vlad1111p@gmail.com testnachricht";
-        //System.out.println(at);
-        Assertions.assertTrue(at.contains(et));
+        String realContent=driver.getPageSource().toString();
+        String expectedContent="vlad Lerngruppe vlad1111p@gmail.com testnachricht";
+        Assertions.assertTrue(realContent.contains(expectedContent));
     }
     @Test
     public void testUrlCorrectForWrongInput() throws InterruptedException {
@@ -61,15 +57,12 @@ class LearngroupTuApplicationTest {
         options.addArguments("--headless");
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8080/");
-
-
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
         String before=driver.getCurrentUrl();
         driver.findElement(By.id("button1")).click();
         String after=driver.getCurrentUrl();
-
         assertEquals(before, after);
     }
 
@@ -91,7 +84,7 @@ class LearngroupTuApplicationTest {
         String after=driver.getCurrentUrl();
 
         assertEquals(before, after);
-        driver.findElement(By.id("myVorlesung")).sendKeys("vlad");
+        driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("button1")).click();
         after=driver.getCurrentUrl();
         assertNotEquals(before,after);
