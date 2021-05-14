@@ -1,18 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Code ursprünglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Your first Spring application</title>
+    <link rel="stylesheet" href="css/home.css">
+    <title>Homepage</title>
 </head>
-<body>
-    <p><a href="/hello"> Greet the world!</a></p>
 
-    <form action="/hello" method="GET" id="nameForm">
-        <div>
-            <label for="nameField">How should the app call you?</label>
-            <input name="myName" id="nameField">
-            <button>Greet me!</button>
-        </div>
-    </form>
-</body>
-</html>
+<h2>Annonce erstellen</h2>
+<div class="container" id="container">
+
+
+
+    <div class="form-container sign-in-container">
+        <form action="/annonce_created" method="GET" id="nameForm" >
+
+            <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
+            <input id="vorlName" name="vorlName" placeholder="Vorlesung" required="true"/>
+            <label for="choice">Lern oder Übungsgruppe</label>
+            <select id="choice" name="choice" placeholder="Lerngruppe oder Übung" required="true">
+                <option>Lerngruppe</option>
+                <option>Übung</option>
+            </select>
+            <label for="kontakt">Wie kann man dich erreichen?</label>
+            <input id="kontakt" name="kontakt" placeholder="z.B. Email" required="true"/>
+            <label for="Nachricht">Was möchtest du noch sagen?</label>
+            <input id="Nachricht" name="Nachricht" placeholder="Nachricht (optional)" />
+
+            <button id="button1">Abschicken</button>
+        </form>
+    </div>
+
+</div>
+
