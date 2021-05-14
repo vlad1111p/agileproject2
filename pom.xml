@@ -38,7 +38,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.4.30.Final</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.0</version>
+        </dependency>
 
 
     </dependencies>
