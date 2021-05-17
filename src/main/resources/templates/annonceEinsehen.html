@@ -20,8 +20,18 @@
       <div th:case="*">
         <h2>Annoncen</h2>
         <table>
-          <thead><tr><th>ID</th><th>Vorlesung</th></tr></thead>
-          <tbody><tr th:each="annonce : ${annoncen}"><td th:text="${annonce.id}"></td th:text="${annonce.vorlName}"><td></td></tr></tbody>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Vorlesung</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="annonce : ${annoncen}">
+              <td th:text="${annonce.id}"></td>
+              <td th:text="${annonce.vorlName}"></td>
+            </tr>
+          </tbody>
         </table>
       </div>
     </div>
