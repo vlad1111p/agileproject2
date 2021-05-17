@@ -1,4 +1,4 @@
-package com.example.learngrouptu;
+package com.learngrouptu;
 
 
 
@@ -23,7 +23,7 @@ public class InsertUserStatement
         createTableExample.insertRecord();
     }
 
-    public void insertRecord() throws SQLException {
+    public static void insertRecord() throws SQLException {
         System.out.println(INSERT_USER);
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
