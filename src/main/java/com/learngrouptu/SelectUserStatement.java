@@ -1,4 +1,4 @@
-package com.example.learngrouptu;
+package com.learngrouptu;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,10 +14,10 @@ public class SelectUserStatement {
 
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
-                .getConnection("jdbc:sqlite:/C:\\sqlite\\db\\LearngroupTu_DB_new.db", "root", "root");
+                .getConnection("jdbc:sqlite:./LearngroupTu_DB_new.db", "root", "root");
 
              // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection.prepareStatement(QUERY);) {
+             PreparedStatement preparedStatement = connection.prepareStatement(QUERY)) {
             preparedStatement.setInt(1, 1);
             System.out.println(preparedStatement);
             // Step 3: Execute the query or update query

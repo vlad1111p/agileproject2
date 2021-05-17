@@ -13,7 +13,7 @@ public class InsertUserStatement
             "  (name, email, password) VALUES " +
             " (?, ?, ?);";
 */
-  private static final String INSERT_USER = "INSERT INTO table_userinfo" +
+  private static final String INSERT_USER = "INSERT INTO annonce" +
           "  (Vorlesung, Kontakt, Typ, Nachricht) VALUES " +
           " (?, ?, ?, ?);";
 
@@ -27,7 +27,7 @@ public class InsertUserStatement
         System.out.println(INSERT_USER);
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
-                .getConnection("jdbc:sqlite:/C:\\sqlite\\db\\LearngroupTu_DB.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
+                .getConnection("jdbc:sqlite:./LearngroupTu_DB_new.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
             // String jdbcUrl = "jdbc:sqlite:/C:\\sqlite\\db\\LearngroupTu_DB_new.db"
 
              // Step 2:Create a statement using connection object
