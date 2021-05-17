@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/index.css">
@@ -15,7 +15,16 @@
   </div>
 
   <div class="content" id="content">
-    <p>Hier Feld einfügen in dem alle Einträge für Annoncen aus der Datenbank ausgelesen und ausgegeben werden.</p>
+    <div th:switch="${annoncen}" >
+      <h2 th:case="null">Noch keine Annoncen.</h2>
+      <div th:case="*">
+        <h2>Annoncen</h2>
+        <table>
+          <thead><tr><th>ID</th><th>Vorlesung</th></tr></thead>
+          <tbody><tr th:each="annonce : ${annoncen}"><td th:text="${annonce.id}"></td th:text="${annonce.vorlName}"><td></td></tr></tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </body>
 </html>
