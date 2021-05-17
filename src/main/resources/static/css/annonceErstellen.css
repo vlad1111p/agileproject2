@@ -260,3 +260,33 @@ footer a {
     float: left;
 
 }
+
+/*ab hier navbar */
+
+.navbarContainer ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+.navbarContainer li {
+    float: left;
+}
+
+.navbarContainer li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbarContainer li a:hover:not(.active) {
+    background-color: #111;
+}
+
+.navbarContainer .active {
+    background-color: #4CAF50;
+}
