@@ -12,7 +12,7 @@ import java.sql.SQLException;
 @RestController
 public class Annonce {
 
-    private static final String INSERT_USER = "INSERT INTO table_userinfo" +
+    private static final String INSERT_USER = "INSERT INTO annonce" +
             "  (Vorlesung, Kontakt, Typ, Nachricht) VALUES " +
             " (?, ?, ?, ?);";
 
@@ -24,7 +24,7 @@ public class Annonce {
         System.out.println(INSERT_USER);
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
-                .getConnection("jdbc:sqlite:./LearngroupTu_DB_new.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
+                .getConnection("jdbc:sqlite:./LearngroupTU_DB.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {

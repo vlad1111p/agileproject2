@@ -17,7 +17,7 @@ public class LearngroupTuApplication {
         SpringApplication.run(LearngroupTuApplication.class, args);
 
 
-        String jdbcUrl = "jdbc:sqlite:./LearngroupTu_DB_new.db";
+        String jdbcUrl = "jdbc:sqlite:./LearngroupTU_DB.db";
         try{
 
 
@@ -30,7 +30,7 @@ public class LearngroupTuApplication {
             ResultSet result = statement.executeQuery(sql);
 
             while(result.next()){
-                Integer id = result.getInt("ID");
+                Integer id = result.getInt("aID");
                 String name = result.getString("Vorlesung");
                 String kontakt = result.getString("Kontakt");
                 String typ = result.getString("Typ");
@@ -45,6 +45,7 @@ public class LearngroupTuApplication {
             }
 
         } catch (SQLException e){
+            System.out.println(e.getMessage());
             System.out.println("Error connecting to SQLite database");
         }
 
