@@ -16,32 +16,27 @@ public class LearngroupTuApplication {
         String typString = null;
         SpringApplication.run(LearngroupTuApplication.class, args);
 
-        String jdbcUrl = "jdbc:sqlite:./LearngroupTu_DB.db";
 
-        //String jdbcUrl = "LearngroupTu_DB_new.db";
-
-
+        String jdbcUrl = "jdbc:sqlite:./LearngroupTU_DB.db";
         try{
-
-            /*
-                //TODO new einbinden
-             */
 
 
             Connection connection = DriverManager.getConnection(jdbcUrl);
-            String sql =" SELECT * FROM table_userinfo";
+
+
+            String sql ="SELECT * FROM annonce";
 
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery(sql);
 
             while(result.next()){
-                Integer id = result.getInt("ID");
+                Integer id = result.getInt("aID");
                 String name = result.getString("Vorlesung");
                 String kontakt = result.getString("Kontakt");
-                Integer typ = result.getInt("Typ");
+                String typ = result.getString("Typ");
                 String nachricht = result.getString("Nachricht");
 
-                if(typ==1){
+                if(typ=="Lerngruppe"){
                     typString = "Lerngruppe";
                 } else {
                     typString = "Uebungsgruppe";}
@@ -50,6 +45,7 @@ public class LearngroupTuApplication {
             }
 
         } catch (SQLException e){
+            System.out.println(e.getMessage());
             System.out.println("Error connecting to SQLite database");
         }
 
