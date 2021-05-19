@@ -23,7 +23,7 @@ class AnnonceTest {
             options.addArguments("--remote-debugging-port=9222");
         }
         ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://localhost:8080/");
+        driver.get("http://localhost:8080/annonceErstellen");
         return driver;
     }
 

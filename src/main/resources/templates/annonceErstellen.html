@@ -1,0 +1,42 @@
+<!-- Code ursprünglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/annonceErstellen.css">
+    <title>Annonce erstellen</title>
+</head>
+
+    <div class="navbarContainer" id="navBar">
+        <ul>
+            <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+            <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+            <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+        </ul>
+    </div>
+
+    <div class="container" id="content">
+        <h2>Annonce erstellen</h2>
+        <div class="container" id="container">
+
+            <div class="form-container sign-in-container">
+                <form action="/annonce_created" method="GET" id="nameForm" >
+
+                    <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
+                    <input id="vorlName" name="vorlName" placeholder="Vorlesung" required="true"/>
+                    <label for="choice">Lern oder Übungsgruppe</label>
+                    <select id="choice" name="choice" placeholder="Lerngruppe oder Übung" required="true">
+                        <option>Lerngruppe</option>
+                        <option>Übung</option>
+                    </select>
+                    <label for="kontakt">Wie kann man dich erreichen?</label>
+                    <input id="kontakt" name="kontakt" placeholder="z.B. Email" required="true"/>
+                    <label for="Nachricht">Was möchtest du noch sagen?</label>
+                    <input id="Nachricht" name="Nachricht" placeholder="Nachricht (optional)" />
+
+                    <button id="button1">Abschicken</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
