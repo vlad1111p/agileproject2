@@ -10,12 +10,39 @@
     <ul>
       <li><a href="/home" th:href="@{/home}">Homepage</a></li>
       <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+      <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
       <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
     </ul>
   </div>
 
   <div class="content" id="content">
-    <p>Hier Feld einfügen in dem alle Einträge für Annoncen aus der Datenbank ausgelesen und ausgegeben werden.</p>
+    <div th:switch="${annoncen}">
+      <h2 th:case="null">Keine Annoncen bisher</h2>
+      <div th:case="*">
+        <h2>Users</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>Annonce ID</th>
+            <th>Vorlesung</th>
+            <th>Choice</th>
+            <th>Kontakt</th>
+            <th>Nachricht</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="annonce : ${annoncen}">
+            <td th:text="${annonce.annonceId}"></td>
+            <td th:text="${annonce.vorlName}"></td>
+            <td th:text="${annonce.choice}"></td>
+            <td th:text="${annonce.kontakt}"></td>
+            <td th:text="${annonce.nachricht}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
+    </div>
   </div>
 </body>
 </html>
