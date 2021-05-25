@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/Vorlesungsubersicht.css">
+  <link rel="stylesheet" href="/css/index.css">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="navbarContainer" id="navBar">
+  <ul>
+    <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+    <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+    <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
+    <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+    <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+    <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a></li>
+  </ul>
+</div >
+<table>
+  <thead>
+  <tr>
+    <th>Kursnr</th>
+    <th>Titel</th>
+    <th>Studiengang</th>
+    <th>Cp</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><strong>showSpeed</strong></td>
+    <td>15</td>
+    <td>The speed of the show/reveal</td>
+  </tr>
+  <tr>
+    <td><strong>showEasing</strong></td>
+    <td>'linear'</td>
+    <td>The easing of the show/reveal</td>
+  </tr>
+  <tr>
+    <td><strong>hideSpeed</strong></td>
+    <td>50</td>
+    <td>The speed of the hide/conceal</td>
+  </tr>
+  <tr>
+    <td><strong>hideEasing</strong></td>
+    <td>'linear'</td>
+    <td>The easing of the hide/conceal</td>
+  </tr>
+  <tr>
+    <td><strong>width</strong></td>
+    <td>'auto'</td>
+    <td>The width that the data will be truncated to - <em>('auto' or px amount)</em></td>
+  </tr>
+  <tr>
+    <td><strong>ellipsis</strong></td>
+    <td>true</td>
+    <td>Set to true to enable the ellipsis</td>
+  </tr>
+  <tr>
+    <td><strong>title</strong></td>
+    <td>false</td>
+    <td>Set to true to show the full data on hover</td>
+  </tr>
+  <tr>
+    <td><strong>afterShow</strong></td>
+    <td> $.noop</td>
+    <td>The callback fired after the show/reveal</td>
+  </tr>
+  <tr>
+    <td><strong>afterHide</strong></td>
+    <td>$.noop</td>
+    <td>The callback fired after the hide/conceal</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>vorlesung erstellen</title>
+</head>
+<body>
+<div class="navbarContainer" id="navBar">
+    <ul>
+        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+        <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a></li>
+    </ul>
+    <div class="container" id="content">
+        <h2>Annonce erstellen</h2>
+    </div>
+
+
+    <form th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post">
+        <label for="kursnr">kursnr</label>
+        <input type="text" th:field="*{kursnr}" id="kursnr" placeholder="kursnr">
+        <span th:if="${#fields.hasErrors('kursnr')}" th:errors="*{kursnr}"></span>
+        <label for="cp">cp</label>
+        <input type="text" th:field="*{cp}" id="cp" placeholder="cp">
+        <span th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
+        <label for="studiengang">studiengang</label>
+        <input type="text" th:field="*{studiengang}" id="studiengang" placeholder="studiengang">
+        <span th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
+        <label for="titel">titel</label>
+        <input type="text" th:field="*{titel}" id="titel" placeholder="titel">
+        <span th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
+        <input type="submit" value="Vorlesung erstellen">
+    </form>
+            </div>
+</body>
+</html>
