@@ -2,7 +2,6 @@ package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,7 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.sql.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AnnonceTest {
 
@@ -96,7 +96,7 @@ class AnnonceTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./LearngroupTU_DB.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
         String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
@@ -117,7 +117,7 @@ class AnnonceTest {
 
     @AfterAll
     public static void deleteTestDebris() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./LearngroupTU_DB.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
         String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         stmt.execute("DELETE FROM annonce WHERE kontakt='vlad1111p@gmail.com'");
