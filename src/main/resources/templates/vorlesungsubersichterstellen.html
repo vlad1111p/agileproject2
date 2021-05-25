@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/annonceErstellen.css">
     <link rel="stylesheet" href="/css/index.css">
     <title>vorlesung erstellen</title>
 </head>
@@ -15,12 +16,13 @@
         <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
         <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a></li>
     </ul>
-    <div class="container" id="content">
-        <h2>Annonce erstellen</h2>
     </div>
+    <div class="container" id="content">
+        <h2>Vorlesung erstellen</h2>
+        <div class="container" id="container">
 
-
-    <form th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post">
+            <div class="form-container sign-in-container">
+                <form th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post">
         <label for="kursnr">kursnr</label>
         <input type="text" th:field="*{kursnr}" id="kursnr" placeholder="kursnr">
         <span th:if="${#fields.hasErrors('kursnr')}" th:errors="*{kursnr}"></span>
@@ -35,6 +37,6 @@
         <span th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
         <input type="submit" value="Vorlesung erstellen">
     </form>
-            </div>
+            </div></div></div>
 </body>
 </html>
