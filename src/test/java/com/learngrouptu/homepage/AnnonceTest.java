@@ -96,7 +96,7 @@ class AnnonceTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./LearngroupTU_DB.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
         String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
@@ -117,7 +117,7 @@ class AnnonceTest {
 
     @AfterAll
     public static void deleteTestDebris() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:./LearngroupTU_DB.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
         String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         stmt.execute("DELETE FROM annonce WHERE kontakt='vlad1111p@gmail.com'");
