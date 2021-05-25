@@ -1,4 +1,4 @@
-package com.example.learngrouptu;
+package com.learngrouptu;
 
 import java.sql.Types;
 
