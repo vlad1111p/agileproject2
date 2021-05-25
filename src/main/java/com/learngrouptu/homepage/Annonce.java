@@ -24,7 +24,7 @@ public class Annonce {
         System.out.println(INSERT_USER);
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
-                .getConnection("jdbc:sqlite:./LearngroupTU_DB.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
+                .getConnection("jdbc:sqlite:LearngroupTU_DB.db"); //works without pw/user see LearngroupTuApplication  .._DB.db", "root", "root");
 
              // Step 2:Create a statement using connection object
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_USER)) {
