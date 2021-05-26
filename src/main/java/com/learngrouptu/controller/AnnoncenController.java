@@ -40,9 +40,8 @@ public class AnnoncenController {
         if (result.hasErrors()) {
             return "redirect:annonceErstellen";
         }
-
         annonceRepository.save(annonce);
-        return "annonceEinsehen";
+        return showAnnonceEinsehen(model);
     }
 
 }

@@ -30,18 +30,15 @@
                     </select>
                     <span th:if="${#fields.hasErrors('choice')}" th:errors="*{choice}"></span>
                     <label for="kontakt">Wie kann man dich erreichen?</label>
-                    <input type="text" th:field="*{kontakt}" id="kontakt" placeholder="Kontakt">
+                    <input id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email" required="true"/>
                     <span th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
-                    <input id="kontakt" name="kontakt" placeholder="z.B. Email" required="true"/>
                     <label for="nachricht">Was möchtest du noch sagen?</label>
                     <input type="text" th:field="*{nachricht}" id="nachricht" placeholder="Nachricht">
                     <span th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
 
-                    <!--<button id="button1">Abschicken</button>-->
-                    <input type="submit" value="Annonce erstellen">
+                    <button id="button1">Abschicken</button>
                 </form>
             </div>
-
         </div>
     </div>
 
