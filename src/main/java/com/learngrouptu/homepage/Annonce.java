@@ -16,11 +16,27 @@ public class Annonce {
             "  (Vorlesung, Kontakt, Typ, Nachricht) VALUES " +
             " (?, ?, ?, ?);";
 
+    public static void printSQLException(SQLException ex) {
+        for (Throwable e : ex) {
+            if (e instanceof SQLException) {
+                e.printStackTrace(System.err);
+                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
+                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
+                System.err.println("Message: " + e.getMessage());
+                Throwable t = ex.getCause();
+                while (t != null) {
+                    System.out.println("Cause: " + t);
+                    t = t.getCause();
+                }
+            }
+        }
+    }
+
     @GetMapping("/annonce_created")
-    public String SetAnnonce (@RequestParam(value = "vorlName", required = true) String vorlName,
-                         @RequestParam(value = "choice", required = true) String choice,
-                         @RequestParam(value = "kontakt", required = true) String kontakt,
-                         @RequestParam(value = "Nachricht", required = true) String nachricht) {
+    public String SetAnnonce(@RequestParam(value = "vorlName", required = true) String vorlName,
+                             @RequestParam(value = "choice", required = true) String choice,
+                             @RequestParam(value = "kontakt", required = true) String kontakt,
+                             @RequestParam(value = "Nachricht", required = true) String nachricht) {
         System.out.println(INSERT_USER);
         // Step 1: Establishing a Connection
         try (Connection connection = DriverManager
@@ -44,22 +60,6 @@ public class Annonce {
         }
 
         // Step 4: try-with-resource statement will auto close the connection.
-        return vorlName +" "+choice+ " " +kontakt+ " " +nachricht;
-    }
-
-    public static void printSQLException(SQLException ex) {
-        for (Throwable e: ex) {
-            if (e instanceof SQLException) {
-                e.printStackTrace(System.err);
-                System.err.println("SQLState: " + ((SQLException) e).getSQLState());
-                System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
-                System.err.println("Message: " + e.getMessage());
-                Throwable t = ex.getCause();
-                while (t != null) {
-                    System.out.println("Cause: " + t);
-                    t = t.getCause();
-                }
-            }
-        }
+        return vorlName + " " + choice + " " + kontakt + " " + nachricht;
     }
 }

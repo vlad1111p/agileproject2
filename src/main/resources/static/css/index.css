@@ -1,5 +1,4 @@
 
-
 ul {
     list-style-type: none;
     margin: 0;
@@ -36,4 +35,4 @@ li a:hover:not(.active) {
     text-align: left;
     /*text-decoration: ;*/
     /*display: ;*/
-    }
+}

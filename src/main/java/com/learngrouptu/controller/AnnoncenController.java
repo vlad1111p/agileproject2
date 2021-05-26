@@ -19,19 +19,23 @@ public class AnnoncenController {
     private final AnnonceRepository annonceRepository;
 
     @Autowired
-    public AnnoncenController(AnnonceRepository annonceRepository){this.annonceRepository = annonceRepository;}
+    public AnnoncenController(AnnonceRepository annonceRepository) {
+        this.annonceRepository = annonceRepository;
+    }
 
     @RequestMapping(value = "/annonceErstellen", method = RequestMethod.GET)
-    public String showAnnonceErstellen(){return "annonceErstellen";}
+    public String showAnnonceErstellen() {
+        return "annonceErstellen";
+    }
 
     @GetMapping("/annonceEinsehen")
-    public String showAnnonceEinsehen(Model model){
+    public String showAnnonceEinsehen(Model model) {
         model.addAttribute("annoncen", annonceRepository.findAll());
         return "annonceEinsehen";
     }
 
     @GetMapping("/annonceErstellenNeu")
-    public String showAnnonceErstellenNeu(Annonce annonce){
+    public String showAnnonceErstellenNeu(Annonce annonce) {
         return "annonceErstellenNeu";
     }
 
