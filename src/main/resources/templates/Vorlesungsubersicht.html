@@ -31,6 +31,8 @@
           <th>Kursnr</th>
           <th>Studiengang</th>
           <th>Cp</th>
+          <th>Gruppe erstellen</th>
+          <th>Gruppe suchen</th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +42,8 @@
           <td th:text="${vorlesung.kursnr}"></td>
           <td th:text="${vorlesung.studiengang}"></td>
           <td th:text="${vorlesung.cp}"></td>
+          <td><a href="vorlesungsgruppeerstellen" th:href="@{/vorlesungsgruppeerstellen}">Gruppe erstellen</a></td>
+          <td><a href="vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen}">Gruppe suchen</a></td>
         </tr>
         </tbody>
       </table>
