@@ -10,12 +10,13 @@ import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AnnonceTest {
+class AnnonceErstellenTest {
 
     private static ChromeDriver driver;
+    private static Connection connection;
 
     @BeforeAll
-    public static void init() {
+    public static void init() throws SQLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         if (System.getProperty("os.name").contains("Linux")) {
@@ -24,12 +25,16 @@ class AnnonceTest {
         }
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8080/annonceErstellen");
-        AnnonceTest.driver = driver;
+        AnnonceErstellenTest.driver = driver;
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
+        AnnonceErstellenTest.connection = connection;
     }
 
     @AfterAll
-    public static void close() {
-        AnnonceTest.driver.close();
+    public static void close() throws SQLException {
+        AnnonceErstellenTest.driver.close();
+        AnnonceErstellenTest.connection.close();
     }
 
     @Test
@@ -40,12 +45,16 @@ class AnnonceTest {
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("button1")).click();
         String realUrl=driver.getCurrentUrl();
-        String expectedUrl="http://localhost:8080/annonce_created?vorlName=vlad&choice=Lerngruppe&kontakt=vlad1111p%40gmail.com&Nachricht=";
+        String expectedUrl="http://localhost:8080/addannonce";
 
         assertEquals(expectedUrl, realUrl);
     }
     @Test
     public void testContentCorrectForCorrectInput() throws InterruptedException {
+        String vorlName = "vlad";
+        String kontakt = "vlad1111p@gmail.com";
+        String nachricht = "testnachricht";
+
         driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
@@ -53,8 +62,10 @@ class AnnonceTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
         String realContent=driver.getPageSource().toString();
-        String expectedContent="vlad Lerngruppe vlad1111p@gmail.com testnachricht";
-        Assertions.assertTrue(realContent.contains(expectedContent));
+        Assertions.assertTrue(realContent.contains(vorlName));
+        Assertions.assertTrue(realContent.contains(kontakt));
+        Assertions.assertTrue(realContent.contains(nachricht));
+
     }
     @Test
     public void testUrlCorrectForWrongInput() throws InterruptedException {
