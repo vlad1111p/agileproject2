@@ -1,9 +1,6 @@
 package com.learngrouptu.homepage;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -15,7 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnnonceTest {
 
-    public ChromeDriver init() {
+    private static ChromeDriver driver;
+
+    @BeforeAll
+    public static void init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         if (System.getProperty("os.name").contains("Linux")) {
@@ -24,12 +24,16 @@ class AnnonceTest {
         }
         ChromeDriver driver = new ChromeDriver(options);
         driver.get("http://localhost:8080/annonceErstellen");
-        return driver;
+        AnnonceTest.driver = driver;
+    }
+
+    @AfterAll
+    public static void close() {
+        AnnonceTest.driver.close();
     }
 
     @Test
     public void testUrlCorrectForCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
@@ -39,11 +43,9 @@ class AnnonceTest {
         String expectedUrl="http://localhost:8080/annonce_created?vorlName=vlad&choice=Lerngruppe&kontakt=vlad1111p%40gmail.com&Nachricht=";
 
         assertEquals(expectedUrl, realUrl);
-        driver.close();
     }
     @Test
     public void testContentCorrectForCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
@@ -53,11 +55,9 @@ class AnnonceTest {
         String realContent=driver.getPageSource().toString();
         String expectedContent="vlad Lerngruppe vlad1111p@gmail.com testnachricht";
         Assertions.assertTrue(realContent.contains(expectedContent));
-        driver.close();
     }
     @Test
     public void testUrlCorrectForWrongInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
@@ -65,12 +65,10 @@ class AnnonceTest {
         driver.findElement(By.id("button1")).click();
         String after=driver.getCurrentUrl();
         assertEquals(before, after);
-        driver.close();
     }
 
     @Test
     public void testUrlCorrectForWrongAndCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
 
         String before=driver.getCurrentUrl();
@@ -82,13 +80,10 @@ class AnnonceTest {
         driver.findElement(By.id("button1")).click();
         after=driver.getCurrentUrl();
         assertNotEquals(before,after);
-        driver.close();
     }
 
     @Test
     public void testDBSuccessfullyInserted() throws SQLException {
-        ChromeDriver driver = init();
-
         driver.findElement(By.id("vorlName")).sendKeys("vlad");
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
@@ -111,7 +106,6 @@ class AnnonceTest {
                 }
         }
         connection.close();
-        driver.close();
         assertEquals(present, true);
     }
 
@@ -132,7 +126,6 @@ class AnnonceTest {
             System.out.println();
         }*/
         connection.close();
-
     }
 
 
