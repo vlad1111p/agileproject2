@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnnonceTest {
 
+    /*
+
     public ChromeDriver init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
@@ -48,7 +50,7 @@ class AnnonceTest {
         driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
-        driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
+        driver.findElement(By.id("nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
         String realContent=driver.getPageSource().toString();
         String expectedContent="vlad Lerngruppe vlad1111p@gmail.com testnachricht";
@@ -96,16 +98,16 @@ class AnnonceTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
-        String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_fin.db");
+        String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
         boolean present = false;
         while (rs.next()) {
-                String dbVorl = (rs.getString("Vorlesung"));
-                String dbTyp = (rs.getString("Typ"));
-                String dbKontakt = (rs.getString("Kontakt"));
-                String dbNachricht = (rs.getString("Nachricht"));
+                String dbVorl = (rs.getString("vorl_name"));
+                String dbTyp = (rs.getString("choice"));
+                String dbKontakt = (rs.getString("kontakt"));
+                String dbNachricht = (rs.getString("nachricht"));
                 if (dbVorl.equals("vlad") && dbTyp.equals("Lerngruppe") && dbKontakt.equals("vlad1111p@gmail.com") && dbNachricht.equals("testnachricht")) {
                     present = true;
                 }
@@ -117,11 +119,11 @@ class AnnonceTest {
 
     @AfterAll
     public static void deleteTestDebris() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
-        String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_fin.db");
+        String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         stmt.execute("DELETE FROM annonce WHERE kontakt='vlad1111p@gmail.com'");
-        /*sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+        /*sqlStatement = "SELECT vorl_name, Typ, Kontakt, Nachricht FROM annonce";
         stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
         while (rs.next()) {
@@ -130,10 +132,10 @@ class AnnonceTest {
             System.out.println(rs.getString("Kontakt"));
             System.out.println(rs.getString("Nachricht"));
             System.out.println();
-        }*/
+        }
         connection.close();
 
     }
-
+*/
 
 }
