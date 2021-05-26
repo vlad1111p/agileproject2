@@ -1,7 +1,9 @@
 package com.learngrouptu.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 
 @Entity
@@ -19,13 +21,14 @@ public class Annonce {
 
     private String nachricht;
 
-    private String datum;
+    @CreationTimestamp
+    private Date datum;
 
     public Annonce(){
 
     }
 
-    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht, String datum){
+    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht, Date datum){
 
         super();
         this.annonceId = annonceId;
@@ -42,7 +45,7 @@ public class Annonce {
     public String getChoice(){return choice;}
     public String getKontakt(){return kontakt;}
     public String getNachricht(){return nachricht;}
-    public String getDatum(){return datum;}
+    public Date getDatum(){return datum;}
 
     public void setAnnonceId(Integer annonceId){this.annonceId = annonceId;}
     public void setVorlName(String vorlName){
@@ -51,6 +54,6 @@ public class Annonce {
     public void setChoice(String choice){this.choice = choice;}
     public void setKontakt(String kontakt){this.kontakt = kontakt;}
     public void setNachricht(String nachricht){this.nachricht = nachricht;}
-    public void setDatum(String datum){this.datum = datum;}
+    public void setDatum(Date datum){this.datum = datum;}
 
 }
