@@ -21,8 +21,8 @@ public class AnnoncenController {
     @Autowired
     public AnnoncenController(AnnonceRepository annonceRepository){this.annonceRepository = annonceRepository;}
 
-    @RequestMapping(value = "/annonceErstellen", method = RequestMethod.GET)
-    public String showAnnonceErstellen(){return "annonceErstellen";}
+    /*@RequestMapping(value = "/annonceErstellen", method = RequestMethod.GET)
+    public String showAnnonceErstellen(){return "annonceErstellen";}*/
 
     @GetMapping("/annonceEinsehen")
     public String showAnnonceEinsehen(Model model){
@@ -30,19 +30,18 @@ public class AnnoncenController {
         return "annonceEinsehen";
     }
 
-    @GetMapping("/annonceErstellenNeu")
-    public String showAnnonceErstellenNeu(Annonce annonce){
-        return "annonceErstellenNeu";
+    @GetMapping("/annonceErstellen")
+    public String showAnnonceErstellen(Annonce annonce){
+        return "annonceErstellen";
     }
 
     @PostMapping("/addannonce")
     public String addUser(@Valid Annonce annonce, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "redirect:annonceErstellenNeu";
+            return "redirect:annonceErstellen";
         }
-
         annonceRepository.save(annonce);
-        return "annonceEinsehen";
+        return showAnnonceEinsehen(model);
     }
 
 }

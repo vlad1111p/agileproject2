@@ -9,7 +9,6 @@
         <ul>
             <li><a href="/home" th:href="@{/home}">Homepage</a></li>
             <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-            <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
             <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
         </ul>
     </div>
@@ -19,24 +18,26 @@
         <div class="container" id="container">
 
             <div class="form-container sign-in-container">
-                <form action="/annonce_created" method="GET" id="nameForm" >
-
+                <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
                     <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
-                    <input id="vorlName" name="vorlName" placeholder="Vorlesung" required="true"/>
+                    <input type="text" th:field="*{vorlName}" id="vorlName" placeholder="Vorlesung" required="true">
+                    <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
                     <label for="choice">Lern oder Übungsgruppe</label>
-                    <select id="choice" name="choice" placeholder="Lerngruppe oder Übung" required="true">
-                        <option>Lerngruppe</option>
-                        <option>Übung</option>
+                    <select id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
+                        <option th:value="Lerngruppe">Lerngruppe</option>
+                        <option th:value ="Übung">Übung</option>
                     </select>
+                    <span th:if="${#fields.hasErrors('choice')}" th:errors="*{choice}"></span>
                     <label for="kontakt">Wie kann man dich erreichen?</label>
-                    <input id="kontakt" name="kontakt" placeholder="z.B. Email" required="true"/>
-                    <label for="Nachricht">Was möchtest du noch sagen?</label>
-                    <input id="Nachricht" name="Nachricht" placeholder="Nachricht (optional)" />
+                    <input id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email" required="true"/>
+                    <span th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
+                    <label for="nachricht">Was möchtest du noch sagen?</label>
+                    <input type="text" th:field="*{nachricht}" id="nachricht" placeholder="Nachricht">
+                    <span th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
 
                     <button id="button1">Abschicken</button>
                 </form>
             </div>
-
         </div>
     </div>
 
