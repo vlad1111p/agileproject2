@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/css/index.css">
+  <script src="/js/jq.js"></script>
   <title>Annoncen einsehen</title>
 </head>
 <body>
@@ -16,11 +17,15 @@
     <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a></li>
   </ul>
 </div>
+<div th:switch="${vorlesungsubersicht1}">
+<!--  <h2 th:case="null">Keine Annoncen bisher</h2>-->
+<!--  <div th:case="*"><p th:text="${vorlesungsubersicht1}"></p> -->
 
 
   <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post">
     <label for="vorlName">Vorlesung</label>
-    <input type="text" th:field="*{vorlName}" id="vorlName" placeholder="Vorlesung">
+    <input th:case="null" type="text" th:field="*{vorlName}" id="vorlName" th:value="vorlName1" placeholder="Vorlesung" >
+    <input th:case="*" type="text" name="vorlName" id="vorlName" th:value="${vorlesungsubersicht1}"   >
     <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
     <label for="choice">Choice</label>
     <input type="text" th:field="*{choice}" id="choice" placeholder="Choice">
@@ -33,6 +38,8 @@
     <span th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
     <input type="submit" value="Annonce erstellen">
   </form>
+
+
 <div class="content" id="content">
 </div>
 </body>

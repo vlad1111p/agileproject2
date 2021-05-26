@@ -37,13 +37,13 @@
         </thead>
         <tbody>
         <tr th:each="vorlesung : ${vorlesungsubersicht}">
-          <td th:text="${vorlesung.vorlesungid}"></td>
+          <td th:name="participant" th:text="${vorlesung.vorlesungid}"></td>
           <td th:text="${vorlesung.titel}"></td>
           <td th:text="${vorlesung.kursnr}"></td>
           <td th:text="${vorlesung.studiengang}"></td>
           <td th:text="${vorlesung.cp}"></td>
-          <td><a href="vorlesungsgruppeerstellen" th:href="@{/vorlesungsgruppeerstellen}">Gruppe erstellen</a></td>
-          <td><a href="vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen}">Gruppe suchen</a></td>
+          <td><a href="/vorlesungsgruppeerstellen" th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a></td>
+          <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe suchen</a></td>
         </tr>
         </tbody>
       </table>
