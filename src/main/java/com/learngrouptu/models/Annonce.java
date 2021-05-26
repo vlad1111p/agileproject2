@@ -1,9 +1,7 @@
 package com.learngrouptu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Date;
 
 
 @Entity
@@ -21,12 +19,13 @@ public class Annonce {
 
     private String nachricht;
 
+    private String datum;
 
     public Annonce(){
 
     }
 
-    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht){
+    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht, String datum){
 
         super();
         this.annonceId = annonceId;
@@ -34,6 +33,7 @@ public class Annonce {
         this.choice = choice;
         this.kontakt = kontakt;
         this.nachricht = nachricht;
+        this.datum = datum;
     }
 
     //basic getter and setter
@@ -42,6 +42,7 @@ public class Annonce {
     public String getChoice(){return choice;}
     public String getKontakt(){return kontakt;}
     public String getNachricht(){return nachricht;}
+    public String getDatum(){return datum;}
 
     public void setAnnonceId(Integer annonceId){this.annonceId = annonceId;}
     public void setVorlName(String vorlName){
@@ -50,5 +51,6 @@ public class Annonce {
     public void setChoice(String choice){this.choice = choice;}
     public void setKontakt(String kontakt){this.kontakt = kontakt;}
     public void setNachricht(String nachricht){this.nachricht = nachricht;}
+    public void setDatum(String datum){this.datum = datum;}
 
 }

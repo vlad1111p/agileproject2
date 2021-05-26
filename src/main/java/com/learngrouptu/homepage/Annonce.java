@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 @RestController
 public class Annonce {
+    /*
 
     private static final String INSERT_USER = "INSERT INTO annonce" +
             "  (Vorlesung, Kontakt, Typ, Nachricht) VALUES " +
@@ -61,5 +62,5 @@ public class Annonce {
                 }
             }
         }
-    }
+    }*/
 }
