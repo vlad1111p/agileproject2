@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,22 @@ public class VorlesungController {
                 .collect(Collectors.toList());
         model.addAttribute("annoncen", vorllist);
         return "annonceEinsehen";
+    }
+
+    @GetMapping("/searchLecture")
+    public String searchLecture(Model model, @RequestParam(required = false) String id1, @RequestParam(required = false) String id2, @RequestParam(required = false) String id3) {
+        List<Vorlesung> vorliterator = vorlesungRepository.findAll();
+        if(!id1.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+                .filter(vorl -> vorl.getTitel().matches(id1))
+                .collect(Collectors.toList());}
+        if(!id2.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+                .filter(vorl -> vorl.getTitel().matches(id2))
+                .collect(Collectors.toList());}
+        if(!id3.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+                .filter(vorl -> vorl.getTitel().matches(id3))
+                .collect(Collectors.toList());}
+        model.addAttribute("annoncen", vorllist);
+        return "Vorlesungsubersicht";
     }
 
     @PostMapping(value = "/vorlesungadd")
