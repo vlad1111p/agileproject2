@@ -15,8 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AnnonceTest {
 
-    /*
-
     public ChromeDriver init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
@@ -98,7 +96,7 @@ class AnnonceTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_fin.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
@@ -116,10 +114,10 @@ class AnnonceTest {
         driver.close();
         assertEquals(present, true);
     }
-
+/*
     @AfterAll
     public static void deleteTestDebris() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_fin.db");
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         stmt.execute("DELETE FROM annonce WHERE kontakt='vlad1111p@gmail.com'");

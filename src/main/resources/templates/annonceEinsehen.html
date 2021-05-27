@@ -32,12 +32,12 @@
           </thead>
           <tbody>
           <tr th:each="annonce : ${annoncen}">
-            <td th:text="${annonce.annonceId}"></td>
-            <td th:text="${annonce.vorlName}"></td>
-            <td th:text="${annonce.choice}"></td>
-            <td th:text="${annonce.kontakt}"></td>
-            <td th:text="${annonce.nachricht}"></td>
-            <td th:text="${annonce.datum}"></td>
+            <td class="annonceID" th:text="${annonce.annonceId}"></td>
+            <td class="vorlName" th:text="${annonce.vorlName}"></td>
+            <td class="choice" th:text="${annonce.choice}"></td>
+            <td class="kontakt" th:text="${annonce.kontakt}"></td>
+            <td class="nachricht" th:text="${annonce.nachricht}"></td>
+            <td class="datum" th:text="${annonce.datum}"></td>
           </tr>
           </tbody>
         </table>
