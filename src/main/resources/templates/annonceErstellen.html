@@ -23,8 +23,8 @@
             <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
                 <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
                 <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
-                       type="text">
-                <input id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" type="text">
+                       type="text" required="true">
+                <input id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" type="text" required="true">
                 <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
                 <label for="choice">Lern oder Übungsgruppe</label>
                 <select id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
