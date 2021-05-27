@@ -7,6 +7,9 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
 
 import java.sql.*;
+import java.time.Instant;
+import java.time.temporal.Temporal;
+import java.util.Calendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -116,6 +119,39 @@ class AnnonceErstellenTest {
                 if (dbVorl.equals("vlad") && dbTyp.equals("Lerngruppe") && dbKontakt.equals("vlad1111p@gmail.com") && dbNachricht.equals("testnachricht")) {
                     present = true;
                 }
+        }
+        assertEquals(present, true);
+    }
+
+    @Test
+    public void testCorrectDateInDatabase() throws SQLException {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String vorlName = rand;
+        String kontakt = rand;
+        String nachricht = "testnachricht" + rand;
+        driver.findElement(By.id("vorlName")).sendKeys(vorlName);
+        driver.findElement(By.id("kontakt")).sendKeys(kontakt);
+        Select objSelect =new Select(driver.findElement(By.id("choice")));
+        objSelect.selectByVisibleText("Lerngruppe");
+        driver.findElement(By.id("Nachricht")).sendKeys(nachricht);
+        driver.findElement(By.id("button1")).click();
+
+        String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht, datum FROM annonce";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sqlStatement);
+        boolean present = false;
+        while (rs.next()) {
+            String dbVorl = (rs.getString("vorl_name"));
+            String dbTyp = (rs.getString("choice"));
+            String dbKontakt = (rs.getString("kontakt"));
+            String dbNachricht = (rs.getString("nachricht"));
+            String dbDatum = (rs.getDate("datum")).toString();
+            String currentDate = new java.sql.Date(Calendar.getInstance().getTime().getTime()).toString();
+            if (dbVorl.equals(vorlName) && dbTyp.equals("Lerngruppe") && dbKontakt.equals(kontakt)
+                    && dbNachricht.equals(nachricht) && dbDatum.equals(currentDate)) {
+                present = true;
+            }
         }
         assertEquals(present, true);
     }
