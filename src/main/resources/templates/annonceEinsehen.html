@@ -1,51 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link href="/css/index.css" rel="stylesheet">
-    <title>Annoncen einsehen</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/index.css">
+  <title>Annoncen einsehen</title>
 </head>
 <body>
-<div class="navbarContainer" id="navBar">
+  <div class="navbarContainer" id="navBar">
     <ul>
-        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
-        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
-        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
-        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a>
-        </li>
+      <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+      <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+      <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
+      <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
     </ul>
-</div>
+  </div>
 
-<div class="content" id="content">
+  <div class="content" id="content">
     <div th:switch="${annoncen}">
-        <h2 th:case="null">Keine Annoncen bisher</h2>
-        <div th:case="*">
-            <h2>Users</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Annonce ID</th>
-                    <th>Vorlesung</th>
-                    <th>Choice</th>
-                    <th>Kontakt</th>
-                    <th>Nachricht</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="annonce : ${annoncen}">
-                    <td th:text="${annonce.annonceId}"></td>
-                    <td th:text="${annonce.vorlName}"></td>
-                    <td th:text="${annonce.choice}"></td>
-                    <td th:text="${annonce.kontakt}"></td>
-                    <td th:text="${annonce.nachricht}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
+      <h2 th:case="null">Keine Annoncen bisher</h2>
+      <div th:case="*">
+        <h2>Users</h2>
+        <table>
+          <thead>
+          <tr>
+            <th>Annonce ID</th>
+            <th>Vorlesung</th>
+            <th>Choice</th>
+            <th>Kontakt</th>
+            <th>Nachricht</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="annonce : ${annoncen}">
+            <td th:text="${annonce.annonceId}"></td>
+            <td th:text="${annonce.vorlName}"></td>
+            <td th:text="${annonce.choice}"></td>
+            <td th:text="${annonce.kontakt}"></td>
+            <td th:text="${annonce.nachricht}"></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
     </div>
-</div>
+  </div>
 </body>
 </html>

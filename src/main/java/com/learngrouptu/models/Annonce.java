@@ -1,9 +1,9 @@
 package com.learngrouptu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -21,12 +21,14 @@ public class Annonce {
 
     private String nachricht;
 
+    @CreationTimestamp
+    private Date datum;
 
     public Annonce(){
 
     }
 
-    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht){
+    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht, Date datum){
 
         super();
         this.annonceId = annonceId;
@@ -34,6 +36,7 @@ public class Annonce {
         this.choice = choice;
         this.kontakt = kontakt;
         this.nachricht = nachricht;
+        this.datum = datum;
     }
 
     //basic getter and setter
@@ -42,6 +45,7 @@ public class Annonce {
     public String getChoice(){return choice;}
     public String getKontakt(){return kontakt;}
     public String getNachricht(){return nachricht;}
+    public Date getDatum(){return datum;}
 
     public void setAnnonceId(Integer annonceId){this.annonceId = annonceId;}
     public void setVorlName(String vorlName){
@@ -50,5 +54,6 @@ public class Annonce {
     public void setChoice(String choice){this.choice = choice;}
     public void setKontakt(String kontakt){this.kontakt = kontakt;}
     public void setNachricht(String nachricht){this.nachricht = nachricht;}
+    public void setDatum(Date datum){this.datum = datum;}
 
 }
