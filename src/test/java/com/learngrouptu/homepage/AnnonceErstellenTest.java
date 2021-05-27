@@ -31,10 +31,9 @@ class AnnonceErstellenTest {
         AnnonceErstellenTest.connection = connection;
     }
 
-    @AfterAll
-    public static void close() throws SQLException {
-        AnnonceErstellenTest.driver.close();
-        AnnonceErstellenTest.connection.close();
+    @BeforeEach
+    public void reset() {
+        driver.get("http://localhost:8080/annonceErstellen");
     }
 
     @Test
@@ -51,15 +50,17 @@ class AnnonceErstellenTest {
     }
     @Test
     public void testContentCorrectForCorrectInput() throws InterruptedException {
-        String vorlName = "vlad";
-        String kontakt = "vlad1111p@gmail.com";
-        String nachricht = "testnachricht";
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String vorlName = "vlad" + rand;
+        String kontakt = "vlad" + rand +  "@gmail.com";
+        String nachricht = "testnachricht" + rand;
 
-        driver.findElement(By.id("vorlName")).sendKeys("vlad");
-        driver.findElement(By.id("kontakt")).sendKeys("vlad1111p@gmail.com");
+        driver.findElement(By.id("vorlName")).sendKeys(vorlName);
+        driver.findElement(By.id("kontakt")).sendKeys(kontakt);
         Select objSelect =new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
-        driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
+        driver.findElement(By.id("Nachricht")).sendKeys(nachricht);
         driver.findElement(By.id("button1")).click();
         String realContent=driver.getPageSource().toString();
         Assertions.assertTrue(realContent.contains(vorlName));
@@ -88,6 +89,7 @@ class AnnonceErstellenTest {
 
         assertEquals(before, after);
         driver.findElement(By.id("vorlName")).sendKeys("vlad");
+        driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
         after=driver.getCurrentUrl();
         assertNotEquals(before,after);
@@ -102,38 +104,36 @@ class AnnonceErstellenTest {
         driver.findElement(By.id("Nachricht")).sendKeys("testnachricht");
         driver.findElement(By.id("button1")).click();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
-        String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+        String sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
         boolean present = false;
         while (rs.next()) {
-                String dbVorl = (rs.getString("Vorlesung"));
-                String dbTyp = (rs.getString("Typ"));
-                String dbKontakt = (rs.getString("Kontakt"));
-                String dbNachricht = (rs.getString("Nachricht"));
+                String dbVorl = (rs.getString("vorl_name"));
+                String dbTyp = (rs.getString("choice"));
+                String dbKontakt = (rs.getString("kontakt"));
+                String dbNachricht = (rs.getString("nachricht"));
                 if (dbVorl.equals("vlad") && dbTyp.equals("Lerngruppe") && dbKontakt.equals("vlad1111p@gmail.com") && dbNachricht.equals("testnachricht")) {
                     present = true;
                 }
         }
-        connection.close();
         assertEquals(present, true);
     }
 
     @AfterAll
-    public static void deleteTestDebris() throws SQLException {
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU_DB.db");
-        String sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+    public static void deleteTestDebrisAndClose() throws SQLException {
+        AnnonceErstellenTest.driver.close();
         Statement stmt = connection.createStatement();
-        stmt.execute("DELETE FROM annonce WHERE kontakt='vlad1111p@gmail.com'");
-        /*sqlStatement = "SELECT Vorlesung, Typ, Kontakt, Nachricht FROM annonce";
+        String sqlStatement = "DELETE FROM annonce WHERE nachricht LIKE 'testnachricht%' OR kontakt = 'vlad1111p@gmail.com'";
+        stmt.execute(sqlStatement);
+        /*sqlStatement = "SELECT vorl_name, choice, kontakt, nachricht FROM annonce";
         stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
         while (rs.next()) {
-            System.out.println(rs.getString("Vorlesung"));
-            System.out.println(rs.getString("Typ"));
-            System.out.println(rs.getString("Kontakt"));
-            System.out.println(rs.getString("Nachricht"));
+            System.out.println(rs.getString("vorl_name"));
+            System.out.println(rs.getString("choice"));
+            System.out.println(rs.getString("kontakt"));
+            System.out.println(rs.getString("nachricht"));
             System.out.println();
         }*/
         connection.close();
