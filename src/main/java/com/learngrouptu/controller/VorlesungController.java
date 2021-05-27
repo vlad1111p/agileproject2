@@ -43,14 +43,14 @@ public class VorlesungController {
     @GetMapping("/vorlesungsgruppeerstellen")
     public String showVorlesungGruppe(Model model, Annonce annonce, @RequestParam("id") Integer id) {
         model.addAttribute("vorlesungsubersicht1", vorlesungRepository.getOne(id).getTitel());
-        return "annonceErstellenNeu";
+        return "annonceErstellen";
     }
 
     @GetMapping("/vorlesungsgruppesuchen")
     public String showVorlesungGruppeErstellen(Model model, @RequestParam("id1") String id1) {
         List<Annonce> vorliterator = annonceRepository.findAll();
         List<Annonce> vorllist = vorliterator.stream()
-                .filter(person -> person.getVorlName().matches(id1))
+                .filter(vorl -> vorl.getVorlName().matches(id1))
                 .collect(Collectors.toList());
         model.addAttribute("annoncen", vorllist);
         return "annonceEinsehen";

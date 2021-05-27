@@ -12,10 +12,9 @@
     <ul>
         <li><a href="/home" th:href="@{/home}">Homepage</a></li>
         <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceErstellenNeu" th:href="@{/annonceErstellenNeu}">Annonce erstellen neu</a></li>
         <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
         <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungsübersichterstellen</a>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
         </li>
     </ul>
 </div>
@@ -27,18 +26,18 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Vorlesung ID</th>
+
                     <th>Titel</th>
                     <th>Kursnr</th>
                     <th>Studiengang</th>
                     <th>Cp</th>
-                    <th>Gruppe erstellen</th>
-                    <th>Gruppe suchen</th>
+                    <th></th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="vorlesung : ${vorlesungsubersicht}">
-                    <td th:name="participant" th:text="${vorlesung.vorlesungid}"></td>
+
                     <td th:text="${vorlesung.titel}"></td>
                     <td th:text="${vorlesung.kursnr}"></td>
                     <td th:text="${vorlesung.studiengang}"></td>
