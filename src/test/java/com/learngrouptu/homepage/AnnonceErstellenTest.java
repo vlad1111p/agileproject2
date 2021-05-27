@@ -65,7 +65,7 @@ class AnnonceErstellenTest {
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("Nachricht")).sendKeys(nachricht);
         driver.findElement(By.id("button1")).click();
-        String realContent=driver.getPageSource().toString();
+        String realContent=driver.getPageSource();
         Assertions.assertTrue(realContent.contains(vorlName));
         Assertions.assertTrue(realContent.contains(kontakt));
         Assertions.assertTrue(realContent.contains(nachricht));
