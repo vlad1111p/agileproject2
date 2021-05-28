@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/table.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="navbarContainer" id="navBar">
+    <ul>
+        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
+        </li>
+    </ul>
+</div>
+<div class="content" id="content">
+    <div th:switch="${vorlesungsubersicht}">
+        <h2 th:case="null">Keine Vorlesung bisher</h2>
+        <div th:case="*">
+            <h2>Users</h2>
+            <table>
+                <thead>
+                <tr>
+
+                    <th>Titel</th>
+                    <th>Kursnr</th>
+                    <th>Studiengang</th>
+                    <th>Cp</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vorlesung : ${vorlesungsubersicht}">
+
+                    <td th:text="${vorlesung.titel}"></td>
+                    <td th:text="${vorlesung.kursnr}"></td>
+                    <td th:text="${vorlesung.studiengang}"></td>
+                    <td th:text="${vorlesung.cp}"></td>
+                    <td><a href="/vorlesungsgruppeerstellen"
+                           th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a>
+                    </td>
+                    <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe
+                        suchen</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>
