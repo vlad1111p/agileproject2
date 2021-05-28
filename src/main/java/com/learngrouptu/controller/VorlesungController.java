@@ -79,11 +79,17 @@ public class VorlesungController {
         if(id2!=""){
             vorllist = vorllist.stream()
                     .filter(vorl -> vorl.getKursnr().contains(id2))
-                    .collect(Collectors.toList());}
+                    .collect(Collectors.toList());
+            if (vorllist.isEmpty()){
+                return "vorlesungsubersicht";
+            }}
         if(id3!=""){
             vorllist = vorllist.stream()
                     .filter(vorl -> vorl.getStudiengang().contains(id3))
-                    .collect(Collectors.toList());}
+                    .collect(Collectors.toList());
+            if (vorllist.isEmpty()){
+                return "vorlesungsubersicht";
+            }}
 
 
 
