@@ -65,19 +65,19 @@ public class VorlesungController {
     public String searchLecture(Model model, @RequestParam(name="VorlName",required = false) String id1, @RequestParam(name="Kursname",required = false) String id2, @RequestParam(name="Studiengang",required = false) String id3) {
 
 
-        List<Vorlesung> vorllist1 = vorlesungRepository.findAll();
+
         List<Vorlesung> vorllist = vorlesungRepository.findAll();
 
         if(id1!=""){
-            vorllist = vorllist1.stream()
+            vorllist = vorllist.stream()
                 .filter(vorl -> vorl.getTitel().contains(id1))
                 .collect(Collectors.toList());}
         if(id2!=""){
-            vorllist = vorllist1.stream()
+            vorllist = vorllist.stream()
                     .filter(vorl -> vorl.getKursnr().contains(id2))
                     .collect(Collectors.toList());}
         if(id3!=""){
-            vorllist = vorllist1.stream()
+            vorllist = vorllist.stream()
                     .filter(vorl -> vorl.getStudiengang().contains(id3))
                     .collect(Collectors.toList());}
 
