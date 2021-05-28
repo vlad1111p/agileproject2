@@ -74,12 +74,13 @@ public class VorlesungController {
                 .collect(Collectors.toList());}
         if(id2!=""){
             vorllist = vorllist1.stream()
-                .filter(vorl -> vorl.getTitel().matches(id2))
-                .collect(Collectors.toList());}
+                    .filter(vorl -> vorl.getKursnr().matches(id2))
+                    .collect(Collectors.toList());}
         if(id3!=""){
-             vorllist = vorllist1.stream()
-                .filter(vorl -> vorl.getTitel().matches(id3))
-                .collect(Collectors.toList());}
+            vorllist = vorllist1.stream()
+                    .filter(vorl -> vorl.getStudiengang().matches(id3))
+                    .collect(Collectors.toList());}
+
 
 
             model.addAttribute("vorlesungsubersicht", vorllist);
