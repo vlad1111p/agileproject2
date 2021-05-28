@@ -20,7 +20,8 @@
 </div>
 <div class="content" id="content">
     <div th:switch="${vorlesungsubersicht}">
-        <h2 th:case="null">Keine Vorlesung bisher</h2>
+        <div th:case="null"><h2 >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
+            <a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</div>
         <div th:case="*">
             <h2>Users</h2>
             <form action="/searchLecture" method="GET">
