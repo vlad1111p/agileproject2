@@ -54,12 +54,36 @@ public class VorlesungUbersichtTest {
     }
 
     @Test
-    public void verifGruppesuchene() {
+    public void verifySuchfunktionWrongInput() {
         ChromeDriver driver = init();
+        driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
+        driver.findElement(By.id("button1")).click();
 
-        driver.findElement(By.linkText("Gruppe suchen")).click();
+
+        assertEquals("Vorlesungubersicht", driver.getTitle());
+        System.out.println("title of page is: " + driver.getTitle());
+
+    }
+    @Test
+    public void verifySuchfunktionCorrectInput() {
+        ChromeDriver driver = init();
+        driver.findElement(By.id("VorlName")).sendKeys("hjkl;");
+        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.partialLinkText("Gruppe suchen")).click();
 
         assertEquals("Annoncen einsehen", driver.getTitle());
+        System.out.println("title of page is: " + driver.getTitle());
+
+    }
+
+    @Test
+    public void verifGruppesucheneWrongInput() {
+        ChromeDriver driver = init();
+
+        driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
+        driver.findElement(By.id("button1")).click();
+        String actualHeading = driver.findElement(By.id("textforwrong")).getText();
+        assertEquals("Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.", actualHeading);
         System.out.println("title of page is: " + driver.getTitle());
 
     }

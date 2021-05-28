@@ -20,7 +20,7 @@
 </div>
 <div class="content" id="content">
     <div th:switch="${vorlesungsubersicht}">
-        <div th:case="null"><h2 >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
+        <div th:case="null"><h2 id="textforwrong" >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
             <a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</div>
         <div th:case="*">
             <h2>Users</h2>
@@ -31,7 +31,7 @@
                 <input type="text" id="Kursname" name="Kursname"><br>
                 <label for="Studiengang">Studiengang</label><br>
                 <input type="text" id="Studiengang" name="Studiengang"><br><br>
-                <input type="submit" value="Search">
+                <input id="button1" type="submit" value="Search">
             </form>
             <table>
                 <thead>
