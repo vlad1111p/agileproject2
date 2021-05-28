@@ -76,11 +76,5 @@ public class AnnoncenController {
 
     }
 
-    @PostMapping("/annonceErstellenFromSearch")
-    public String annonceErstellenFromSearch(Annonce annonce, Model model, @RequestParam ArrayList<String> search) {
-        model.addAttribute("search", search);
-        return "annonceErstellen";
-    }
-
 
 }

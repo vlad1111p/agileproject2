@@ -15,21 +15,16 @@
         </ul>
     </div>
 <div th:switch="${vorlesungsubersicht1}">
-    <div class="container" id="content" th:switch="${search}">
-        <h2>Annonce erstellen</h2>
-        <div class="container" id="container">
+<div class="container" id="content">
+    <h2>Annonce erstellen</h2>
+    <div class="container" id="container">
 
-            <div class="form-container sign-in-container">
-                <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
-                    <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
-                    <div th:case="null">
-                        <div th:switch="${search}">
-                            <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" type="text" th:text="${search.get(0)}" required="true">
-                            <input id="vorlName" placeholder="Vorlesung" th:case="*" th:field="*{vorlName}" th:text="${search.get(0)}"
-                                   type="text" required="true">
-                        </div>
-                    </div>
-                    <input id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" type="text" required="true">
+        <div class="form-container sign-in-container">
+            <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
+                <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
+                <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
+                       type="text" required="true">
+                <input id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" type="text" required="true">
                 <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
                 <label for="choice">Lern oder Übungsgruppe</label>
                 <select id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
@@ -51,10 +46,6 @@
 
 
         </div>
-    </div>
-    <div th:switch="${search}">
-        <p th:case="null">keine Suche</p>
-        <p th:case="*">Suche</p>
     </div>
 
 

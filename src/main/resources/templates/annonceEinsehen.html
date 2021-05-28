@@ -33,11 +33,6 @@
       <button id="button1">Suchen</button>
     </form>
 
-    <div th:switch="${search}">
-      <p th:case="null">keine Suche</p>
-      <p th:case="*">Suche</p>
-    </div>
-
     <div th:switch="${annoncen}">
       <h2 th:case="null">Keine Annoncen bisher</h2>
       <div th:case="*">
@@ -65,9 +60,7 @@
           </tbody>
         </table>
       </div>
-      <form th:action="@{/annonceErstellenFromSearch(search=${search})}" method="post">
-        <p><button >Neue Annonce erstellen</button></p>
-      </form>
+      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
     </div>
   </div>
 </body>
