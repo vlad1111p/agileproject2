@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Null;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,6 +38,7 @@ public class VorlesungController {
         model.addAttribute("vorlesungsubersicht", vorlesungRepository.findAll());
         return "vorlesungsubersicht";
     }
+
 
     @GetMapping("/vorlesungsubersichterstellen")
     public String showVorlesungErstellen(Vorlesung vorlesung) {
@@ -58,19 +62,28 @@ public class VorlesungController {
     }
 
     @GetMapping("/searchLecture")
-    public String searchLecture(Model model, @RequestParam(required = false) String id1, @RequestParam(required = false) String id2, @RequestParam(required = false) String id3) {
-        List<Vorlesung> vorliterator = vorlesungRepository.findAll();
-        if(!id1.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+    public String searchLecture(Model model, @RequestParam(name="VorlName",required = false) String id1, @RequestParam(name="Kursname",required = false) String id2, @RequestParam(name="Studiengang",required = false) String id3) {
+
+
+        List<Vorlesung> vorllist1 = vorlesungRepository.findAll();
+        List<Vorlesung> vorllist = vorlesungRepository.findAll();
+
+        if(id1!=""){
+            vorllist = vorllist1.stream()
                 .filter(vorl -> vorl.getTitel().matches(id1))
                 .collect(Collectors.toList());}
-        if(!id2.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+        if(id2!=""){
+            vorllist = vorllist1.stream()
                 .filter(vorl -> vorl.getTitel().matches(id2))
                 .collect(Collectors.toList());}
-        if(!id3.equals(Null)){List<Vorlesung> vorllist = vorliterator.stream()
+        if(id3!=""){
+             vorllist = vorllist1.stream()
                 .filter(vorl -> vorl.getTitel().matches(id3))
                 .collect(Collectors.toList());}
-        model.addAttribute("annoncen", vorllist);
-        return "Vorlesungsubersicht";
+
+
+            model.addAttribute("vorlesungsubersicht", vorllist);
+        return "vorlesungsubersicht";
     }
 
     @PostMapping(value = "/vorlesungadd")

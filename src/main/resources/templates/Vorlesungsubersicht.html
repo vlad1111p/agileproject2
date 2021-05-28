@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link href="/css/table.css" rel="stylesheet">
@@ -23,21 +23,14 @@
         <h2 th:case="null">Keine Vorlesung bisher</h2>
         <div th:case="*">
             <h2>Users</h2>
-            <form th:action = "@{/searchLecture}" th:object="${vorlesungsubersicht}" method = "get" id="nameForm">
-                <label for="vorlName">Welche Vorlesung suchst du?</label>
-                <input id="vorlName" placeholder="Name der Vorlesung" th:field="*{vorlName}" th:value="vorlName1"
-                       type="text">
-                <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
-                <label for="kursNr">Kursnummer</label>
-                <input id="kursNr" placeholder="Kursnummer" th:field="*{kursNr}" th:value="kursNr"
-                       type="text">
-                <span th:if="${#fields.hasErrors('kursNr')}" th:errors="*{kursNr}"></span>
-                <label for="Studiengang">Studiengang</label>
-                <input id="Studiengang" th:field="*{Studiengang}" name="Studiengang" placeholder="Studiengang">
-                <span th:if="${#fields.hasErrors('Studiengang')}" th:errors="*{Studiengang}"></span>
-
-
-                <button id="button1">Abschicken</button>
+            <form action="/searchLecture" method="GET">
+                <label for="VorlName">VorlName</label><br>
+                <input type="text" id="VorlName" name="VorlName"><br>
+                <label for="Kursname">Kursname</label><br>
+                <input type="text" id="Kursname" name="Kursname"><br><br>
+                <label for="Studiengang">Studiengang</label><br>
+                <input type="text" id="Studiengang" name="Studiengang"><br><br>
+                <input type="submit" value="Submit">
             </form>
             <table>
                 <thead>
