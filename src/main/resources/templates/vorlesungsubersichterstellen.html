@@ -24,18 +24,18 @@
         <div class="form-container sign-in-container">
             <form method="post" th:action="@{/vorlesungadd}" th:object="${vorlesung}">
                 <label for="kursnr">kursnr</label>
-                <input id="kursnr" placeholder="kursnr" th:field="*{kursnr}" type="text">
+                <input id="kursnr" placeholder="kursnr" th:field="*{kursnr}" type="text" required="true">
                 <span th:errors="*{kursnr}" th:if="${#fields.hasErrors('kursnr')}"></span>
                 <label for="cp">cp</label>
-                <input id="cp" placeholder="cp" th:field="*{cp}" type="text">
+                <input id="cp" placeholder="cp" th:field="*{cp}" type="text" required="true">
                 <span th:errors="*{cp}" th:if="${#fields.hasErrors('cp')}"></span>
                 <label for="studiengang">studiengang</label>
-                <input id="studiengang" placeholder="studiengang" th:field="*{studiengang}" type="text">
+                <input id="studiengang" placeholder="studiengang" th:field="*{studiengang}" type="text" required="true">
                 <span th:errors="*{studiengang}" th:if="${#fields.hasErrors('studiengang')}"></span>
                 <label for="titel">titel</label>
-                <input id="titel" placeholder="titel" th:field="*{titel}" type="text">
+                <input id="titel" placeholder="titel" th:field="*{titel}" type="text" required="true">
                 <span th:errors="*{titel}" th:if="${#fields.hasErrors('titel')}"></span>
-                <input type="submit" value="Vorlesung erstellen">
+                <input id="button1" type="submit" value="Vorlesung erstellen">
             </form>
         </div>
     </div>
