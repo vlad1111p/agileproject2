@@ -34,13 +34,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="annonce : ${annoncen}">
+          <tr class="tableRow" th:each="annonce : ${annoncen}">
             <td th:text="${annonce.annonceId}"></td>
             <td th:text="${annonce.vorlName}"></td>
             <td th:text="${annonce.choice}"></td>
             <td th:text="${annonce.kontakt}"></td>
             <td th:text="${annonce.nachricht}"></td>
             <td th:text="${annonce.datum}"></td>
+            <td>
+              <form th:action="@{/deleteannonce(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
+                <button id="delete" type="submit">Annonce löschen</button>
+              </form>
+            </td>
           </tr>
           </tbody>
         </table>

@@ -45,6 +45,7 @@ public class AnnoncenController {
 
         annonceRepository.deleteByAnnonceId(id);
         return showAnnonceEinsehen(model);
+        //return "redirect:annonceEinsehen";
     }
 
 }
