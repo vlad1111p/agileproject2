@@ -70,15 +70,15 @@ public class VorlesungController {
 
         if(id1!=""){
             vorllist = vorllist1.stream()
-                .filter(vorl -> vorl.getTitel().matches(id1))
+                .filter(vorl -> vorl.getTitel().contains(id1))
                 .collect(Collectors.toList());}
         if(id2!=""){
             vorllist = vorllist1.stream()
-                    .filter(vorl -> vorl.getKursnr().matches(id2))
+                    .filter(vorl -> vorl.getKursnr().contains(id2))
                     .collect(Collectors.toList());}
         if(id3!=""){
             vorllist = vorllist1.stream()
-                    .filter(vorl -> vorl.getStudiengang().matches(id3))
+                    .filter(vorl -> vorl.getStudiengang().contains(id3))
                     .collect(Collectors.toList());}
 
 
