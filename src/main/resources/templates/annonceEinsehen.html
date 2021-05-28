@@ -65,7 +65,7 @@
           </tbody>
         </table>
       </div>
-      <form th:action="@{/annonceErstellen}" method="get">
+      <form th:action="@{/annonceErstellenFromSearch(search=${search})}" method="post">
         <p><button >Neue Annonce erstellen</button></p>
       </form>
     </div>
