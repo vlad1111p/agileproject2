@@ -47,5 +47,9 @@
 
         </div>
     </div>
+    <div th:switch="${search}">
+        <p th:case="null">keine Suche</p>
+        <p th:case="*">Suche</p>
+    </div>
 
 

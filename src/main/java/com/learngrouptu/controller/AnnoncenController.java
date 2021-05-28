@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AnnoncenController {
@@ -43,5 +44,37 @@ public class AnnoncenController {
         annonceRepository.save(annonce);
         return showAnnonceEinsehen(model);
     }
+
+    @GetMapping("/searchAnnonce")
+    public String searchAnnonce(Model model, @RequestParam(name="vorlName",required = false) String vorlName,
+                                @RequestParam(name="choice",required = false) String choice) {
+        ArrayList<String> searchArray = new ArrayList<>();
+        searchArray.add(vorlName);
+        searchArray.add(choice);
+        model.addAttribute("search", searchArray);
+
+        List<Annonce> annonceList = annonceRepository.findAll();
+        List<Annonce> ret;
+        annonceList.stream().forEach(annonce -> System.out.println(annonce.getVorlName().contains(vorlName)));
+        annonceList = annonceList.stream()
+                        .filter(annonce -> annonce.getVorlName().contains(vorlName))
+                        .collect(Collectors.toList());
+        System.out.print(choice.equals("Beides"));
+
+        if(choice.equals("Beides")) {
+            model.addAttribute("annoncen", annonceList);
+            return "annonceEinsehen";
+        }
+        else {
+            annonceList = annonceList.stream()
+                    .filter(annonce -> annonce.getChoice().equals(choice))
+                    .collect(Collectors.toList());
+            model.addAttribute("annoncen", annonceList);
+            return "annonceEinsehen";
+        }
+
+
+    }
+
 
 }
