@@ -64,6 +64,8 @@ public class VorlesungUbersichtTest {
         System.out.println("title of page is: " + driver.getTitle());
 
     }
+    //TODO Daten nach Test aus der DB löschen
+    /*
     @Test
     public void verifySuchfunktionCorrectInput() {
         ChromeDriver driver = init();
@@ -74,7 +76,7 @@ public class VorlesungUbersichtTest {
         assertEquals("Annoncen einsehen", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
 
-    }
+    }*/
 
     @Test
     public void verifGruppesucheneWrongInput() {
