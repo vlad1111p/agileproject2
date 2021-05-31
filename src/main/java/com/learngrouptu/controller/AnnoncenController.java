@@ -10,6 +10,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class AnnoncenController {
@@ -18,6 +22,8 @@ public class AnnoncenController {
 
     @Autowired
     public AnnoncenController(AnnonceRepository annonceRepository){this.annonceRepository = annonceRepository;}
+
+
 
     @GetMapping("/annonceEinsehen")
     public String showAnnonceEinsehen(Model model){
@@ -35,6 +41,7 @@ public class AnnoncenController {
         if (result.hasErrors()) {
             return "redirect:annonceErstellen";
         }
+
         annonceRepository.save(annonce);
         return showAnnonceEinsehen(model);
     }
@@ -47,5 +54,34 @@ public class AnnoncenController {
         return showAnnonceEinsehen(model);
         //return "redirect:annonceEinsehen";
     }
+
+    @GetMapping("/searchAnnonce")
+    public String searchAnnonce(Model model, @RequestParam(name="vorlName",required = false) String vorlName,
+                                @RequestParam(name="choice",required = false) String choice) {
+        ArrayList<String> searchArray = new ArrayList<>();
+        searchArray.add(vorlName);
+        searchArray.add(choice);
+        model.addAttribute("search", searchArray);
+
+        List<Annonce> annonceList = annonceRepository.findAll();
+        annonceList = annonceList.stream()
+                        .filter(annonce -> annonce.getVorlName().contains(vorlName))
+                        .collect(Collectors.toList());
+
+        if(choice.equals("Beides")) {
+            model.addAttribute("annoncen", annonceList);
+            return "annonceEinsehen";
+        }
+        else {
+            annonceList = annonceList.stream()
+                    .filter(annonce -> annonce.getChoice().equals(choice))
+                    .collect(Collectors.toList());
+            model.addAttribute("annoncen", annonceList);
+            return "annonceEinsehen";
+        }
+
+
+    }
+
 
 }

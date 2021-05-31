@@ -18,6 +18,21 @@
   </div>
 
   <div class="content" id="content">
+    <form th:action="@{/searchAnnonce}" method="get" id="searchForm">
+
+      <label for="vorlName">Für welche Vorlesung suchst du eine Gruppe?</label><br>
+      <input id="vorlName" name="vorlName" placeholder="Vorlesung" type="text"><br>
+
+      <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+      <label for="Lerngruppe">Lerngruppe</label><br>
+      <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+      <label for="Übungsgruppe">Übungsgruppe</label><br>
+      <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+      <label for="Beides">Beides</label><br>
+
+      <button id="button1">Suchen</button>
+    </form>
+
     <div th:switch="${annoncen}">
       <h2 th:case="null">Keine Annoncen bisher</h2>
       <div th:case="*">
