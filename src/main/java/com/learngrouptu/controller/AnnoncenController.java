@@ -54,12 +54,9 @@ public class AnnoncenController {
         model.addAttribute("search", searchArray);
 
         List<Annonce> annonceList = annonceRepository.findAll();
-        List<Annonce> ret;
-        annonceList.stream().forEach(annonce -> System.out.println(annonce.getVorlName().contains(vorlName)));
         annonceList = annonceList.stream()
                         .filter(annonce -> annonce.getVorlName().contains(vorlName))
                         .collect(Collectors.toList());
-        System.out.print(choice.equals("Beides"));
 
         if(choice.equals("Beides")) {
             model.addAttribute("annoncen", annonceList);

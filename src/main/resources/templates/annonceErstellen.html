@@ -29,7 +29,7 @@
                 <label for="choice">Lern oder Übungsgruppe</label>
                 <select id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
                     <option th:value="Lerngruppe">Lerngruppe</option>
-                    <option th:value ="Übung">Übung</option>
+                    <option th:value ="Übungsgruppe">Übungsgruppe</option>
                 </select>
                 <span th:if="${#fields.hasErrors('choice')}" th:errors="*{choice}"></span>
                 <label for="kontakt">Wie kann man dich erreichen?</label>
