@@ -4,12 +4,10 @@ import com.learngrouptu.models.Annonce;
 import com.learngrouptu.models.AnnonceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -21,8 +19,6 @@ public class AnnoncenController {
     @Autowired
     public AnnoncenController(AnnonceRepository annonceRepository){this.annonceRepository = annonceRepository;}
 
-
-
     @GetMapping("/annonceEinsehen")
     public String showAnnonceEinsehen(Model model){
         model.addAttribute("annoncen", annonceRepository.findAll());
@@ -30,7 +26,7 @@ public class AnnoncenController {
     }
 
     @GetMapping("/annonceErstellen")
-    public String showAnnonceErstellenNeu(Annonce annonce){
+    public String showAnnonceErstellen(Annonce annonce){
         return "annonceErstellen";
     }
 
@@ -39,9 +35,17 @@ public class AnnoncenController {
         if (result.hasErrors()) {
             return "redirect:annonceErstellen";
         }
-
         annonceRepository.save(annonce);
         return showAnnonceEinsehen(model);
+    }
+
+    @Transactional
+    @PostMapping("/deleteannonce")
+    public String deleteAnnonce(@RequestParam Integer id, Model model){
+
+        annonceRepository.deleteByAnnonceId(id);
+        return showAnnonceEinsehen(model);
+        //return "redirect:annonceEinsehen";
     }
 
 }
