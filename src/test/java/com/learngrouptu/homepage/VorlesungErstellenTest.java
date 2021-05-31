@@ -31,6 +31,7 @@ public class VorlesungErstellenTest {
         ChromeDriver driver = init();
         String title = driver.getTitle();
         assertTrue(title.contains("vorlesung erstellen"));
+        driver.close();
     }
 
     @Test
@@ -46,6 +47,7 @@ public class VorlesungErstellenTest {
         String expectedUrl = "http://localhost:8080/vorlesungadd";
 
         assertEquals(expectedUrl, realUrl);
+        driver.close();
     }
 
     @Test
@@ -61,6 +63,7 @@ public class VorlesungErstellenTest {
         String expectedUrl = "http://localhost:8080/vorlesungsubersichterstellen";
 
         assertEquals(expectedUrl, realUrl);
+        driver.close();
     }
 
     @Test
@@ -82,7 +85,7 @@ public class VorlesungErstellenTest {
         Assertions.assertTrue(realContent.contains(vorlName));
         Assertions.assertTrue(realContent.contains(kontakt));
         Assertions.assertTrue(realContent.contains(nachricht));
-
+        driver.close();
     }
 
     @Test
@@ -94,6 +97,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("button1")).click();
         String after = driver.getCurrentUrl();
         assertEquals(before, after);
+        driver.close();
     }
 
     @Test
@@ -112,6 +116,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("button1")).click();
         after = driver.getCurrentUrl();
         assertNotEquals(before, after);
+        driver.close();
     }
 
     @Test
@@ -139,5 +144,6 @@ public class VorlesungErstellenTest {
             }
         }
         assertEquals(present, true);
+        driver.close();
     }
 }
