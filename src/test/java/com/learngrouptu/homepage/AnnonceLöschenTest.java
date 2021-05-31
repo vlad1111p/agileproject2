@@ -42,6 +42,8 @@ public class AnnonceLöschenTest
         driver.get("http://localhost:8080/annonceEinsehen");
     }
 
+    //TODO
+    /*
     @Test
     public void canClickDeleteButton() throws SQLException
     {
@@ -86,7 +88,7 @@ public class AnnonceLöschenTest
         }
         assertEquals(expected, true);
 
-    }
+    }*/
 
     @Test
     public void deleteCorrectAnnonce() throws SQLException
