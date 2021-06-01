@@ -32,6 +32,7 @@ public class VorlesungUbersichtTest {
         ChromeDriver driver = init();
         String title = driver.getTitle();
         assertTrue(title.contains("Vorlesungubersicht"));
+        driver.close();
     }
 
     @Test
@@ -41,6 +42,7 @@ public class VorlesungUbersichtTest {
         //String actualHeading = driver.findElement(By.id("heading")).getText();
         String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
         assertEquals(expectedHeading, actualHeading);
+        driver.close();
     }
     @Test
     public void verifyGruppeerstellen() {
@@ -50,7 +52,7 @@ public class VorlesungUbersichtTest {
 
         assertEquals("Annonce erstellen", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
-
+        driver.close();
     }
 
     @Test
@@ -62,7 +64,7 @@ public class VorlesungUbersichtTest {
 
         assertEquals("Vorlesungubersicht", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
-
+        driver.close();
     }
     //TODO Daten nach Test aus der DB löschen
     /*
@@ -87,7 +89,7 @@ public class VorlesungUbersichtTest {
         String actualHeading = driver.findElement(By.id("textforwrong")).getText();
         assertEquals("Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.", actualHeading);
         System.out.println("title of page is: " + driver.getTitle());
-
+        driver.close();
     }
 //
     @Test
