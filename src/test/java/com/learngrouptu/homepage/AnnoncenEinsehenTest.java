@@ -52,7 +52,7 @@ public class AnnoncenEinsehenTest
     @Test
     public void verifyHeading()
     {
-        String expectedHeading = "Users";
+        String expectedHeading = "Annoncen";
         String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
         assertEquals(expectedHeading, actualHeading);
     }

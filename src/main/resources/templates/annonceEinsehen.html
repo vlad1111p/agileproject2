@@ -9,11 +9,11 @@
 <body>
   <div class="navbarContainer" id="navBar">
     <ul>
-      <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+      <li><a href="/home" th:href="@{/home}">Startseite</a></li>
       <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-      <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
-      <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
-      <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
+      <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+      <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+      <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a>
     </ul>
   </div>
 
@@ -36,11 +36,11 @@
     <div th:switch="${annoncen}">
       <h2 th:case="null">Keine Annoncen bisher</h2>
       <div th:case="*">
-        <h2>Users</h2>
+        <h2>Annoncen</h2>
         <table>
           <thead>
           <tr>
-            <th>Annonce ID</th>
+           <!-- <th>Annonce ID</th> -->
             <th>Vorlesung</th>
             <th>Choice</th>
             <th>Kontakt</th>
@@ -50,7 +50,7 @@
           </thead>
           <tbody>
           <tr class="tableRow" th:each="annonce : ${annoncen}">
-            <td th:text="${annonce.annonceId}"></td>
+            <!--<td th:text="${annonce.annonceId}"></td>   -->
             <td th:text="${annonce.vorlName}"></td>
             <td th:text="${annonce.choice}"></td>
             <td th:text="${annonce.kontakt}"></td>
