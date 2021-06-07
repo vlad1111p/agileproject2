@@ -5,10 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,6 +34,11 @@ public class LoginTest {
         driver.get("http://localhost:8080");
     }
 
+    @AfterEach
+    public void logout() {
+        driver.get("http://localhost:8080/perform_logout");
+    }
+
     @AfterAll
     public static void deleteTestDebrisAndClose() throws SQLException {
         LoginTest.driver.close();
@@ -45,7 +47,7 @@ public class LoginTest {
 
     @Test
     public void testRedirectToLoginWithoutLogin() {
-        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/login");
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/login"));
     }
 
     @Test
@@ -66,5 +68,198 @@ public class LoginTest {
         driver.findElement(By.name("password")).sendKeys("testpasswort");
         driver.findElement(By.name("login-button")).click();
         driver.getCurrentUrl().equals("http://localhost:8080/home");
+    }
+
+    @Test
+    public void testRegisterButton() {
+        driver.findElement(By.name("register-button")).click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/register");
+    }
+
+    @Test
+    public void testSuccessfullRegisterRedirectToHome() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+    }
+
+    @Test
+    public void unsuccesfullRegisterCorrectMessage() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/register"));
+        assertTrue(driver.getPageSource().toLowerCase().contains("passwort fehlt"));
+    }
+
+    @Test
+    public void successfullRegisterDataInDB() throws SQLException {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+
+        String sqlStatement = "SELECT username, email, password FROM user";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sqlStatement);
+        boolean present = false;
+        while (rs.next()) {
+            String usernameDB = (rs.getString("username"));
+            String emailDB = (rs.getString("email"));
+            String passwordDB = (rs.getString("password"));
+            if (usernameDB.equals(username) && emailDB.equals(email) && passwordDB.equals(password)) {
+                present = true;
+            }
+        }
+        assertEquals(present, true);
+    }
+
+    @Test
+    public void successfullRegisterAndLoginAfterwardsWithSameCredentials() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+
+        logout();
+        reset();
+
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElement(By.name("password")).sendKeys(password);
+        driver.findElement(By.name("login-button")).click();
+        driver.getCurrentUrl().equals("http://localhost:8080/home");
+    }
+
+    @Test
+    public void successfullRegisterAndLoginAfterwardsWithWrongPassword() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+
+        driver.findElement(By.name("register-button")).click();
+
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+
+        logout();
+        reset();
+
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElement(By.name("password")).sendKeys("wrong");
+        driver.findElement(By.name("login-button")).click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/login"));
+    }
+
+    @Test
+    public void sameUsernameRegisterNotWorking() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+
+        logout();
+        reset();
+
+        randNumb = Math.random();
+        rand = randNumb.toString().substring(2, 6);
+        email = "testuser" + rand +  "@gmail.com";
+        password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/register"));
+        assertTrue(driver.getPageSource().toLowerCase().contains("name schon vergeben"));
+
+    }
+
+    @Test
+    public void sameMailRegisterNotWorking() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+
+        logout();
+        reset();
+
+        randNumb = Math.random();
+        rand = randNumb.toString().substring(2, 6);
+        username = "testuser" + rand;
+        password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/register"));
+        assertTrue(driver.getPageSource().toLowerCase().contains("passwort schon vergeben"));
+    }
+
+    @Test
+    public void afterUnsuccessfulRegisterNoLoginPoss() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/register"));
+
+        logout();
+        reset();
+
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElement(By.name("password")).sendKeys("testpasswort");
+        driver.findElement(By.name("login-button")).click();
+        assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/login"));
     }
 }
