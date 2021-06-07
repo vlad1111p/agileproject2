@@ -10,12 +10,11 @@
 
 <div class="navbarContainer" id="navBar">
     <ul>
-        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/home" th:href="@{/home}">Startseite</a></li>
         <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
-        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
-        </li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a>
     </ul>
 </div>
 <div class="content" id="content">
@@ -23,11 +22,11 @@
         <div th:case="null"><h2 id="textforwrong" >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
             <a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</div>
         <div th:case="*">
-            <h2>Users</h2>
+            <h2>Vorlesungsübersicht</h2>
             <form action="/searchLecture" method="GET">
-                <label for="VorlName">VorlName</label><br>
+                <label for="VorlName">Titel</label><br>
                 <input type="text" id="VorlName" name="VorlName"><br>
-                <label for="Kursname">Kursname</label><br>
+                <label for="Kursname">Kursnummer</label><br>
                 <input type="text" id="Kursname" name="Kursname"><br>
                 <label for="Studiengang">Studiengang</label><br>
                 <input type="text" id="Studiengang" name="Studiengang"><br><br>
@@ -38,9 +37,9 @@
                 <tr>
 
                     <th>Titel</th>
-                    <th>Kursnr</th>
+                    <th>Kursnummer</th>
                     <th>Studiengang</th>
-                    <th>Cp</th>
+                    <th>CP</th>
                     <th></th>
                     <th></th>
                 </tr>
