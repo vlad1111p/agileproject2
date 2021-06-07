@@ -37,7 +37,7 @@ public class AnnoncenController {
     }
 
     @PostMapping("/addannonce")
-    public String addUser(@Valid Annonce annonce, BindingResult result, Model model) {
+    public String addAnnonce(@Valid Annonce annonce, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "redirect:annonceErstellen";
         }

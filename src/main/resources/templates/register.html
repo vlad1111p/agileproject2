@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrierung</title>
+</head>
+<body>
+<h1>Registrierung</h1>
+<p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
+  <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
+
+    <label for="email">Gib eine E-Mail Adresse an</label>
+    <input type="text" th:field="*{email}" id="email" placeholder="E-Mail">
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <label for="username">Gib einen Usernamen an</label>
+    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+
+    <label for="password">Gib ein Passwort an</label>
+    <input type="password" th:field="*{password}" id="password" placeholder="Passwort">
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+    <input name="register-submit-button" type="submit" value="submit" />
+
+  </form>
+</body>
+</html>
