@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Controller
@@ -65,7 +66,7 @@ public class AnnoncenController {
 
         List<Annonce> annonceList = annonceRepository.findAll();
         annonceList = annonceList.stream()
-                        .filter(annonce -> annonce.getVorlName().contains(vorlName))
+                        .filter(annonce -> annonce.getVorlName().toLowerCase().contains(vorlName.toLowerCase()))
                         .collect(Collectors.toList());
 
         if(choice.equals("Beides")) {
