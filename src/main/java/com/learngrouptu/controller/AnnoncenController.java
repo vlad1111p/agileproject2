@@ -69,17 +69,23 @@ public class AnnoncenController {
                         .filter(annonce -> annonce.getVorlName().toLowerCase().contains(vorlName.toLowerCase()))
                         .collect(Collectors.toList());
 
-        if(choice.equals("Beides")) {
+        if (annonceList.isEmpty()) {
+            //model.addAttribute("newAnnonceName", vorlName;
+            return "annonceEinsehen";
+        }
+
+        else if(choice.equals("Beides")) {
             model.addAttribute("annoncen", annonceList);
             return "annonceEinsehen";
         }
-        else {
+        else{
             annonceList = annonceList.stream()
                     .filter(annonce -> annonce.getChoice().equals(choice))
                     .collect(Collectors.toList());
             model.addAttribute("annoncen", annonceList);
             return "annonceEinsehen";
         }
+
 
 
     }
