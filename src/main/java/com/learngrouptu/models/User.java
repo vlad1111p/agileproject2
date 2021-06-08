@@ -1,11 +1,8 @@
 package com.learngrouptu.models;
 
-import org.hibernate.annotations.CreationTimestamp;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.sql.Date;
 
 @Entity
 public class User {
@@ -18,7 +15,7 @@ public class User {
     private String password;
 
     public User(){
-
+        super();
     }
 
     public User(Integer userID, String username, String email, String password){

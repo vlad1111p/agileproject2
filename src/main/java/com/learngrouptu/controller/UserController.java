@@ -24,12 +24,13 @@ public class UserController {
 
     @PostMapping("/perform_register")
     public String addUser(@Valid User user, BindingResult result, Model model) {
+
         if (result.hasErrors()) {
             return "redirect:register";
         }
 
         userRepository.save(user);
-        return "home";
+        return "redirect:login.html";
     }
 
 }
