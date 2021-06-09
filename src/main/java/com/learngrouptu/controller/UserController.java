@@ -5,11 +5,13 @@ import com.learngrouptu.models.Annonce;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -17,6 +19,9 @@ import javax.validation.Valid;
 public class UserController {
 
     private UserRepository userRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(UserRepository userRepository) {this.userRepository = userRepository;}
@@ -38,7 +43,12 @@ public class UserController {
            else if (userRepository.findByEmail(user.getEmail()) != null) {
                throw new EmailDuplicateException();
            }
+           else if (user.getPassword() == null) {
+               throw new PasswordMissingException();
+           }
            else {
+               user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+               //Test for turning off password encoding by commenting encryption function
                userRepository.save(user);
                return "redirect:login.html";
            }
@@ -46,10 +56,17 @@ public class UserController {
         catch (UserDuplicateException e) {
                 model.addAttribute("usererror", new Object());
                 return showRegister(user, model);
+
+                //return "redirect:/register?error=usererror";
+
         }
         catch (EmailDuplicateException e) {
-            model.addAttribute("emailerror", new Object());
-            return showRegister(user, model);
+                model.addAttribute("emailerror", new Object());
+                return showRegister(user, model);
+        }
+        catch (PasswordMissingException e){
+                model.addAttribute("passworderror", new Object());
+                return showRegister(user, model);
         }
     }
 
@@ -57,5 +74,8 @@ public class UserController {
     }
 
     private class EmailDuplicateException extends Throwable {
+    }
+
+    private class PasswordMissingException extends Throwable {
     }
 }

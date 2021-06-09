@@ -205,7 +205,7 @@ public class LoginTest {
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
-        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/login.html");
 
         logout();
         reset();
@@ -236,7 +236,7 @@ public class LoginTest {
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
-        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
+        assertEquals(driver.getCurrentUrl(), "http://localhost:8080/login.html");
 
         logout();
         reset();
@@ -251,7 +251,7 @@ public class LoginTest {
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
         assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/register"));
-        assertTrue(driver.getPageSource().toLowerCase().contains("passwort schon vergeben"));
+        assertTrue(driver.getPageSource().toLowerCase().contains("e-mail schon vergeben"));
     }
 
     @Test
