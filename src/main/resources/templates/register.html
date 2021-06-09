@@ -7,6 +7,14 @@
 <body>
 <h1>Registrierung</h1>
 <p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
+
+  <div th:if = "${usererror}">
+    Invalid username and password.
+  </div>
+
+  <div th:if = "${emailerror}">
+    Invalid email and password.
+  </div>
   <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
 
     <label for="email">Gib eine E-Mail Adresse an</label>

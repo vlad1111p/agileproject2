@@ -42,6 +42,10 @@ public class LoginTest {
     @AfterAll
     public static void deleteTestDebrisAndClose() throws SQLException {
         LoginTest.driver.close();
+        Statement stmt = connection.createStatement();
+        String sqlStatement = "DELETE FROM user WHERE email LIKE 'testuser%' and " +
+                "username LIKE 'testuser%'";
+        stmt.execute(sqlStatement);
         connection.close();
     }
 
@@ -88,6 +92,9 @@ public class LoginTest {
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
+
+        login(username, password);
+
         assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
     }
 
@@ -118,15 +125,14 @@ public class LoginTest {
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
 
-        String sqlStatement = "SELECT username, email, password FROM user";
+        String sqlStatement = "SELECT username, email FROM user";
         Statement stmt = connection.createStatement();
         ResultSet rs = stmt.executeQuery(sqlStatement);
         boolean present = false;
         while (rs.next()) {
             String usernameDB = (rs.getString("username"));
             String emailDB = (rs.getString("email"));
-            String passwordDB = (rs.getString("password"));
-            if (usernameDB.equals(username) && emailDB.equals(email) && passwordDB.equals(password)) {
+            if (usernameDB.equals(username) && emailDB.equals(email)) {
                 present = true;
             }
         }
@@ -145,6 +151,9 @@ public class LoginTest {
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
+
+        login(username, password);
+
         assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
 
         logout();
@@ -170,6 +179,9 @@ public class LoginTest {
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
         driver.findElementByName("register-submit-button").click();
+
+        login(username, password);
+
         assertEquals(driver.getCurrentUrl(), "http://localhost:8080/home");
 
         logout();
@@ -261,5 +273,40 @@ public class LoginTest {
         driver.findElement(By.name("password")).sendKeys("testpasswort");
         driver.findElement(By.name("login-button")).click();
         assertTrue(driver.getCurrentUrl().startsWith("http://localhost:8080/login"));
+    }
+
+    @Test
+    public void testPasswordEncoding() throws SQLException {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        String username = "testuser" + rand;
+        String email = "testuser" + rand +  "@gmail.com";
+        String password = "testpassword" + rand;
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElementByName("password").sendKeys(password);
+        driver.findElementByName("email").sendKeys(email);
+        driver.findElementByName("register-submit-button").click();
+
+        String sqlStatement = "SELECT username, email, password FROM user";
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sqlStatement);
+        boolean present = false;
+        while (rs.next()) {
+            String usernameDB = (rs.getString("username"));
+            String emailDB = (rs.getString("email"));
+            String passwordDB = (rs.getString("password"));
+            if (usernameDB.equals(username) && emailDB.equals(email) && passwordDB.equals(password)) {
+                present = true;
+            }
+        }
+        assertEquals(present, false);
+    }
+
+    private void login(String username, String password) {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("username")).sendKeys(username);
+        driver.findElement(By.name("password")).sendKeys(password);
+        driver.findElement(By.name("login-button")).click();
     }
 }

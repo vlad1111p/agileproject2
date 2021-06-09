@@ -1,8 +1,10 @@
 package com.learngrouptu.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -10,8 +12,19 @@ public class User {
     @Id
     @GeneratedValue
     private Integer userID;
+
+    @NotBlank
+    @NotNull
+    @Column(unique = true)
     private String username;
+
+    @NotBlank
+    @NotNull
+    @Column(unique = true)
     private String email;
+
+    @NotBlank
+    @NotNull
     private String password;
 
     public User(){
