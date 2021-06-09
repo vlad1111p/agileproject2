@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.support.ui.Select;
 
+import javax.xml.xpath.XPath;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -62,4 +63,39 @@ public class AnnonceSuchenTest {
                     && driver.getPageSource().contains("Testnachricht");
         Assertions.assertTrue(ifCorrect);
     }
+
+    @Test
+    public void checkIfIncompleteSearchFindsResults(){
+        driver.findElement(By.id("vorlName")).sendKeys("Test");
+        driver.findElement(By.id("button1")).submit();
+        boolean ifCorrect = driver.getPageSource().contains("Testvorlesung") && driver.getPageSource().contains("Testkontakt")
+                && driver.getPageSource().contains("Testnachricht");
+        Assertions.assertTrue(ifCorrect);
+    }
+
+    /*@Test
+    public void checkIfChoiceButtonWorksCorrectly(){
+        Select objSelect = new Select(driver.findElement(By.id("choice")));
+        objSelect.selectByVisibleText("Lerngruppe");
+        driver.findElement(By.id("button1")).submit();
+        XPath = "//*[@class = 'tableRow']";
+        boolean ifCorrect = (driver.findElementsByXPath("Übungsgruppe").stream().count()==4);
+        Assertions.assertTrue(ifCorrect);
+    }*/
+/*
+    @Test
+    public void checkIfUserInputIsForwarded(){
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung"+ rand);
+        driver.findElement(By.id("button1")).submit();
+        WebElement link = driver.findElementByLinkText('Annonce erstellen');
+        link.click();
+        driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
+        driver.findElement(By.id("button1")).submit();
+        boolean ifCorrect = driver.getPageSource().contains("Testvorlesung"+rand) && driver.getPageSource().contains("Testkontakt");
+        Assertions.assertTrue(ifCorrect);
+    }
+
+ */
 }
