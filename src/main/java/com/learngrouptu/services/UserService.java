@@ -34,7 +34,7 @@ public class UserService implements UserDetailsService {
         boolean accountNonLocked = true;
 
         return new org.springframework.security.core.userdetails.User(
-                user.getEmail(), user.getPassword(), enabled, accountNonExpired,
+                user.getUsername(), user.getPassword(), enabled, accountNonExpired,
                 credentialsNonExpired, accountNonLocked, getAuthorities());
     }
 
@@ -50,8 +50,8 @@ public class UserService implements UserDetailsService {
 
 
     public User getCurrentUser() {
-
-        return findUserByUsername(((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
-                .getAuthentication().getPrincipal()).getUsername());
+        String currentUserEmail = ((org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext()
+                .getAuthentication().getPrincipal()).getUsername();
+        return findUserByUsername(currentUserEmail);
     }
 }
