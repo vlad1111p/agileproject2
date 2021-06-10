@@ -21,7 +21,7 @@
   <div class="content" id="content">
     <div th:switch="${annoncen}">
       <div th:case="null"><h2 id="textifwrong" >Hast du keine für die Vorlesung Annonce gefunden? Dann füge eine neue hinzu.</h2><br>
-        <a href="/annonceErstellen" th:href="@{/annonceErstellen(vorlName=${annonceDTO.getVorlName()}, choice=${annonceDTO.getChoice()})}">Annonce erstellen</div>
+        <a href="/annonceErstellen" th:href="@{/annonceErstellen(vorlName=${annonceDTO.getVorlName()}, choice=${annonceDTO.getChoice()})}">Neue Annonce erstellen</div>
       <div th:case="*">
         <h2>Users</h2>
         <form action="/searchAnnonce" method="get" id="searchForm">
@@ -63,8 +63,8 @@
           </tr>
           </tbody>
         </table>
+        <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
       </div>
-      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
     </div>
   </div>
 </body>

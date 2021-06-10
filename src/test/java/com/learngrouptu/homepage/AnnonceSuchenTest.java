@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Coordinates;
+import org.openqa.selenium.support.ByIdOrName;
 import org.openqa.selenium.support.ui.Select;
 
 import javax.xml.xpath.XPath;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class AnnonceSuchenTest {
     private static ChromeDriver driver;
@@ -73,23 +75,26 @@ public class AnnonceSuchenTest {
         Assertions.assertTrue(ifCorrect);
     }
 
-    /*@Test
+    /*
+    @Test
     public void checkIfChoiceButtonWorksCorrectly(){
         Select objSelect = new Select(driver.findElement(By.id("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("button1")).submit();
-        XPath = "//*[@class = 'tableRow']";
-        boolean ifCorrect = (driver.findElementsByXPath("Übungsgruppe").stream().count()==4);
+        //boolean ifCorrect = (driver.findElementsByXPath("//*[@class = 'tableRow']").stream().count()==0);
+        //List<WebElement> list = driver.findElements(By.name("Übungsgruppe"));
+        long num = driver.findElements(By.name("Übungsgruppe")).stream().count();
+        boolean ifCorrect = (num==1);
         Assertions.assertTrue(ifCorrect);
     }*/
-/*
+
     @Test
     public void checkIfUserInputIsForwarded(){
         Double randNumb = Math.random();
         String rand = randNumb.toString().substring(2, 6);
         driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung"+ rand);
         driver.findElement(By.id("button1")).submit();
-        WebElement link = driver.findElementByLinkText('Annonce erstellen');
+        WebElement link = driver.findElementByLinkText("Neue Annonce erstellen");
         link.click();
         driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
         driver.findElement(By.id("button1")).submit();
@@ -97,5 +102,4 @@ public class AnnonceSuchenTest {
         Assertions.assertTrue(ifCorrect);
     }
 
- */
 }
