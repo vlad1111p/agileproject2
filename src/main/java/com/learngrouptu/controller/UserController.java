@@ -45,11 +45,11 @@ public class UserController {
     }
 
     @PostMapping("/perform_register")
-    public String addUser(@Valid User user, BindingResult result, Model model) {
+    public ModelAndView addUser(@Valid User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
             System.out.println("Something went wrong");
-            return "redirect:register";
+            return new ModelAndView("redirect:register");
         }
 
         try {
@@ -63,17 +63,19 @@ public class UserController {
                 user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
                 //Test for turning off password encoding by commenting encryption function
                 userRepository.save(user);
-                return "redirect:login.html";
+                return new ModelAndView("redirect:login.html");
             }
         } catch (UserDuplicateException e) {
-            model.addAttribute("usererror", new Object());
-            return "register";
+            ModelAndView mav = new ModelAndView("redirect:register");
+            mav.addObject("usererror", true);
+            return mav;
 
             //return "redirect:/register?error=usererror";
 
         } catch (EmailDuplicateException e) {
-            model.addAttribute("emailerror", new Object());
-                return "register";
+            ModelAndView mav = new ModelAndView("redirect:register");
+            mav.addObject("emailerror", true);
+            return mav;
         }
     }
 
