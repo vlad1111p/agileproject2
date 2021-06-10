@@ -5,9 +5,14 @@
 /*SearchBar*/
 }
 
-.search__container {
+form.search__container{
 
-        padding-top: 64px;
+
+}
+.search__container {
+    float: left;
+        padding-top: 20%;
+    padding-right: 10%;
     }
 
     .search__title {
