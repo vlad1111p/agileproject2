@@ -22,15 +22,15 @@
   <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
 
     <label for="email">Gib eine E-Mail Adresse an</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E-Mail">
+    <input type="text" th:field="*{email}" id="email" placeholder="E-Mail" required>
     <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
     <label for="username">Gib einen Usernamen an</label>
-    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+    <input type="text" th:field="*{username}" id="username" placeholder="Username" required>
     <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 
     <label for="password">Gib ein Passwort an</label>
-    <input type="password" th:field="*{password}" id="password" placeholder="Passwort">
+    <input type="password" th:field="*{password}" id="password" placeholder="Passwort" required>
     <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 
     <input name="register-submit-button" type="submit" value="submit" />
