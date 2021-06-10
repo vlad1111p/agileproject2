@@ -1,64 +1,145 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link href="/css/table.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <title>Vorlesungubersicht</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>LearngroupTU</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+
+    <link href="/css/searchBar.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
 </head>
-<body>
-
-<div class="navbarContainer" id="navBar">
-    <ul>
-        <li><a href="/home" th:href="@{/home}">Startseite</a></li>
-        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
-        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a>
-    </ul>
-</div>
-<div class="content" id="content">
-    <div th:switch="${vorlesungsubersicht}">
-        <div th:case="null"><h2 id="textforwrong" >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
-            <a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</div>
-        <div th:case="*">
-            <h2>Vorlesungsübersicht</h2>
-            <form action="/searchLecture" method="GET">
-                <label for="VorlName">Titel</label><br>
-                <input type="text" id="VorlName" name="VorlName"><br>
-                <label for="Kursname">Kursnummer</label><br>
-                <input type="text" id="Kursname" name="Kursname"><br>
-                <label for="Studiengang">Studiengang</label><br>
-                <input type="text" id="Studiengang" name="Studiengang"><br><br>
-                <input id="button1" type="submit" value="Search">
-            </form>
-            <table>
-                <thead>
-                <tr>
-
-                    <th>Titel</th>
-                    <th>Kursnummer</th>
-                    <th>Studiengang</th>
-                    <th>CP</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="vorlesung : ${vorlesungsubersicht}">
-
-                    <td th:text="${vorlesung.titel}"></td>
-                    <td th:text="${vorlesung.kursnr}"></td>
-                    <td th:text="${vorlesung.studiengang}"></td>
-                    <td th:text="${vorlesung.cp}"></td>
-                    <td><a href="/vorlesungsgruppeerstellen"
-                           th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a>
-                    </td>
-                    <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe
-                        suchen</a></td>
-                </tr>
-                </tbody>
-            </table>
+<body id="page-top" th:switch="${vorlesungsubersicht}">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
+            </ul>
         </div>
+    </div>
+</nav>
+<div th:case="null">
+<!-- Masthead-->
+<header class="masthead" id="masthead1" >
+    <div class="container">
+        <div class="masthead-subheading">Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</div>
+        <a class="btn btn-primary btn-xl text-uppercase" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung erstellen</a>
+    </div>
+</header><header class="masthead" id="masthead1" >
+
+</header>
+<section class="page-section" id="contact" >
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+            <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+        </div>
+    </div>
+</section></div>
+<!-- Services-->
+<!-- Masthead-->
+<div th:case="*">
+<header class="masthead" id="masthead1" >
+
+</header>
+<section class="page-section" id="services" >
+    <div class="container">
+        <form action="/searchLecture" class="search__container" method="GET" style="float: left;">
+            <p class="search__title">
+                Go ahead, hover over search
+            </p>
+            <label for="VorlName">Titel</label><br>
+            <input type="text" class="search__input" id="VorlName" name="VorlName"><br>
+            <label for="Kursname">Kursnummer</label><br>
+            <input type="text" class="search__input" id="Kursname" name="Kursname"><br>
+            <label for="Studiengang">Studiengang</label><br>
+            <input type="text"  class="search__input" id="Studiengang" name="Studiengang"><br><br>
+            <input id="button1" type="submit" value="Search">
+        </form>
+        <div class="row" style="background-color: #e4e8eb">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title m-b-0">Static Table With Checkboxes</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Titel</th>
+                                <th scope="col">Kursnummer</th>
+                                <th scope="col">Studiengang</th>
+                                <th scope="col">CP</th>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="customtable">
+                            <tr th:each="vorlesung : ${vorlesungsubersicht}">
+
+                                <td th:text="${vorlesung.titel}"></td>
+                                <td th:text="${vorlesung.kursnr}"></td>
+                                <td th:text="${vorlesung.studiengang}"></td>
+                                <td th:text="${vorlesung.cp}"></td>
+                                <td><a href="/vorlesungsgruppeerstellen"
+                                       th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a>
+                                </td>
+                                <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe
+                                    suchen</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div></div><header class="masthead" id="masthead1" >
+
+    </header>
+        </div></section>
+<!-- Contact-->
+<section class="page-section" id="contact" >
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+            <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+        </div>
+    </div>
+</section>
+    </div>
+
+
+
+
+
+
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
