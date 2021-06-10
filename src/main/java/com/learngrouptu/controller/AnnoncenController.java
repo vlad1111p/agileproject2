@@ -2,6 +2,8 @@ package com.learngrouptu.controller;
 
 import com.learngrouptu.models.Annonce;
 import com.learngrouptu.models.AnnonceRepository;
+import com.learngrouptu.models.User;
+import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +15,17 @@ import javax.validation.Valid;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
 public class AnnoncenController {
 
     private final AnnonceRepository annonceRepository;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     public AnnoncenController(AnnonceRepository annonceRepository){this.annonceRepository = annonceRepository;}
@@ -29,6 +36,14 @@ public class AnnoncenController {
     public String showAnnonceEinsehen(Model model){
         model.addAttribute("annoncen", annonceRepository.findAll());
         return "annonceEinsehen";
+    }
+
+    @GetMapping("/meineAnnoncen")
+    public String showMeineAnnoncen(Map<String, Object> model){
+        User user = userService.getCurrentUser();
+        Set<Annonce> userAnnoncen = user.getUserAnnonces();
+        model.put("userAnnoncen", userAnnoncen);
+        return "meineAnnoncen";
     }
 
     @GetMapping("/annonceErstellen")
@@ -42,7 +57,10 @@ public class AnnoncenController {
             return "redirect:annonceErstellen";
         }
 
+        User user = userService.getCurrentUser();
+        user.addAnnonce(annonce);
         annonceRepository.save(annonce);
+
         return showAnnonceEinsehen(model);
     }
 

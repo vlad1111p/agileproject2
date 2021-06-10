@@ -4,6 +4,8 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
@@ -23,6 +25,9 @@ public class Annonce {
 
     @CreationTimestamp
     private Date datum;
+
+    @ManyToMany (mappedBy = "userAnnoncen")
+    private Set<User> ersteller = new HashSet<User>();
 
     public Annonce(){
 

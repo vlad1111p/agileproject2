@@ -60,10 +60,10 @@ public class UserController {
         }
 
         try {
-           if (userRepository.findByUsername(user.getUsername()) != null) {
+           if (userRepository.findUserByUsername(user.getUsername()) != null) {
                throw new UserDuplicateException();
            }
-           else if (userRepository.findByEmail(user.getEmail()) != null) {
+           else if (userRepository.findUserByEmail(user.getEmail()) != null) {
                throw new EmailDuplicateException();
            }
            else {
@@ -92,6 +92,4 @@ public class UserController {
     private class EmailDuplicateException extends Throwable {
     }
 
-    private class PasswordMissingException extends Throwable {
-    }
 }

@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.UniqueElements;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -26,6 +28,10 @@ public class User {
     @NotBlank
     @NotNull
     private String password;
+
+    @ManyToMany
+    @JoinTable
+    private Set<Annonce> userAnnoncen = new HashSet<>();
 
     public User(){
         super();
@@ -74,4 +80,8 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Set<Annonce> getUserAnnonces(){return userAnnoncen;}
+
+    public void addAnnonce(Annonce annonce){userAnnoncen.add(annonce);}
 }
