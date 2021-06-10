@@ -32,23 +32,16 @@ public class UserController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserController(UserRepository userRepository) {this.userRepository = userRepository;}
+    public UserController(UserRepository userRepository) { this.userRepository = userRepository;}
 
     @RequestMapping("/register")
-    public String showRegister(User user, Model model){
+    public String showRegister(User user, Model model) {
         return "register";
     }
 
     @GetMapping("/register")
-    public String showRegisterGet(User user, Model model){
-        System.out.println(model.asMap());
+    public String showRegisterGet(User user, Model model) {
         return "register";
-    }
-
-    public ModelAndView redirect(Model model) {
-        ModelAndView mav = new ModelAndView("redirect:register");
-        mav.addAllObjects(model.asMap());
-        return mav;
     }
 
     @PostMapping("/perform_register")
@@ -60,29 +53,27 @@ public class UserController {
         }
 
         try {
-           if (userRepository.findUserByUsername(user.getUsername()) != null) {
-               throw new UserDuplicateException();
-           }
+            if (userRepository.findUserByUsername(user.getUsername()) != null) {
+                throw new UserDuplicateException();
+            }
            else if (userRepository.findUserByEmail(user.getEmail()) != null) {
-               throw new EmailDuplicateException();
-           }
+                throw new EmailDuplicateException();
+            }
            else {
-               user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-               //Test for turning off password encoding by commenting encryption function
-               userRepository.save(user);
-               return "redirect:login.html";
-           }
-        }
-        catch (UserDuplicateException e) {
-                model.addAttribute("usererror", new Object());
+                user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+                //Test for turning off password encoding by commenting encryption function
+                userRepository.save(user);
+                return "redirect:login.html";
+            }
+        } catch (UserDuplicateException e) {
+            model.addAttribute("usererror", new Object());
+            return "register";
+
+            //return "redirect:/register?error=usererror";
+
+        } catch (EmailDuplicateException e) {
+            model.addAttribute("emailerror", new Object());
                 return "register";
-
-                //return "redirect:/register?error=usererror";
-
-        }
-        catch (EmailDuplicateException e) {
-                model.addAttribute("emailerror", new Object());
-                return "redirect:register";
         }
     }
 
@@ -91,5 +82,4 @@ public class UserController {
 
     private class EmailDuplicateException extends Throwable {
     }
-
 }
