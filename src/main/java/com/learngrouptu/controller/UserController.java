@@ -41,14 +41,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegisterGet(User user, Model model){
-        System.out.println(model.asMap());
         return "register";
-    }
-
-    public ModelAndView redirect(Model model) {
-        ModelAndView mav = new ModelAndView("redirect:register");
-        mav.addAllObjects(model.asMap());
-        return mav;
     }
 
     @PostMapping("/perform_register")
@@ -82,7 +75,7 @@ public class UserController {
         }
         catch (EmailDuplicateException e) {
                 model.addAttribute("emailerror", new Object());
-                return "redirect:register";
+                return "register";
         }
     }
 
@@ -90,8 +83,5 @@ public class UserController {
     }
 
     private class EmailDuplicateException extends Throwable {
-    }
-
-    private class PasswordMissingException extends Throwable {
     }
 }
