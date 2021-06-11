@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/css/index.css">
+  <link href="/css/table.css" rel="stylesheet">
+  <title>Meine Annoncen</title>
+</head>
+<body>
+<div class="navbarContainer" id="navBar">
+  <ul>
+    <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+    <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+    <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+    <li><a href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
+    <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+    <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
+  </ul>
+</div>
+
+<div class="content" id="content">
+  <div th:switch="${userAnnoncen}">
+    <h2 th:case="null">Keine Annoncen bisher</h2>
+    <div th:case="*">
+      <h2>Users</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Vorlesung</th>
+          <th>Choice</th>
+          <th>Kontakt</th>
+          <th>Nachricht</th>
+          <th>Datum</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="tableRow" th:each="userAnnonce : ${userAnnoncen}">
+          <td th:text="${userAnnonce.vorlName}"></td>
+          <td th:text="${userAnnonce.choice}"></td>
+          <td th:text="${userAnnonce.kontakt}"></td>
+          <td th:text="${userAnnonce.nachricht}"></td>
+          <td th:text="${userAnnonce.datum}"></td>
+          <td>
+            <form th:action="@{/deleteannonce(id=${userAnnonce.annonceId})}" method="post" th:object="${userAnnonce}">
+              <button id="delete" type="submit">Annonce löschen</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
+  </div>
+</div>
+</body>
+</html>

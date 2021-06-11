@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<h1>Login</h1>
+<p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
+<form name='login_form' action="perform_login" method='POST'>
+    <table>
+        <tr>
+            <td>User:</td>
+            <td><input type='text' name='username' value=''></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type='password' name='password' /></td>
+        </tr>
+        <tr>
+            <td><input name="login-button" type="submit" value="submit" /></td>
+        </tr>
+    </table>
+</form>
+<div>
+    <p>Noch keinen Account? Klicke hier zum registrieren:</p>
+    <form name='registrierungsbutton' action = "register" method="post">
+         <input name = "register-button" type="submit" value="Registrieren" />
+    </form>
+</div>
+</body>
+</html>
