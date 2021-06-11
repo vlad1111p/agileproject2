@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Null;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -35,6 +39,7 @@ public class VorlesungController {
         return "vorlesungsubersicht";
     }
 
+
     @GetMapping("/vorlesungsubersichterstellen")
     public String showVorlesungErstellen(Vorlesung vorlesung) {
         return "vorlesungsubersichterstellen";
@@ -54,6 +59,42 @@ public class VorlesungController {
                 .collect(Collectors.toList());
         model.addAttribute("annoncen", vorllist);
         return "annonceEinsehen";
+    }
+
+    @GetMapping("/searchLecture")
+    public String searchLecture(Model model, @RequestParam(name="VorlName",required = false) String id1, @RequestParam(name="Kursname",required = false) String id2, @RequestParam(name="Studiengang",required = false) String id3) {
+
+
+
+        List<Vorlesung> vorllist = vorlesungRepository.findAll();
+
+        if(id1!=""){
+            vorllist = vorllist.stream()
+                .filter(vorl -> vorl.getTitel().contains(id1))
+                .collect(Collectors.toList());
+            if (vorllist.isEmpty()){
+                return "vorlesungsubersicht";
+            }
+        }
+        if(id2!=""){
+            vorllist = vorllist.stream()
+                    .filter(vorl -> vorl.getKursnr().contains(id2))
+                    .collect(Collectors.toList());
+            if (vorllist.isEmpty()){
+                return "vorlesungsubersicht";
+            }}
+        if(id3!=""){
+            vorllist = vorllist.stream()
+                    .filter(vorl -> vorl.getStudiengang().contains(id3))
+                    .collect(Collectors.toList());
+            if (vorllist.isEmpty()){
+                return "vorlesungsubersicht";
+            }}
+
+
+
+            model.addAttribute("vorlesungsubersicht", vorllist);
+        return "vorlesungsubersicht";
     }
 
     @PostMapping(value = "/vorlesungadd")

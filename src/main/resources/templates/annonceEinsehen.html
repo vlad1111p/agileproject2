@@ -7,6 +7,7 @@
   <title>Annoncen einsehen</title>
 </head>
 <body>
+
   <div class="navbarContainer" id="navBar">
     <ul>
       <li><a href="/home" th:href="@{/home}">Homepage</a></li>
@@ -14,14 +15,27 @@
       <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
       <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
       <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
+      </li>
     </ul>
   </div>
-
   <div class="content" id="content">
     <div th:switch="${annoncen}">
-      <h2 th:case="null">Keine Annoncen bisher</h2>
+      <div th:case="null"><h2 id="textifwrong" >Hast du keine für die Vorlesung Annonce gefunden? Dann füge eine neue hinzu.</h2><br>
+        <a href="/annonceErstellen" th:href="@{/annonceErstellen(vorlName=${annonceDTO.getVorlName()}, choice=${annonceDTO.getChoice()})}">Neue Annonce erstellen</div>
       <div th:case="*">
         <h2>Users</h2>
+        <form action="/searchAnnonce" method="get" id="searchForm">
+          <label for="vorlName">Für welche Vorlesung suchst du eine Gruppe?</label><br>
+          <input id="vorlName" name="vorlName" placeholder="Vorlesung" type="text"><br>
+          <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+          <label for="Lerngruppe">Lerngruppe</label><br>
+          <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+          <label for="Übungsgruppe">Übungsgruppe</label><br>
+          <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+          <label for="Beides">Beides</label><br>
+
+          <button id="button1">Suchen</button>
+        </form>
         <table>
           <thead>
           <tr>
@@ -34,18 +48,23 @@
           </tr>
           </thead>
           <tbody>
-          <tr th:each="annonce : ${annoncen}">
+          <tr class="tableRow" th:each="annonce : ${annoncen}">
             <td th:text="${annonce.annonceId}"></td>
             <td th:text="${annonce.vorlName}"></td>
             <td th:text="${annonce.choice}"></td>
             <td th:text="${annonce.kontakt}"></td>
             <td th:text="${annonce.nachricht}"></td>
             <td th:text="${annonce.datum}"></td>
+            <td>
+              <form th:action="@{/deleteannonce(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
+                <button id="delete" type="submit">Annonce löschen</button>
+              </form>
+            </td>
           </tr>
           </tbody>
         </table>
+        <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
       </div>
-      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
     </div>
   </div>
 </body>

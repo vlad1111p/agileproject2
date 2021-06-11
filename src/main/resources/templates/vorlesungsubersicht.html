@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:form="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="/css/table.css" rel="stylesheet">
+    <link href="/css/index.css" rel="stylesheet">
+    <title>Vorlesungubersicht</title>
+</head>
+<body>
+
+<div class="navbarContainer" id="navBar">
+    <ul>
+        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
+        </li>
+    </ul>
+</div>
+<div class="content" id="content">
+    <div th:switch="${vorlesungsubersicht}">
+        <div th:case="null"><h2 id="textforwrong" >Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</h2><br>
+            <a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</div>
+        <div th:case="*">
+            <h2>Users</h2>
+            <form action="/searchLecture" method="GET">
+                <label for="VorlName">VorlName</label><br>
+                <input type="text" id="VorlName" name="VorlName"><br>
+                <label for="Kursname">Kursname</label><br>
+                <input type="text" id="Kursname" name="Kursname"><br>
+                <label for="Studiengang">Studiengang</label><br>
+                <input type="text" id="Studiengang" name="Studiengang"><br><br>
+                <input id="button1" type="submit" value="Search">
+            </form>
+            <table>
+                <thead>
+                <tr>
+
+                    <th>Titel</th>
+                    <th>Kursnr</th>
+                    <th>Studiengang</th>
+                    <th>Cp</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vorlesung : ${vorlesungsubersicht}">
+
+                    <td th:text="${vorlesung.titel}"></td>
+                    <td th:text="${vorlesung.kursnr}"></td>
+                    <td th:text="${vorlesung.studiengang}"></td>
+                    <td th:text="${vorlesung.cp}"></td>
+                    <td><a href="/vorlesungsgruppeerstellen"
+                           th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a>
+                    </td>
+                    <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe
+                        suchen</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>
