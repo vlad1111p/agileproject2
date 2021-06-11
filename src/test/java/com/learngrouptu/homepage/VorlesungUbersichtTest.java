@@ -1,5 +1,8 @@
 package com.learngrouptu.homepage;
 
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,7 +18,8 @@ public class VorlesungUbersichtTest {
     private static Connection connection;
 
 
-    public ChromeDriver init() {
+    @BeforeAll
+    public static void init() throws SQLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         if (System.getProperty("os.name").contains("Linux")) {
@@ -23,48 +27,71 @@ public class VorlesungUbersichtTest {
             options.addArguments("--remote-debugging-port=9222");
         }
         ChromeDriver driver = new ChromeDriver(options);
+        VorlesungUbersichtTest.driver = driver;
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
+        VorlesungUbersichtTest.connection = connection;
+        register();
+        login();
+    }
+
+    private static void register() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElementByName("password").sendKeys("testpassword");
+        driver.findElementByName("email").sendKeys("testmail");
+        driver.findElementByName("register-submit-button").click();
+    }
+
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).click();
+    }
+
+    @BeforeEach
+    public void reset() {
         driver.get("http://localhost:8080/vorlesungsubersicht");
-        return driver;
+    }
+
+    @AfterAll
+    public static void close() throws SQLException {
+        driver.close();
+        connection.close();
     }
 
     @Test
     public void verifyTitle() {
-        ChromeDriver driver = init();
         String title = driver.getTitle();
         assertTrue(title.contains("Vorlesungubersicht"));
-        driver.close();
     }
 
     @Test
     public void verifyHeading() {
-        ChromeDriver driver = init();
         String expectedHeading = "Users";
         //String actualHeading = driver.findElement(By.id("heading")).getText();
         String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
         assertEquals(expectedHeading, actualHeading);
-        driver.close();
     }
     @Test
     public void verifyGruppeerstellen() {
-        ChromeDriver driver = init();
 
         driver.findElement(By.linkText("Gruppe erstellen")).click();
 
         assertEquals("Annonce erstellen", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
-        driver.close();
     }
 
     @Test
     public void verifySuchfunktionWrongInput() {
-        ChromeDriver driver = init();
         driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
         driver.findElement(By.id("button1")).click();
 
 
         assertEquals("Vorlesungubersicht", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
-        driver.close();
     }
     //TODO Daten nach Test aus der DB löschen
     /*
@@ -82,19 +109,16 @@ public class VorlesungUbersichtTest {
 
     @Test
     public void verifGruppesucheneWrongInput() {
-        ChromeDriver driver = init();
 
         driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
         driver.findElement(By.id("button1")).click();
         String actualHeading = driver.findElement(By.id("textforwrong")).getText();
         assertEquals("Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.", actualHeading);
         System.out.println("title of page is: " + driver.getTitle());
-        driver.close();
     }
 //
     @Test
     public void testDBinsertWorks() throws SQLException {
-        ChromeDriver driver = init();
 
         Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         String sqlStatement = "INSERT INTO vorlesung (titel, kursnr, studiengang, cp) VALUES ('math', 'math2', 'Sozioinformatik', '9')";
@@ -119,9 +143,6 @@ public class VorlesungUbersichtTest {
         String sqlDel = "DELETE FROM vorlesung WHERE titel='math' AND kursnr ='math2' AND studiengang = 'Sozioinformatikt' AND cp='9'";
         Statement delStmt = connection.createStatement();
         delStmt.executeUpdate(sqlDel);
-
-        connection.close();
-        driver.close();
         assertEquals(present, true);
     }
 

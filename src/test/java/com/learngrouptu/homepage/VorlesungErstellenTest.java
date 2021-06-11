@@ -1,7 +1,6 @@
 package com.learngrouptu.homepage;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -14,7 +13,8 @@ public class VorlesungErstellenTest {
     private static ChromeDriver driver;
     private static Connection connection;
 
-    public ChromeDriver init() {
+    @BeforeAll
+    public static void init() throws SQLException {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
         if (System.getProperty("os.name").contains("Linux")) {
@@ -22,21 +22,49 @@ public class VorlesungErstellenTest {
             options.addArguments("--remote-debugging-port=9222");
         }
         ChromeDriver driver = new ChromeDriver(options);
+        VorlesungErstellenTest.driver = driver;
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
+        VorlesungErstellenTest.connection = connection;
+        register();
+        login();
+    }
+
+    private static void register() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElementByName("password").sendKeys("testpassword");
+        driver.findElementByName("email").sendKeys("testmail");
+        driver.findElementByName("register-submit-button").click();
+    }
+
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).click();
+    }
+
+    @BeforeEach
+    public void reset() {
         driver.get("http://localhost:8080/vorlesungsubersichterstellen");
-        return driver;
+    }
+
+    @AfterAll
+    public static void close() throws SQLException {
+        driver.close();
+        connection.close();
     }
 
     @Test
     public void verifyTitle() {
-        ChromeDriver driver = init();
         String title = driver.getTitle();
         assertTrue(title.contains("vorlesung erstellen"));
-        driver.close();
     }
 
     @Test
-    public void testUrlCorrectForCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
+    public void testUrlCorrectForCorrectInput() throws InterruptedException { ;
         driver.findElement(By.id("kursnr")).sendKeys("vlad");
         driver.findElement(By.id("cp")).sendKeys("9");
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
@@ -47,13 +75,10 @@ public class VorlesungErstellenTest {
         String expectedUrl = "http://localhost:8080/vorlesungadd";
 
         assertEquals(expectedUrl, realUrl);
-        driver.close();
     }
 
     @Test
     public void testUrlCorrectForIncorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
-
         driver.findElement(By.id("cp")).sendKeys("9");
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
         driver.findElement(By.id("titel")).sendKeys("math 4");
@@ -63,12 +88,10 @@ public class VorlesungErstellenTest {
         String expectedUrl = "http://localhost:8080/vorlesungsubersichterstellen";
 
         assertEquals(expectedUrl, realUrl);
-        driver.close();
     }
 
     @Test
     public void testContentCorrectForCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
         Double randNumb = Math.random();
         String rand = randNumb.toString().substring(2, 6);
         String vorlName = "vlad" + rand;
@@ -85,24 +108,20 @@ public class VorlesungErstellenTest {
         Assertions.assertTrue(realContent.contains(vorlName));
         Assertions.assertTrue(realContent.contains(kontakt));
         Assertions.assertTrue(realContent.contains(nachricht));
-        driver.close();
     }
 
     @Test
     public void testUrlCorrectForWrongInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
         driver.findElement(By.id("cp")).sendKeys("9");
         String before = driver.getCurrentUrl();
         driver.findElement(By.id("button1")).click();
         String after = driver.getCurrentUrl();
         assertEquals(before, after);
-        driver.close();
     }
 
     @Test
     public void testUrlCorrectForWrongAndCorrectInput() throws InterruptedException {
-        ChromeDriver driver = init();
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
 
         String before = driver.getCurrentUrl();
@@ -116,12 +135,10 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("button1")).click();
         after = driver.getCurrentUrl();
         assertNotEquals(before, after);
-        driver.close();
     }
 
     @Test
     public void testDBSuccessfullyInserted() throws SQLException {
-        ChromeDriver driver = init();
         Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         VorlesungErstellenTest.connection = connection;
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
@@ -144,6 +161,5 @@ public class VorlesungErstellenTest {
             }
         }
         assertEquals(present, true);
-        driver.close();
     }
 }

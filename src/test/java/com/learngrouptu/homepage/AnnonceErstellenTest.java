@@ -31,6 +31,7 @@ class AnnonceErstellenTest {
     }
 
     private static void register() {
+        driver.get("http://localhost:8080/login.html");
         driver.findElement(By.name("register-button")).click();
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");

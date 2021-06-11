@@ -97,6 +97,7 @@ public class LoginTest {
     }
 
     private static void register(String username, String email, String password) {
+        driver.get("http://localhost:8080/login.html");
         driver.findElement(By.name("register-button")).click();
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElementByName("password").sendKeys(password);

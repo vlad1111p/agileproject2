@@ -29,6 +29,24 @@ public class AnnonceSuchenTest {
 
         Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         AnnonceSuchenTest.connection = connection;
+        register();
+        login();
+    }
+
+    private static void register() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElementByName("password").sendKeys("testpassword");
+        driver.findElementByName("email").sendKeys("testmail");
+        driver.findElementByName("register-submit-button").click();
+    }
+
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).click();
     }
 
     @BeforeEach
