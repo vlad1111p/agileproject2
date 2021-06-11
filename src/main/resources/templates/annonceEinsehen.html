@@ -1,72 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="/css/index.css">
-  <link href="/css/table.css" rel="stylesheet">
-  <title>Annoncen einsehen</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>LearngroupTU</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+
+  <link href="/css/searchBar.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
 </head>
-<body>
-  <div class="navbarContainer" id="navBar">
-    <ul>
-      <li><a href="/home" th:href="@{/home}">Startseite</a></li>
-      <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-      <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
-      <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
-      <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a>
-    </ul>
-  </div>
-
-  <div class="content" id="content">
-    <form th:action="@{/searchAnnonce}" method="get" id="searchForm">
-
-      <label for="vorlName">Für welche Vorlesung suchst du eine Gruppe?</label><br>
-      <input id="vorlName" name="vorlName" placeholder="Vorlesung" type="text"><br>
-
-      <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
-      <label for="Lerngruppe">Lerngruppe</label><br>
-      <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
-      <label for="Übungsgruppe">Übungsgruppe</label><br>
-      <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
-      <label for="Beides">Beides</label><br>
-
-      <button id="button1">Suchen</button>
-    </form>
-
-    <div th:switch="${annoncen}">
-      <h2 th:case="null">Keine Annoncen bisher</h2>
-      <div th:case="*">
-        <h2>Annoncen</h2>
-        <table>
-          <thead>
-          <tr>
-           <!-- <th>Annonce ID</th> -->
-            <th>Vorlesung</th>
-            <th>Choice</th>
-            <th>Kontakt</th>
-            <th>Nachricht</th>
-            <th>Datum</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr class="tableRow" th:each="annonce : ${annoncen}">
-            <!--<td th:text="${annonce.annonceId}"></td>   -->
-            <td th:text="${annonce.vorlName}"></td>
-            <td th:text="${annonce.choice}"></td>
-            <td th:text="${annonce.kontakt}"></td>
-            <td th:text="${annonce.nachricht}"></td>
-            <td th:text="${annonce.datum}"></td>
-            <td>
-              <form th:action="@{/deleteannonce(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
-                <button id="delete" type="submit">Annonce löschen</button>
-              </form>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <p><a th:href="@{/annonceErstellen}">Neue Annonce erstellen</a></p>
+<body id="page-top" th:switch="${annoncen}">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars ms-1"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+        <li class="nav-item"><a class="nav-link" href="/home" th:href="@{/home}">Startseite</a></li>
+        <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+        <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+        <li class="nav-item"><a class="nav-link" href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+        <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
+      </ul>
     </div>
   </div>
+</nav>
+<div th:case="null">
+  <!-- Masthead-->
+  <header class="masthead" id="masthead1" >
+    <div class="container">
+      <div class="masthead-subheading">Keine Annoncen bisher</div>
+      <a class="btn btn-primary btn-xl text-uppercase" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a>
+    </div>
+  </header><header class="masthead" id="masthead1" >
+
+</header>
+  <section class="page-section" id="contact" >
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+        <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+      </div>
+    </div>
+  </section></div>
+<!-- Services-->
+<!-- Masthead-->
+<div th:case="*">
+  <header class="masthead" id="masthead1" >
+
+  </header>
+  <section class="page-section" id="services" >
+    <div class="container">
+      <form th:action="@{/searchAnnonce}" class="search__container" id="searchForm" method="GET" >
+        <p class="search__title">
+          Go ahead, hover over search
+        </p>
+        <label for="VorlName">Titel</label><br>
+        <input type="text" class="search__input" id="VorlName" name="VorlName"><br>
+        <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+        <label for="Lerngruppe">Lerngruppe</label><br>
+        <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+        <label for="Übungsgruppe">Übungsgruppe</label><br>
+        <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+        <label for="Beides">Beides</label><br>
+
+        <button id="button1">Suchen</button>
+      </form>
+      <div class="row" style="background-color: #e4e8eb">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title m-b-0">Static Table With Checkboxes</h5>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">Titel</th>
+                  <th scope="col">Kursnummer</th>
+                  <th scope="col">Studiengang</th>
+                  <th scope="col">CP</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                <tbody class="customtable">
+                <tr th:each="annonce : ${annoncen}">
+
+                  <td th:text="${annonce.vorlName}"></td>
+                  <td th:text="${annonce.choice}"></td>
+                  <td th:text="${annonce.kontakt}"></td>
+                  <td th:text="${annonce.nachricht}"></td>
+                  <td th:text="${annonce.datum}"></td>
+                  <td>
+                    <form th:action="@{/deleteannonce(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
+                      <button id="delete" type="submit">Annonce löschen</button>
+                    </form>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div></div><header class="masthead" id="masthead1" >
+
+    </header>
+    </div></section>
+  <!-- Contact-->
+  <section class="page-section" id="contact" >
+    <div class="container">
+      <div class="text-center">
+        <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+        <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+
+
+
+
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 </html>
