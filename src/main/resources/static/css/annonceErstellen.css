@@ -9,10 +9,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     font-family: 'Montserrat', sans-serif;
-    height: 100vh;
-    margin: -20px 0 50px;
+    height: 100%;
+    width: 100%;
 }
 
 h1 {
@@ -261,6 +260,42 @@ footer a {
 }
 
 /*ab hier navbar */
+
+.navbarContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    background:none;
+    border:none;
+    bottom:auto;
+    clear:none;
+    cursor:default;
+    /* didn't really know what the default for display should be*/
+    /*display:inline;*/
+    float:none;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:medium;
+    font-style:normal;
+    font-weight:normal;
+    height:auto;
+    letter-spacing:normal;
+    line-height:normal;
+    max-height:none;
+    max-width:none;
+    min-height:0;
+    min-width:0;
+    overflow:visible;
+    right:auto;
+    text-align:left;
+    text-decoration:none;
+    text-indent:0;
+    text-transform:none;
+    visibility:visible;
+    white-space:normal;
+    z-index:auto;
+}
 
 .navbarContainer ul {
     list-style-type: none;
