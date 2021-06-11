@@ -70,22 +70,6 @@ public class VorlesungUbersichtTest {
         assertTrue(title.contains("Vorlesungubersicht"));
     }
 
-    @Test
-    public void verifyHeading() {
-        String expectedHeading = "Users";
-        //String actualHeading = driver.findElement(By.id("heading")).getText();
-        String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
-        assertEquals(expectedHeading, actualHeading);
-    }
-    @Test
-    public void verifyGruppeerstellen() {
-
-        driver.findElement(By.linkText("Gruppe erstellen")).click();
-
-        assertEquals("Annonce erstellen", driver.getTitle());
-        System.out.println("title of page is: " + driver.getTitle());
-    }
-
 //    ToDo
 //    @Test
 //    public void verifyGruppeerstellen() {
