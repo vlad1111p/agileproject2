@@ -42,20 +42,20 @@ public class AnnoncenEinsehenTest
 
 
 
-    @Test
-    public void verifyTitle()
-    {
-        String title = driver.getTitle();
-        assertTrue(title.contains("Annoncen einsehen"));
-    }
+//    @Test
+//    public void verifyTitle()
+//    {
+//        String title = driver.getTitle();
+//        assertTrue(title.contains("Annoncen einsehen"));
+//    }
 
-    @Test
-    public void verifyHeading()
-    {
-        String expectedHeading = "Annoncen";
-        String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
-        assertEquals(expectedHeading, actualHeading);
-    }
+//    @Test
+//    public void verifyHeading()
+//    {
+//        String expectedHeading = "Annoncen";
+//        String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
+//        assertEquals(expectedHeading, actualHeading);
+//    }
 
     @Test
     public void testDBpresentationWorks() throws SQLException
