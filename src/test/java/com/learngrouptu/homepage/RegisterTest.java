@@ -26,12 +26,13 @@ public class RegisterTest {
 
         Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
         RegisterTest.connection = connection;
+        driver.get("http://localhost:8080/perform_logout");
     }
 
     @AfterAll
     public static void deleteTestDebrisAndClose() throws SQLException {
-        RegisterTest.driver.close();
         cleanDB();
+        driver.close();
         connection.close();
     }
 
@@ -254,6 +255,7 @@ public class RegisterTest {
     }
 
     private void register(String username, String email, String password) {
+        driver.get("http://localhost:8080/login.html");
         driver.findElement(By.name("register-button")).click();
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElementByName("password").sendKeys(password);

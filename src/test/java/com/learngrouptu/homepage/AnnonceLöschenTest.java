@@ -30,7 +30,6 @@ public class AnnonceLöschenTest
             options.addArguments("--remote-debugging-port=9222");
         }
         ChromeDriver driver = new ChromeDriver(options);
-        driver.get("http://localhost:8080/annoncenEinsehen");
         AnnonceLöschenTest.driver = driver;
 
         Connection connection = DriverManager.getConnection("jdbc:sqlite:LearngroupTU.db");
@@ -107,15 +106,16 @@ public class AnnonceLöschenTest
         assertEquals(expected, true);
 
     }*/
+/* TODO
 
     @Test
     public void deleteCorrectAnnonce() throws SQLException
     {
-        /*
+
         WebElement elem = driver.findElementById("ID");
         System.out.println(elem.getText());
-    */
-    }
+
+    }*/
 
 
 
