@@ -41,7 +41,6 @@
         <table>
           <thead>
           <tr>
-            <th>Annonce ID</th>
             <th>Vorlesung</th>
             <th>Choice</th>
             <th>Kontakt</th>
@@ -51,7 +50,6 @@
           </thead>
           <tbody>
           <tr class="tableRow" th:each="annonce : ${annoncen}">
-            <td th:text="${annonce.annonceId}"></td>
             <td th:text="${annonce.vorlName}"></td>
             <td th:text="${annonce.choice}"></td>
             <td th:text="${annonce.kontakt}"></td>
