@@ -6,15 +6,15 @@
     <link href="/css/index.css" rel="stylesheet">
     <title>vorlesung erstellen</title>
 </head>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 <body>
-<div class="navbarContainer" id="navBar">
+<div  id="navBar">
     <ul>
-        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/home" th:href="@{/home}">Startseite</a></li>
         <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
-        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesungserstellen</a>
-        </li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
     </ul>
 </div>
 <div class="container" id="content">
@@ -23,18 +23,23 @@
 
         <div class="form-container sign-in-container">
             <form method="post" th:action="@{/vorlesungadd}" th:object="${vorlesung}">
-                <label for="kursnr">kursnr</label>
-                <input id="kursnr" placeholder="kursnr" th:field="*{kursnr}" type="text" required="true">
-                <span th:errors="*{kursnr}" th:if="${#fields.hasErrors('kursnr')}"></span>
-                <label for="cp">cp</label>
-                <input id="cp" placeholder="cp" th:field="*{cp}" type="text" required="true">
-                <span th:errors="*{cp}" th:if="${#fields.hasErrors('cp')}"></span>
-                <label for="studiengang">studiengang</label>
-                <input id="studiengang" placeholder="studiengang" th:field="*{studiengang}" type="text" required="true">
-                <span th:errors="*{studiengang}" th:if="${#fields.hasErrors('studiengang')}"></span>
-                <label for="titel">titel</label>
-                <input id="titel" placeholder="titel" th:field="*{titel}" type="text" required="true">
+                <label for="titel">Titel</label>
+                <input id="titel" placeholder="Titel" th:field="*{titel}" type="text" required="true">
                 <span th:errors="*{titel}" th:if="${#fields.hasErrors('titel')}"></span>
+
+                <label for="kursnr">Kursnummer</label>
+                <input id="kursnr" placeholder="Kursnummer" th:field="*{kursnr}" type="text" required="true">
+                <span th:errors="*{kursnr}" th:if="${#fields.hasErrors('kursnr')}"></span>
+
+                <label for="studiengang">Studiengang</label>
+                <input id="studiengang" placeholder="Studiengang" th:field="*{studiengang}" type="text" required="true">
+                <span th:errors="*{studiengang}" th:if="${#fields.hasErrors('studiengang')}"></span>
+
+                <label for="cp">CP</label>
+                <input id="cp" placeholder="CP" th:field="*{cp}" type="text" required="true">
+                <span th:errors="*{cp}" th:if="${#fields.hasErrors('cp')}"></span>
+
+
                 <input id="button1" type="submit" value="Vorlesung erstellen">
             </form>
         </div>

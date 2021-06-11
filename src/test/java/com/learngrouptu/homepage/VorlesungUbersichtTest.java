@@ -15,6 +15,8 @@ public class VorlesungUbersichtTest {
     private static Connection connection;
 
 
+
+
     public ChromeDriver init() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--headless");
@@ -38,7 +40,7 @@ public class VorlesungUbersichtTest {
     @Test
     public void verifyHeading() {
         ChromeDriver driver = init();
-        String expectedHeading = "Users";
+        String expectedHeading = "Vorlesungsübersicht";
         //String actualHeading = driver.findElement(By.id("heading")).getText();
         String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
         assertEquals(expectedHeading, actualHeading);
@@ -105,6 +107,8 @@ public class VorlesungUbersichtTest {
         ResultSet rs = stmt.executeQuery(sqlStatement2);
 
         boolean present = false;
+
+
 
         while (rs.next()) {
             String dbVorl = (rs.getString("titel"));
