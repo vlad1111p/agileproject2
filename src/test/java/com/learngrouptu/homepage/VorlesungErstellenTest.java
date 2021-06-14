@@ -48,7 +48,7 @@ public class VorlesungErstellenTest {
 
     @BeforeEach
     public void reset() {
-        driver.get("http://localhost:8080/vorlesungsubersichterstellen");
+        driver.get("http://localhost:8080/vorlesungErstellen");
     }
 
     @AfterAll
@@ -85,7 +85,7 @@ public class VorlesungErstellenTest {
 
         driver.findElement(By.id("button1")).click();
         String realUrl = driver.getCurrentUrl();
-        String expectedUrl = "http://localhost:8080/vorlesungsubersichterstellen";
+        String expectedUrl = "http://localhost:8080/vorlesungErstellen";
 
         assertEquals(expectedUrl, realUrl);
     }

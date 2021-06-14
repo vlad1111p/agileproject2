@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Annonce erstellen</title>
+    <title>Vorlesung erstellen</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -40,7 +40,7 @@
                 <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
                 <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
                 <li class="nav-item"><a class="nav-link" href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
-                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}"><b>Vorlesung hinzufügen</b></a></li>
             </ul>
         </div>
     </div>
@@ -56,7 +56,7 @@
 
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="titel">Bitte geben sie die daten für die vorlesung ein</label>
+                <label for="titel">Gib hier die Daten der Vorlesung ein</label>
                 <input id="titel" placeholder="Titel"  th:field="*{titel}"
                        type="text" required="true"  class="input1">
                 <span class="shadow-input1" th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
