@@ -72,7 +72,7 @@ public class AnnonceSuchenTest {
         driver.get("http://localhost:8080/annonceErstellen");
         driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung");
         driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
-        Select objSelect = new Select(driver.findElement(By.id("choice")));
+        Select objSelect = new Select(driver.findElement(By.name("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
         driver.findElement(By.id("Nachricht")).sendKeys("Testnachricht");
         driver.findElement(By.id("button1")).click();

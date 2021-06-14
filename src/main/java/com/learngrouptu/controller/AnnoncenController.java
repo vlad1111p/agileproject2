@@ -51,7 +51,7 @@ public class AnnoncenController {
     }
 
     @GetMapping("/annonceErstellen")
-    public String showAnnonceErstellen(Annonce annonce){
+    public String showAnnonceErstellen(Model model, Annonce annonce){
         return "annonceErstellen";
     }
 
