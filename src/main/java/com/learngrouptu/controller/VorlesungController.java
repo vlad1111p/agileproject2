@@ -40,9 +40,9 @@ public class VorlesungController {
     }
 
 
-    @GetMapping("/vorlesungsubersichterstellen")
+    @GetMapping("/vorlesungErstellen")
     public String showVorlesungErstellen(Vorlesung vorlesung) {
-        return "vorlesungsubersichterstellen";
+        return "vorlesungErstellen";
     }
 
     @GetMapping("/vorlesungsgruppeerstellen")
@@ -70,7 +70,7 @@ public class VorlesungController {
 
         if(id1!=""){
             vorllist = vorllist.stream()
-                .filter(vorl -> vorl.getTitel().contains(id1))
+                .filter(vorl -> vorl.getTitel().toLowerCase().contains(id1.toLowerCase()))
                 .collect(Collectors.toList());
             if (vorllist.isEmpty()){
                 return "vorlesungsubersicht";
@@ -98,9 +98,9 @@ public class VorlesungController {
     }
 
     @PostMapping(value = "/vorlesungadd")
-    public String addUser(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
+    public String addVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "redirect:vorlesungsubersichterstellen?error=true";
+            return "redirect:vorlesungErstellen?error=true";
         }
         else {
             vorlesungRepository.save(vorlesung);
