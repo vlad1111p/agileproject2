@@ -22,11 +22,11 @@
   <div th:switch="${userAnnoncen}">
     <h2 th:case="null">Keine Annoncen bisher</h2>
     <div th:case="*">
-      <h2>Users</h2>
+      <h2>Alle von mir erstellten Annoncen</h2>
       <table>
         <thead>
         <tr>
-          <th>Vorlesung</th>
+          <th>Vorlesungsname</th>
           <th>Choice</th>
           <th>Kontakt</th>
           <th>Nachricht</th>
