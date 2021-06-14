@@ -340,7 +340,7 @@ option.input1 + .shadow-input1 {
 .contact1-form-btn:hover {
   color: #01588d;
   background: #00bbff;
-  border-color: #01588d
+  border-color: #01588d;
 }
 
 .contact1-form-btn:hover i {
