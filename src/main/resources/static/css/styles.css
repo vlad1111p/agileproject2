@@ -5333,15 +5333,26 @@ textarea.form-control-lg {
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
+  color: #01588d;
 }
 
 .modal-body {
   position: relative;
   flex: 1 1 auto;
   padding: 1rem;
+  margin: 1rem;
+  color: #01588d;
+  background-color: #e4e8eb;
+}
+.loginFormat {
+  position: center;
+  padding: 1rem;
+  margin-top: 1em;
 }
 
+
 .modal-footer {
+  color: #01588d;
   display: flex;
   flex-wrap: wrap;
   flex-shrink: 0;
@@ -10934,6 +10945,7 @@ p {
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #01588d;
+  background-color: #fff;
 }
 
 @media (min-width: 992px) {
