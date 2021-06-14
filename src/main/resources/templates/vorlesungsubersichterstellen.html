@@ -1,49 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>Annonce erstellen</title>
     <meta charset="UTF-8">
-    <link href="/css/annonceErstellen.css" rel="stylesheet">
-    <link href="/css/index.css" rel="stylesheet">
-    <title>vorlesung erstellen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="assets/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--	<link rel="stylesheet" type="text/css" href="css/style.css"> -->
+    <link href="/css/styles.css" rel="stylesheet">
+    <!--===============================================================================================-->
 </head>
-<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
-<body>
-<div  id="navBar">
-    <ul>
-        <li><a href="/home" th:href="@{/home}">Startseite</a></li>
-        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
-        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
-        <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
-    </ul>
-</div>
-<div class="container" id="content">
-    <h2>Vorlesung erstellen</h2>
-    <div class="container" id="container">
 
-        <div class="form-container sign-in-container">
-            <form method="post" th:action="@{/vorlesungadd}" th:object="${vorlesung}">
-                <label for="titel">Titel</label>
-                <input id="titel" placeholder="Titel" th:field="*{titel}" type="text" required="true">
-                <span th:errors="*{titel}" th:if="${#fields.hasErrors('titel')}"></span>
-
-                <label for="kursnr">Kursnummer</label>
-                <input id="kursnr" placeholder="Kursnummer" th:field="*{kursnr}" type="text" required="true">
-                <span th:errors="*{kursnr}" th:if="${#fields.hasErrors('kursnr')}"></span>
-
-                <label for="studiengang">Studiengang</label>
-                <input id="studiengang" placeholder="Studiengang" th:field="*{studiengang}" type="text" required="true">
-                <span th:errors="*{studiengang}" th:if="${#fields.hasErrors('studiengang')}"></span>
-
-                <label for="cp">CP</label>
-                <input id="cp" placeholder="CP" th:field="*{cp}" type="text" required="true">
-                <span th:errors="*{cp}" th:if="${#fields.hasErrors('cp')}"></span>
-
-
-                <input id="button1" type="submit" value="Vorlesung erstellen">
-            </form>
+<body id="page-top" >
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
+            </ul>
         </div>
     </div>
+</nav>
+
+<div class="contact1">
+    <div class="container-contact1">
+        <div class="contact1-pic js-tilt" data-tilt>
+            <img src="assets/tulogoTest2.png" alt="IMG">
+        </div>
+
+        <form class="contact1-form validate-form" th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post" id="nameForm">
+
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="titel">Bitte geben sie die daten für die vorlesung ein</label>
+                <input id="titel" placeholder="Titel"  th:field="*{titel}"
+                       type="text" required="true"  class="input1">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="kursnr"></label>
+                <input class="input1" type="text" id="kursnr" th:field="*{kursnr}"  placeholder="Kursnummer">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('kursnr')}" th:errors="*{kursnr}"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="studiengang"></label>
+                <input class="input1" type="text" id="studiengang" th:field="*{studiengang}" placeholder="Studiengang">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
+            </div>
+
+
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="cp"></label>
+                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="CP">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
+            </div>
+
+            <div class="container-contact1-form-btn">
+                <button class="contact1-form-btn" type="submit">
+						<span>
+							Abschicken
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+                </button>
+            </div>
+        </form>
+    </div>
 </div>
+
+
+
+
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
 </body>
 </html>

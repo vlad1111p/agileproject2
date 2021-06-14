@@ -1,51 +1,131 @@
-<!-- Code ursprünglich from https://codepen.io/FlorinPop17/pen/vPKWjd -->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/annonceErstellen.css">
     <title>Annonce erstellen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="assets/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!--	<link rel="stylesheet" type="text/css" href="css/style.css"> -->
+    <link href="/css/styles.css" rel="stylesheet">
+    <!--===============================================================================================-->
 </head>
-
-    <div class="navbarContainer" id="navBar">
-        <ul>
-            <li><a href="/home" th:href="@{/home}">Startseite</a></li>
-            <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-            <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
-            <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
-            <li><a href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a>
-        </ul>
+<body id="page-top" th:switch="${vorlesungsubersicht1}">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link" href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung hinzufügen</a></li>
+            </ul>
+        </div>
     </div>
-<div th:switch="${vorlesungsubersicht1}">
-<div class="container" id="content">
-    <h2>Annonce erstellen</h2>
-    <div class="container" id="container">
+</nav>
 
-        <div class="form-container sign-in-container">
-            <form th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
+<div class="contact1">
+    <div class="container-contact1">
+        <div class="contact1-pic js-tilt" data-tilt>
+            <img src="assets/tulogoTest2.png" alt="IMG">
+        </div>
+
+        <form class="contact1-form validate-form" th:action = "@{/addannonce}" th:object="${annonce}" method = "post" id="nameForm">
+				<span class="contact1-form-title">
+					Annonce erstellen
+				</span>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
                 <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
-                       type="text" required="true">
-                <input id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" type="text" required="true">
-                <span th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
-                <label for="choice">Lern oder Übungsgruppe</label>
-                <select id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
-                    <option th:value="Lerngruppe">Lerngruppe</option>
-                    <option th:value ="Übungsgruppe">Übungsgruppe</option>
-                </select>
-                <span th:if="${#fields.hasErrors('choice')}" th:errors="*{choice}"></span>
+                       type="text" required="true"  class="input1">
+                <input class="input1" type="text" id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungsubersicht1}" required="true" placeholder="Vorlesung">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="kontakt">Wie kann man dich erreichen?</label>
-                <input id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email" required="true"/>
-                <span th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
-                <label for="nachricht">Was möchtest du noch sagen?</label>
-                <input type="text" th:field="*{nachricht}" id="nachricht" placeholder="Nachricht">
-                <span th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
+                <input class="input1" type="text" id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
+            </div>
 
-                <button id="button1">Abschicken</button>
-            </form>
-        </div>
+            <div id="choice" class="wrap-input1">
+                <label for="choice">Lern- oder Übungsgruppe</label>
+                <select class="wrap-input1 input1" id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
+                    <option class="wrap-input1 input1" value="Lerngruppe">Lerngruppe</option>
+                    <option class="wrap-input1 input1" value="Übungsgruppe">Übungsgruppe</option>
+                    <span class="shadow-input1"></span>
+            </div>
+
+
+
+            <div class="wrap-input1 validate-input">
+                <textarea class="input1" th:field="*{nachricht}" id="nachricht" placeholder="Was möchtest du noch sagen? (optional)"></textarea>
+                <span class="shadow-input1" th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
+            </div>
+
+            <div class="container-contact1-form-btn">
+                <button class="contact1-form-btn">
+						<span>
+							Abschicken
+							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+						</span>
+                </button>
+            </div>
+        </form>
     </div>
+</div>
 
 
-        </div>
-    </div>
 
 
+<!--===============================================================================================-->
+<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+</body>
+</html>
