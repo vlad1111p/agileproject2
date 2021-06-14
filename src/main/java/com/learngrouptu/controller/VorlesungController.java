@@ -100,10 +100,11 @@ public class VorlesungController {
     @PostMapping(value = "/vorlesungadd")
     public String addUser(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "redirect:vorlesungsubersichterstellen";
+            return "redirect:vorlesungsubersichterstellen?error=true";
         }
-
-        vorlesungRepository.save(vorlesung);
-        return "vorlesungsubersichterstellen";
+        else {
+            vorlesungRepository.save(vorlesung);
+            return "redirect:vorlesungsubersicht";
+        }
     }
 }
