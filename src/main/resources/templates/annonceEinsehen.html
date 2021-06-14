@@ -44,7 +44,8 @@
   <header class="masthead" id="masthead1" >
     <div class="container">
       <div class="masthead-subheading">Keine Annoncen bisher</div>
-      <a class="btn btn-primary btn-xl text-uppercase" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a>
+      <a class="btn btn-primary btn-xl text-uppercase" href="/annonceErstellen" th:href="@{/annonceErstellen(vorlName=${annonceDTO.getVorlName()}, choice=${annonceDTO.getChoice()})}">
+        Annonce erstellen</a>
     </div>
   </header><header class="masthead" id="masthead1" >
 
