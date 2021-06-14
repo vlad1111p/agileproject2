@@ -2,6 +2,7 @@ package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.Select;
@@ -143,7 +144,7 @@ class AnnonceErstellenTest {
         assertEquals(present, true);
     }
 
-    private void createAnnonce(String vorlesung, String kontakt, boolean choice) { // choice -> true = Lerngruppe | false = Uebungsgruppe
+    private void createAnnonce(String vorlesung, String kontakt, boolean choice) throws InterruptedException { // choice -> true = Lerngruppe | false = Uebungsgruppe
         driver.findElement(By.id("vorlName")).sendKeys(vorlesung);
         driver.findElement(By.id("kontakt")).sendKeys(kontakt);
         Select objSelect = new Select(driver.findElement(By.name("choice")));
@@ -152,7 +153,7 @@ class AnnonceErstellenTest {
         } else {
             objSelect.selectByVisibleText("Übungsgruppe");
         }
-        driver.findElement(By.name("submit-button")).submit();
+        driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
     }
 
     private void createAnnonce(String vorlName, String kontakt, boolean choice, String nachricht) {
@@ -165,7 +166,7 @@ class AnnonceErstellenTest {
             objSelect.selectByVisibleText("Übungsgruppe");
         }
         driver.findElement(By.id("nachricht")).sendKeys(nachricht);
-        driver.findElement(By.name("submit-button")).submit();
+        driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
     }
 
     private String getRandKontakt() {

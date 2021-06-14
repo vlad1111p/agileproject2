@@ -64,13 +64,13 @@
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="kursnr"></label>
-                <input class="input1" type="text" id="kursnr" th:field="*{kursnr}"  placeholder="Kursnummer">
+                <input class="input1" type="text" id="kursnr" th:field="*{kursnr}"  placeholder="Kursnummer" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('kursnr')}" th:errors="*{kursnr}"></span>
             </div>
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="studiengang"></label>
-                <input class="input1" type="text" id="studiengang" th:field="*{studiengang}" placeholder="Studiengang">
+                <input class="input1" type="text" id="studiengang" th:field="*{studiengang}" placeholder="Studiengang" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
             </div>
 
@@ -78,12 +78,12 @@
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="cp"></label>
-                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="CP">
+                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="CP" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
             </div>
 
             <div class="container-contact1-form-btn">
-                <button class="contact1-form-btn" type="submit">
+                <button name="vorlesung-submit" class="contact1-form-btn" type="submit">
 						<span>
 							Abschicken
 							<i class="fa fa-long-arrow-right" aria-hidden="true"></i>

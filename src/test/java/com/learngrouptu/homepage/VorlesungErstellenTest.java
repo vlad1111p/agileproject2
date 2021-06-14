@@ -58,21 +58,15 @@ public class VorlesungErstellenTest {
     }
 
     @Test
-    public void verifyTitle() {
-        String title = driver.getTitle();
-        assertTrue(title.contains("vorlesung erstellen"));
-    }
-
-    @Test
     public void testUrlCorrectForCorrectInput() throws InterruptedException { ;
         driver.findElement(By.id("kursnr")).sendKeys("vlad");
         driver.findElement(By.id("cp")).sendKeys("9");
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
         driver.findElement(By.id("titel")).sendKeys("math 4");
 
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         String realUrl = driver.getCurrentUrl();
-        String expectedUrl = "http://localhost:8080/vorlesungadd";
+        String expectedUrl = "http://localhost:8080/vorlesungsubersicht";
 
         assertEquals(expectedUrl, realUrl);
     }
@@ -83,7 +77,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
         driver.findElement(By.id("titel")).sendKeys("math 4");
 
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         String realUrl = driver.getCurrentUrl();
         String expectedUrl = "http://localhost:8080/vorlesungsubersichterstellen";
 
@@ -103,7 +97,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("cp")).sendKeys(cp);
         driver.findElement(By.id("titel")).sendKeys(kontakt);
         driver.findElement(By.id("studiengang")).sendKeys(nachricht);
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         String realContent = driver.getPageSource().toString();
         Assertions.assertTrue(realContent.contains(vorlName));
         Assertions.assertTrue(realContent.contains(kontakt));
@@ -115,7 +109,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
         driver.findElement(By.id("cp")).sendKeys("9");
         String before = driver.getCurrentUrl();
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         String after = driver.getCurrentUrl();
         assertEquals(before, after);
     }
@@ -125,14 +119,14 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("studiengang")).sendKeys("Sozioinformatik");
 
         String before = driver.getCurrentUrl();
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         String after = driver.getCurrentUrl();
 
         assertEquals(before, after);
         driver.findElement(By.id("cp")).sendKeys("9");
         driver.findElement(By.id("kursnr")).sendKeys("testnachricht");
         driver.findElement(By.id("titel")).sendKeys("testnachricht");
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
         after = driver.getCurrentUrl();
         assertNotEquals(before, after);
     }
@@ -145,7 +139,7 @@ public class VorlesungErstellenTest {
         driver.findElement(By.id("cp")).sendKeys("9");
         driver.findElement(By.id("kursnr")).sendKeys("testnachricht");
         driver.findElement(By.id("titel")).sendKeys("testnachricht");
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("vorlesung-submit")).click();
 
         String sqlStatement = "SELECT titel, kursnr, studiengang, cp FROM vorlesung";
         Statement stmt = connection.createStatement();

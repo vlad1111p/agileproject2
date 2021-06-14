@@ -74,8 +74,8 @@ public class AnnonceSuchenTest {
         driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
         Select objSelect = new Select(driver.findElement(By.name("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
-        driver.findElement(By.id("Nachricht")).sendKeys("Testnachricht");
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.id("nachricht")).sendKeys("Testnachricht");
+        driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
         Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/addannonce"));
         driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung");
         driver.findElement(By.id("button1")).submit();
@@ -93,15 +93,15 @@ public class AnnonceSuchenTest {
         Assertions.assertTrue(ifCorrect);
     }
 
-    /*
-    @Test
+
+    // TODO
+    /*@Test
     public void checkIfChoiceButtonWorksCorrectly(){
-        Select objSelect = new Select(driver.findElement(By.id("choice")));
-        objSelect.selectByVisibleText("Lerngruppe");
+        driver.findElement(By.id("Lerngruppe")).sendKeys(Keys.RETURN);
         driver.findElement(By.id("button1")).submit();
         //boolean ifCorrect = (driver.findElementsByXPath("//*[@class = 'tableRow']").stream().count()==0);
         //List<WebElement> list = driver.findElements(By.name("Übungsgruppe"));
-        long num = driver.findElements(By.name("Übungsgruppe")).stream().count();
+        long num = driver.findElements(By.id("Übungsgruppe")).stream().count();
         boolean ifCorrect = (num==1);
         Assertions.assertTrue(ifCorrect);
     }*/
