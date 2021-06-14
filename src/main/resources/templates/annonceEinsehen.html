@@ -32,6 +32,7 @@
         <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}"><b>Startseite</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}"><b>Annonce erstellen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}"><b>Vorlesungen</b></a></li>
         <li class="nav-item"><a class="nav-link" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}"><b>Vorlesung hinzufügen</b></a></li>
       </ul>
@@ -66,7 +67,7 @@
     <div class="container">
       <form th:action="@{/searchAnnonce}" class="search__container" id="searchForm" method="GET" >
         <p class="search__title">
-          Go ahead, hover over search
+          Schnellsuchfunktion:
         </p>
         <label for="vorlName">Titel</label><br>
         <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
@@ -89,12 +90,12 @@
               <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th scope="col">Titel</th>
-                  <th scope="col">Kursnummer</th>
-                  <th scope="col">Studiengang</th>
-                  <th scope="col">CP</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
+                  <th scope="col">Vorlesunngsname</th>
+                  <th scope="col">Choice</th>
+                  <th scope="col">Kontakt</th>
+                  <th scope="col">Nachricht</th>
+                  <th scope="col">Datum</th>
+                 <!-- <th scope="col"></th> -->
                 </tr>
                 </thead>
                 <tbody class="customtable">
