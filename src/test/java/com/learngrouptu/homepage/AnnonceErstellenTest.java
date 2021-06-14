@@ -146,26 +146,26 @@ class AnnonceErstellenTest {
     private void createAnnonce(String vorlesung, String kontakt, boolean choice) { // choice -> true = Lerngruppe | false = Uebungsgruppe
         driver.findElement(By.id("vorlName")).sendKeys(vorlesung);
         driver.findElement(By.id("kontakt")).sendKeys(kontakt);
-        Select objSelect = new Select(driver.findElement(By.id("choice")));
+        Select objSelect = new Select(driver.findElement(By.name("choice")));
         if (choice) {
             objSelect.selectByVisibleText("Lerngruppe");
         } else {
             objSelect.selectByVisibleText("Übungsgruppe");
         }
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.name("submit-button")).submit();
     }
 
     private void createAnnonce(String vorlName, String kontakt, boolean choice, String nachricht) {
         driver.findElement(By.id("vorlName")).sendKeys(vorlName);
         driver.findElement(By.id("kontakt")).sendKeys(kontakt);
-        Select objSelect = new Select(driver.findElement(By.id("choice")));
+        Select objSelect = new Select(driver.findElement(By.name("choice")));
         if (choice) {
             objSelect.selectByVisibleText("Lerngruppe");
         } else {
             objSelect.selectByVisibleText("Übungsgruppe");
         }
-        driver.findElement(By.id("Nachricht")).sendKeys(nachricht);
-        driver.findElement(By.id("button1")).click();
+        driver.findElement(By.id("nachricht")).sendKeys(nachricht);
+        driver.findElement(By.name("submit-button")).submit();
     }
 
     private String getRandKontakt() {
