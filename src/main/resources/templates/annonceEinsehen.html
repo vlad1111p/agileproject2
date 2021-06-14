@@ -84,13 +84,13 @@
         <div class="col-12">
           <div class="card">
             <div class="card-body text-center">
-              <h5 class="card-title m-b-0">Static Table With Checkboxes</h5>
+              <h5 class="card-title m-b-0">Übersicht über alle Annoncen</h5>
             </div>
             <div class="table-responsive">
               <table class="table">
                 <thead class="thead-light">
                 <tr>
-                  <th scope="col">Vorlesunngsname</th>
+                  <th scope="col">Vorlesungsname</th>
                   <th scope="col">Choice</th>
                   <th scope="col">Kontakt</th>
                   <th scope="col">Nachricht</th>
@@ -106,11 +106,6 @@
                   <td th:text="${annonce.kontakt}"></td>
                   <td th:text="${annonce.nachricht}"></td>
                   <td th:text="${annonce.datum}"></td>
-                  <td>
-                    <form th:action="@{/deleteannonce(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
-                      <button id="delete" type="submit">Annonce löschen</button>
-                    </form>
-                  </td>
                 </tr>
                 </tbody>
               </table>
