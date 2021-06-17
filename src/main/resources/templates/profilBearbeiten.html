@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>LearngroupTU</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+
+  <link href="/css/searchBar.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet">
+</head>
+<body>
+<h2>Trage hier deine aktualisierten Angaben ein:</h2>
+<form th:action = "@{/change_profile}" th:object="${user}" name='profile_change-form' method='POST'>
+  <label for="studiengang">Gib deinen Studiengang ein</label>
+  <input type="text" th:field="*{studiengang}" id="studiengang" placeholder="Studiengang">
+  <span th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
+
+  <label for="abschluss">Welchen Abschluss strebst du an?</label>
+  <select id="abschluss" th:field="*{abschluss}" name="abschluss" placeholder="Bachelor oder Master">
+    <option value="Bachelor">Bachelor</option>
+    <option value="Master">Master</option>
+  </select>
+  <span th:if="${#fields.hasErrors('abschluss')}" th:errors="*{abschluss}"></span>
+
+  <label for="bio">Gib hier deine Bio ein:</label>
+  <input type="text" th:field="*{bio}" id="bio" placeholder="Bio">
+  <span th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
+
+  <input name="profile_change-submit-button" type="submit" value="submit" />
+</form>
+</body>
+</html>
