@@ -3,17 +3,18 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:400,700,900');
 
 /*SearchBar*/
-}
 
-form.search__container{
-
-
-}
 .search__container {
     float: left;
-        padding-top: 20%;
+    padding-top: 20%;
     padding-right: 10%;
     }
+
+.search__container2 {
+    float: left;
+    padding-top: 20%;
+    padding-right: 10%;
+}
 
     .search__title {
         font-size: 22px;
@@ -53,7 +54,8 @@ form.search__container{
             outline: 0;
             border: 1px solid transparent;
             border-bottom: 1px solid #575756;
-            border-radius: 0;
+            border-radius: 15px;
             background-position: 100% center;
+            background-color: #B0BDC6;
         }
 /*SearchBarEnd*/
