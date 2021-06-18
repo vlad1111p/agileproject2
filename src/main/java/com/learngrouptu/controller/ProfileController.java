@@ -30,6 +30,8 @@ public class ProfileController {
 
     @GetMapping("/profileChange")
     public String changeProfile(Model model, User user) {
+
+        model.addAttribute("user", userService.getCurrentUser());
         return "profilBearbeiten";
     }
 
@@ -40,19 +42,12 @@ public class ProfileController {
         String abschluss = user.getAbschluss();
         String bio = user.getBio();
 
-        if (!studiengang.equals("")) {
-            currUser.setStudiengang(studiengang);
-        }
-        if (!abschluss.equals("")) {
-            currUser.setAbschluss(abschluss);
-        }
-        if (!bio.equals("")) {
-            currUser.setBio(bio);
-        }
 
-        System.out.println(studiengang);
-        System.out.println(abschluss);
-        System.out.println(bio);
+        currUser.setStudiengang(studiengang);
+
+        currUser.setAbschluss(abschluss);
+
+        currUser.setBio(bio);
 
         userRepository.save(currUser);
 
