@@ -77,13 +77,7 @@ public class AnnoncenController {
         //return "redirect:annonceEinsehen";
     }
 
-    /*@RequestMapping("/searchAnnonce")
-    @ResponseBody
-    public String getUserInput(@RequestParam(name="vorlName") String vorlName, @RequestParam String choice){
-        System.out.println(vorlName + choice);
-        return "annonceErstellen?vorlName=vorlName&choice=choice";
-        //return "vorlName:" + vorlName + "choice" + choice;
-    }*/
+
 
     @GetMapping("/searchAnnonce")
     public String searchAnnonce(Model model, @RequestParam(name="vorlName",required = false) String vorlName,
