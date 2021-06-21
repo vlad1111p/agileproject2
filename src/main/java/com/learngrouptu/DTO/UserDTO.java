@@ -89,7 +89,7 @@ public class UserDTO {
     }
 
     public void setAbschluss(String abschluss) throws AbschlussNotAllowedException {
-        if (!(abschluss.equals("Bachelor") || abschluss.equals("Master"))) {
+        if (!(abschluss.equals("Bachelor") || abschluss.equals("Master") || abschluss.equals("Keine Angabe") || abschluss.equals("Diplom"))) {
             throw new AbschlussNotAllowedException();
         }
         this.abschluss = abschluss;

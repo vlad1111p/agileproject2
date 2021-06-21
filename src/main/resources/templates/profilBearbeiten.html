@@ -19,24 +19,56 @@
   <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
-<h2>Trage hier deine aktualisierten Angaben ein:</h2>
-<form th:action = "@{/change_profile}" th:object="${user}" name='profile_change-form' method='POST'>
-  <label for="studiengang">Gib deinen Studiengang ein</label>
-  <input type="text" th:field="*{studiengang}" id="studiengang" placeholder="Studiengang">
-  <span th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fas fa-bars ms-1"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}"><b>Startseite</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}"><b>Annonce erstellen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}"><b>Profil einstellen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}"><b>Vorlesungen</b></a></li>
+        <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}"><b>Vorlesung hinzufügen</b></a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-  <label for="abschluss">Welchen Abschluss strebst du an?</label>
-  <select id="abschluss" th:field="*{abschluss}" name="abschluss" placeholder="Bachelor oder Master">
-    <option value="Bachelor">Bachelor</option>
-    <option value="Master">Master</option>
-  </select>
-  <span th:if="${#fields.hasErrors('abschluss')}" th:errors="*{abschluss}"></span>
+<header class="masthead" id="masthead1"></header>
+<div class="container">
+  <div class="col-12">
+    <h2>Trage hier deine aktualisierten Angaben ein:</h2>
+    <br />
+    <form th:action = "@{/change_profile}" th:object="${user}" name='profile_change-form' method='POST'>
+      <label for="studiengang" class="form-label">Gib deinen Studiengang ein</label>
+      <input type="text" class="form-control" th:field="*{studiengang}" id="studiengang" placeholder="Studiengang">
+      <span th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
+      <br />
 
-  <label for="bio">Gib hier deine Bio ein:</label>
-  <input type="text" th:field="*{bio}" id="bio" placeholder="Bio">
-  <span th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
+      <label for="abschluss" class="form-label">Welchen Abschluss strebst du an?</label>
+      <select id="abschluss" class="form-select" th:field="*{abschluss}" name="abschluss" placeholder="Bachelor oder Master">
+        <option value="Keine Angabe">Keine Angabe</option>
+        <option value="Bachelor">Bachelor</option>
+        <option value="Master">Master</option>
+        <option value="Diplom">Diplom</option>
+      </select>
+      <span th:if="${#fields.hasErrors('abschluss')}" th:errors="*{abschluss}"></span>
+      <br />
 
-  <input name="profile_change-submit-button" type="submit" value="submit" />
-</form>
+      <label for="bio" class="form-label">Gib hier deine Bio ein:</label>
+      <textarea type="text" class="form-control" th:field="*{bio}" id="bio" placeholder="Bio"></textarea>
+      <span th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
+      <br />
+
+      <input name="profile_change-submit-button" class="btn btn-primary" type="submit" value="submit" />
+    </form>
+  </div>
+</div>
 </body>
 </html>

@@ -45,10 +45,17 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Dein Profil</h3>
+                    <div class="row">
+                        <div class="col-2">
+                            <h3>Dein Profil</h3>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-primary" role="button" href="profileChange">Bearbeiten </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="container">
+                    <div>
                         <div class="row">
                             <div class="col">
                                 Dein Studiengang
@@ -58,7 +65,7 @@
                                     Du hast hier noch nichts eingetragen
                                 </div>
                                 <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
-                                    <p th:text="${userProfile.getStudiengang()}"></p>
+                                    <div th:text="${userProfile.getStudiengang()}"></div>
                                 </div>
                             </div>
                         </div>
@@ -67,25 +74,34 @@
                                 Dein Abschluss
                             </div>
                             <div class="col">
-                                <div th:if="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
+                                <div th:if="${userProfile.getAbschluss()==null}">
                                     Du hast hier noch nichts eingetragen
                                 </div>
                                 <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
-                                    <p th:text="${userProfile.getAbschluss()}"></p>
+                                    <div th:text="${userProfile.getAbschluss()}"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <p>Deine Bio</p>
-                    <div class="container">
-                        <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                            Du hast hier noch nichts eingetragen
-                        </div>
-                        <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                            <p th:text="${userProfile.getBio()}"></p>
+                        <div class="row">
+                            <div class="col">
+                                <br />
+                            </div>
+                            <div class="col">
+                            </div>
                         </div>
                     </div>
-                    <a href="profileChange">Klicke hier um dein Profil zu bearbeiten</a>
+                    <div>
+                        <div>Deine Bio</div>
+                        <div>
+                            <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                Du hast hier noch nichts eingetragen
+                            </div>
+                            <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                <div th:text="${userProfile.getBio()}"></div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
