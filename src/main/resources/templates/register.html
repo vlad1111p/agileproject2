@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/styles.css" rel="stylesheet" />
+  <link href="css/registerStyle.css" rel="stylesheet" />
   <!--  <link rel="stylesheet" th:href="@{css.styles.css}"/> -->
 
 
@@ -46,48 +46,62 @@
 
 <header class="masthead">
     <div class="container">
-        <div class="masthead-heading text-uppercase">Registrierung</div>
+        <div class="masthead-heading text-uppercase">Bitte registriere dich!</div>
+        <!-- RegisterError -->
+        <div th:if = "${param.usererror}">
+            Der gewählte Username ist schon vergeben, bitte wähle einen anderen.
+        </div>
+
+        <div th:if = "${param.emailerror}">
+            Die gewählte E-Mail Adresse ist schon vergeben, bitte wähle eine andere.
+        </div>
+        <!-- RegisterErrorEnd -->
+
+        <!-- RegisterFormStart -->
+
+        <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
+            <div class="form-group">
+            <label for="email" class="labelclassRegister">Gib eine E-Mail Adresse ein</label>
+            <input type="text" th:field="*{email}" id="email" placeholder="E-Mail" class="form-control" required>
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+            </div>
+            <div class="form-group">
+            <label for="username" class="labelclassRegister">Gib einen Usernamen ein</label>
+            <input type="text" th:field="*{username}" id="username" placeholder="Username" class="form-control" required>
+            <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+            </div>
+            <div class="form-group">
+            <label for="password" class="labelclassRegister">Gib ein Passwort ein</label>
+            <input type="password" th:field="*{password}" id="password" placeholder="Passwort" class="form-control" required>
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+            </div>
+
+            <input name="register-submit-button" type="submit" value="Los geht´s" class ="btn-xl submitRegister text-uppercase btn-primary"/>
+
+        </form>
+        <!-- RegisterFormEnd -->
+    </div>
         <a href="/login">
+            <div class="container">
+
+
             <button type="button" class="btn btn-primary btn-xl text-uppercase">Noch nicht bereit?</button>
+            </div>
         </a>
     </div>
 </header>
 
-    <p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
 
 
-<section class="page-section" id="register">
+<!-- Contact - bzw. section als footer ersatz-->
+<section class="page-section" id="contact">
     <div class="container">
-
-<!-- RegisterError -->
-<div th:if = "${param.usererror}">
-    Der gewählte Username ist schon vergeben, bitte wähle einen anderen.
-</div>
-
-<div th:if = "${param.emailerror}">
-    Die gewählte E-Mail Adresse ist schon vergeben, bitte wähle eine andere.
-</div>
-<!-- RegisterErrorEnd -->
-
-<!-- RegisterFormStart -->
-    <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
-
-    <label for="email">Gib eine E-Mail Adresse an</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E-Mail" required>
-    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-
-    <label for="username">Gib einen Usernamen an</label>
-    <input type="text" th:field="*{username}" id="username" placeholder="Username" required>
-    <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
-
-    <label for="password">Gib ein Passwort an</label>
-    <input type="password" th:field="*{password}" id="password" placeholder="Passwort" required>
-    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
-
-    <input name="register-submit-button" type="submit" value="submit" />
-    </form>
-<!-- RegisterFormEnd -->
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+            <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+        </div>
     </div>
 </section>
+
     </body>
 </html>
