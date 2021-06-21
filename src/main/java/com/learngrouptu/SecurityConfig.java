@@ -104,6 +104,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
         //.logoutSuccessHandler(logoutSuccessHandler());
     }
 
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         //
