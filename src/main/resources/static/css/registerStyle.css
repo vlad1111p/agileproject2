@@ -2158,7 +2158,9 @@ progress {
 
 .form-control {
     display: block;
-    width: 100%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
     padding: 0.375rem 0.75rem;
     font-size: 1rem;
     font-weight: 400;
@@ -10998,10 +11000,12 @@ p {
     }
 }
 header.masthead {
-    padding-top: 10.5rem;
+    padding-top: 8rem;
     padding-bottom: 6rem;
     text-align: center;
-    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #01588d;
     /*background-image: url("../assets/img/TuKL.jpg");*/
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -11336,6 +11340,7 @@ header#masthead1 .masthead-subheading {
 .img-brand {
     height: 2.75rem;
 }
+
 
 section#contact {
     background-color: #01588d;
