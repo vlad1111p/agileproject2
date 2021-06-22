@@ -7,6 +7,9 @@
 <body>
 <h1>Login</h1>
 <p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
+<div id="errortext">
+    Die eingegebene Kombination aus Username und Passwort ist nicht korrekt. Hast du dich vielleicht vertippt?
+</div>
 <form name='login_form' action="perform_login" method='POST'>
     <table>
         <tr>
@@ -29,4 +32,15 @@
     </form>
 </div>
 </body>
+<script type="text/javascript">
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var error = url.searchParams.get("error");
+    var errortext = document.getElementById("errortext");
+    if (error === null) {
+        errortext.style.display = "none";
+    } else {
+        errortext.style.display = "block";
+    }
+</script>
 </html>
