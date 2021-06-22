@@ -50,7 +50,7 @@
                             <h3>Dein Profil</h3>
                         </div>
                         <div class="col">
-                            <a class="btn btn-primary" role="button" href="profileChange">Bearbeiten </a>
+                            <a name="profileChangeButton" class="btn btn-primary" role="button" href="profileChange">Bearbeiten </a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                             <div class="col">
                                 Dein Studiengang
                             </div>
-                            <div class="col">
+                            <div name="studiengang" class="col">
                                 <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
                                     Du hast hier noch nichts eingetragen
                                 </div>
@@ -73,7 +73,7 @@
                             <div class="col">
                                 Dein Abschluss
                             </div>
-                            <div class="col">
+                            <div name="abschluss" class="col">
                                 <div th:if="${userProfile.getAbschluss()==null}">
                                     Du hast hier noch nichts eingetragen
                                 </div>
@@ -92,7 +92,7 @@
                     </div>
                     <div>
                         <div>Deine Bio</div>
-                        <div>
+                        <div name="bio">
                             <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
                                 Du hast hier noch nichts eingetragen
                             </div>
