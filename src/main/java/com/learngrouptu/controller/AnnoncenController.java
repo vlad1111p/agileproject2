@@ -73,8 +73,10 @@ public class AnnoncenController {
     public String deleteAnnonce(@RequestParam Integer id, Model model){
 
         annonceRepository.deleteByAnnonceId(id);
-        return showAnnonceEinsehen(model);
+       // return showAnnonceEinsehen(model);
+       // return showMeineAnnoncen(model);
         //return "redirect:annonceEinsehen";
+        return "redirect:meineAnnoncen";
     }
 
 
