@@ -66,6 +66,11 @@
 
   </header>
   <section class="page-section" id="services" >
+    <div class="container" th:if="${annonceCreated == true}">
+      <div class="col-12">
+        Deine Anonnce wurde erstellt.
+      </div>
+    </div>
     <div class="container">
       <form th:action="@{/searchAnnonce}" class="search__container" id="searchForm" method="GET" >
         <p class="search__title">

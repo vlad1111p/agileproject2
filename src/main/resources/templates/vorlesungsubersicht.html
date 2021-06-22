@@ -65,6 +65,11 @@
 
 </header>
 <section class="page-section" id="services" >
+    <div class="container" th:if="${vorlesungCreated == true}">
+        <div class="col-12">
+            Deine Vorlesung wurde erstellt.
+        </div>
+    </div>
     <div class="container">
         <form action="/searchLecture" class="search__container" method="GET" >
             <p class="search__title">

@@ -66,6 +66,8 @@ public class AnnoncenController {
         user.addAnnonce(annonce);
         annonceRepository.save(annonce);
 
+        model.addAttribute("annonceCreated", true);
+
         return showAnnonceEinsehen(model);
     }
 

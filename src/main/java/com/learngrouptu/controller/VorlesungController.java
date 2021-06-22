@@ -104,7 +104,8 @@ public class VorlesungController {
         }
         else {
             vorlesungRepository.save(vorlesung);
-            return "redirect:vorlesungsubersicht";
+            model.addAttribute("vorlesungCreated", true);
+            return showVorlesungEinsehen(model);
         }
     }
 }
