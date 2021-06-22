@@ -100,9 +100,11 @@ public class ProfileTest {
 
         driver.findElementByName("profileChangeButton").sendKeys(Keys.RETURN);
 
+        driver.findElementById("studiengang").clear();
         driver.findElementById("studiengang").sendKeys(testStudiengang);
         Select objSelect = new Select(driver.findElement(By.id("abschluss")));
         objSelect.selectByVisibleText(testAbschluss);
+        driver.findElementById("bio").clear();
         driver.findElementById("bio").sendKeys(testBio);
         driver.findElementByName("profile_change-submit-button").sendKeys(Keys.RETURN);
 
