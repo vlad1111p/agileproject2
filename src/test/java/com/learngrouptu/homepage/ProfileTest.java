@@ -1,11 +1,6 @@
 package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.*;
-import org.junit.Test;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -68,7 +63,6 @@ public class ProfileTest {
     @BeforeEach
     public void reset() {
         driver.get("http://localhost:8080/profilEinstellen");
-        System.out.println("test");
     }
 
     private String getRandStudiengang() {
