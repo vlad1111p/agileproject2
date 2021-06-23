@@ -13,6 +13,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
+
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -61,6 +62,10 @@ body {
   background-color: #fff;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+#delete {
+  /*
+  background-color: #B0BDC6;*/
 }
 
 hr {
@@ -2959,17 +2964,17 @@ textarea.form-control-lg {
 
 .btn-check:focus + .btn-primary, .btn-primary:focus {
   color: #fff;
-  background-color: #d9aa00;
-  border-color: #cca000;
-  box-shadow: 0 0 0 0.25rem rgba(255, 208, 38, 0.5);
+  background-color: #BF1515;
+  border-color: #BF1515;
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
 }
 .btn-check:checked + .btn-primary, .btn-check:active + .btn-primary, .btn-primary:active, .btn-primary.active, .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #cca000;
-  border-color: #bf9600;
+  background-color: #BF1515;
+  border-color: #BF1515;
 }
 .btn-check:checked + .btn-primary:focus, .btn-check:active + .btn-primary:focus, .btn-primary:active:focus, .btn-primary.active:focus, .show > .btn-primary.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.25rem rgba(255, 208, 38, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.5);
 }
 .btn-primary:disabled, .btn-primary.disabled {
   color: #fff;
@@ -3074,19 +3079,19 @@ textarea.form-control-lg {
 }
 .btn-warning:hover {
   color: #fff;
-  background-color: #d9aa00;
-  border-color: #cca000;
+  background-color: #BF1515;
+  border-color: #BF1515;
 }
 .btn-check:focus + .btn-warning, .btn-warning:focus {
   color: #fff;
-  background-color: #d9aa00;
-  border-color: #cca000;
-  box-shadow: 0 0 0 0.25rem rgba(255, 208, 38, 0.5);
+  background-color: #BF1515;
+  border-color: #BF1515;
+  box-shadow: 0 0 0 0.25rem rgba(191, 21, 21, 0.5);
 }
 .btn-check:checked + .btn-warning, .btn-check:active + .btn-warning, .btn-warning:active, .btn-warning.active, .show > .btn-warning.dropdown-toggle {
   color: #fff;
-  background-color: #cca000;
-  border-color: #bf9600;
+  background-color: #BF1515;
+  border-color: #BF1515;
 }
 .btn-check:checked + .btn-warning:focus, .btn-check:active + .btn-warning:focus, .btn-warning:active:focus, .btn-warning.active:focus, .show > .btn-warning.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.25rem rgba(255, 208, 38, 0.5);
@@ -4469,9 +4474,9 @@ textarea.form-control-lg {
 }
 .accordion-button:focus {
   z-index: 3;
-  border-color: #ffe480;
+  border-color: #BF1515;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(255, 200, 0, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(191, 21, 21, 0.25);
 }
 
 .accordion-header {
@@ -5340,7 +5345,9 @@ textarea.form-control-lg {
   background-color: #e4e8eb;
 }
 .loginFormat {
-  position: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
   margin-top: 1em;
 }
@@ -10928,9 +10935,11 @@ p {
 }
 #mainNav .navbar-nav .nav-item .nav-link {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  display: block;
   font-size: 0.95rem;
   color: #fff;
   letter-spacing: 0.0625em;
+  border-radius: 15px;
 
 }
 
@@ -10939,6 +10948,7 @@ p {
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+  display: block;
   color: #01588d;
   background-color: #fff;
 }
@@ -11335,6 +11345,32 @@ section#contact {
 section#contact .section-heading {
   color: #fff;
 }
+.maxW70 {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.maxW70:focus{
+  font-weight: bold;
+  color: #01588d;
+  background-color: #fff;
+  border-color: #BF1515;
+  box-shadow: 0 0 0 0.25rem rgba(191, 21, 21, 1);
+}
+
+.loginLabel {
+  color: #01588d;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.medSpace{
+  display: block;
+  margin-top: 10px;
+}
+
 section#contact form#contactForm .form-group {
   margin-bottom: 1.5rem;
 }

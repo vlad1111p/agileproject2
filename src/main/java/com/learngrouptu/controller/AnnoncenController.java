@@ -76,17 +76,13 @@ public class AnnoncenController {
     public String deleteAnnonce(@RequestParam Integer id, Model model){
 
         annonceRepository.deleteByAnnonceId(id);
-        return showAnnonceEinsehen(model);
+       // return showAnnonceEinsehen(model);
+       // return showMeineAnnoncen(model);
         //return "redirect:annonceEinsehen";
+        return "redirect:meineAnnoncen";
     }
 
-    /*@RequestMapping("/searchAnnonce")
-    @ResponseBody
-    public String getUserInput(@RequestParam(name="vorlName") String vorlName, @RequestParam String choice){
-        System.out.println(vorlName + choice);
-        return "annonceErstellen?vorlName=vorlName&choice=choice";
-        //return "vorlName:" + vorlName + "choice" + choice;
-    }*/
+
 
     @GetMapping("/searchAnnonce")
     public String searchAnnonce(Model model, @RequestParam(name="vorlName",required = false) String vorlName,

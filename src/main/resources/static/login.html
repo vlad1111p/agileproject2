@@ -1,36 +1,305 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th = "https://www.thymeleaf.org/">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
-    <meta charset="UTF-8">
-    <title>login</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>LearngroupTU</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
 </head>
-<body>
-<h1>Login</h1>
-<p>Du hast auf die Seite noch kein Zugriff! Bitte logge dich zunächst hier ein.</p>
-<div id="errortext">
-    Die eingegebene Kombination aus Username und Passwort ist nicht korrekt. Hast du dich vielleicht vertippt?
-</div>
-<form name='login_form' action="perform_login" method='POST'>
-    <table>
-        <tr>
-            <td>Username:</td>
-            <td><input type='text' name='username' value=''></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password' /></td>
-        </tr>
-        <tr>
-            <td><input name="login-button" type="submit" value="submit" /></td>
-        </tr>
-    </table>
-</form>
-<div>
-    <p>Noch keinen Account? Klicke hier zum registrieren:</p>
-    <form name='registrierungsbutton' action = "register" method="post">
-         <input name = "register-button" type="submit" value="Registrieren" />
-    </form>
-</div>
+<body id="page-top" th:switch="${/login}">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+        <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button> -->
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Masthead-->
+
+<header class="masthead">
+    <div class="container">
+        <!--   https://www.uni-kl.de/fileadmin/_processed_/1/5/csm_Turm_2d1a4c58a6.jpg    -->
+        <div class="masthead-subheading">Welcome To LearngroupTU</div>
+        <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+        <!--Start Neu Login -->
+        <!-- Button trigger modal -->
+        <button type="button" id="loginModal" class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            Login
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Login</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="errortext">
+                            Die eingegebene Kombination aus Username und Passwort ist nicht korrekt. Hast du dich vielleicht vertippt?
+                        </div>
+
+                        <form name='login_form' action="perform_login" method='POST'>
+
+                        <div class="form-group">
+                            <label for="username" class="loginLabel">Benutzer:</label>
+                            <input type='text' name='username' id="username" value='' class="form-control maxW70">
+                        </div>
+                           <div class="form-group">
+                               <label for="password" class="loginLabel">Passwort:</label>
+                               <input type='password' name='password' id="password" class="form-control maxW70"/>
+                           </div>
+                            <div class="medSpace">
+                            <input name="login-button" type="submit" value="Login" class="btn btn-primary" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Login/Modal-->
+        <a href="/register">
+        <button type="button" id="register-button" class="btn btn-primary btn-xl text-uppercase"  ata-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+            Registrierung
+        </button></a>
+        <!-- Registrierung/Modal -->
+        <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Registrierung</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <a href="register">Regiertrier dich</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- End Registrierung/Modal-->
+
+    </div>
+</header>
+<!-- Services-->
+<section class="page-section" id="services">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Gemeinsam statt Einsam!</h2>
+            <h3 class="section-subheading text-muted">
+                Deine Suche hat ein Ende! Mit LearngroupTU findest du die richtigen Mitstudierende im Handumdrehen.<br>
+                Das bieten wir dir!</h3>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                        </span>
+                <h4 class="my-3">Kostenlos</h4>
+                <p class="text-muted">Unseren Service kannst du voll und ganz <br> 100% kostenlos nutzen! </p>
+            </div>
+            <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                        </span>
+                <h4 class="my-3">Digital Connecten</h4>
+                <p class="text-muted">Wie oft sucht jemand eine Lern- oder Übungsgruppe? Bisher haben das die Studenten
+                    meist persönlich nach einer Vorlesung oder in der ersten Übungsstunde unter sich geregelt. Wie wäre es, wenn du online
+                    gezielt nach Mitstudierenden für eine Zusammenarbeit suchen könntest? Das ist durch unsere Suchfunktion kein Problem mehr!    </p>
+            </div>
+            <div class="col-md-4">
+                        <span class="fa-stack fa-4x">
+                            <i class="fas fa-circle fa-stack-2x text-primary"></i>
+                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                        </span>
+                <h4 class="my-3">Web Security</h4>
+                <p class="text-muted">LearngroupTU verfügt über eine breite Palette von Sicherheitsmaßnahmen, um sicherzustellen, dass deine Daten und Informationen immer sicher sind.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About-->
+<section class="page-section bg-light" id="about">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">About</h2>
+            <h3 class="section-subheading text-muted">Unsere Geschichte und der Gedanke hinter dem Projekt</h3>
+        </div>
+        <ul class="timeline">
+            <li>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>Januar 2020</h4>
+                        <h4 class="subheading">Coronavirus in Deutschland</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">Der Universitätsalltag stellt uns vor enorme Herausforderungen.
+                        Durch die Corona-Pandemie mussten die Vorlesungssäle leer bleiben und der
+                        Studentenalltag wurde nicht leichter.</p></div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>2020</h4>
+                        <h4 class="subheading">Schleppende Digitalisierung</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">Seit Ausbruch der Pandemie hatten Schulen jeglicher Art einen enormen Druck im Bereich Digitalisierung.
+                        Sie waren jedoch schon vollständig mit der Organisation des Unterrichtsbetriebes ausgelastet. Neben dem Kern-Digitalpaket(2019 - vor Corona) hatte der
+                        Bund nach dem Ausbruch der Pandemie drei weitere Programme im Umfang von jeweils 500 Millionen Euro aufgelegt. Da kam einiges ins Rollen.. </p></div>
+                </div>
+            </li>
+            <li>
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>2020/2021</h4>
+                        <h4 class="subheading">Online Unterricht</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">Soziale Isolation, Angst um Angehörige und ein möglicherweise verlängertes Studium:
+                        Viele Studenten leiden unter den Corona-Maßnahmen nicht nur finanziell. Besonders hart trifft es jene, die vorbelastet sind. </p></div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4>Mai 2021</h4>
+                        <h4 class="subheading">Unsere bescheidenen Anfänge</h4>
+                    </div>
+                    <div class="timeline-body"><p class="text-muted">//todo</p></div>
+                </div>
+            </li>
+            <li class="timeline-inverted">
+                <div class="timeline-image">
+                    <h4>
+                        werde Teil
+                        <br />
+                        von
+                        <br />
+                        LearngroupTU!
+                    </h4>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<!-- Team-->
+<section class="page-section bg-light" id="team">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">unser erstaunliches Team</h2>
+            <h3 class="section-subheading text-muted">Jeder hat zu dem Erfolg von LearngroupTU beigetragen.</h3>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/mark.png" alt="..." />
+                    <h4>Mark Emmert</h4>
+                    <p class="text-muted">//todo</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/jonas.png" alt="..." />
+                    <h4>Jonas der Master Elsler</h4>
+                    <p class="text-muted">Heftigster Scrum-Master</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/felix.png" alt="..." />
+                    <h4>Felix Homola</h4>
+                    <p class="text-muted">//todo</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/milli.jpg" alt="..." />
+                    <h4>Milli Müller</h4>
+                    <p class="text-muted">Für die Frauenquote</p>
+           <!--         <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/drdarkoo"><i class="fab fa-twitter"></i></a>
+
+                    <a class="btn btn-dark btn-social mx-2" href="https://de.linkedin.com/in/darko-obradovic-39666b168"><i class="fab fa-linkedin-in"></i></a>   -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/andy.png" alt="..." />
+                    <h4>Andreas Nowack</h4>
+                    <p class="text-muted">Tschu tschuuuuu</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/julian.jpg" alt="..." />
+                    <h4>Julian Schneider</h4>
+                    <p class="text-muted">Maschine - die nie funktioniert</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/lasse.png" alt="..." />
+                    <h4>Lasse Cezanne</h4>
+                    <p class="text-muted">Ohne TDD? Ohne mich!</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="team-member">
+                    <img class="mx-auto rounded-circle" src="assets/img/team/vlad.png" alt="..." />
+                    <h4>Vlad Mihalea</h4>
+                    <p class="text-muted">Sonntag ist kein Urlaubstag</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center"> <p class="large text-muted"></p></div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact - bzw. section als footer ersatz-->
+<section class="page-section" id="contact">
+    <div class="container">
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Kontaktiere uns!</h2>
+            <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
+        </div>
+    </div>
+</section>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- * *                               SB Forms JS                               * *-->
+<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
 <script type="text/javascript">
     var url_string = window.location.href;

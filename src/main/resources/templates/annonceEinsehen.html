@@ -22,14 +22,14 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+    <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       Menu
       <i class="fas fa-bars ms-1"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
+        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite &nbsp;&nbsp; ☜ ( ͡^ ͜ʖ ͡^)</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
@@ -55,7 +55,7 @@
       <p class="search__title">
         Schnellsuchfunktion:
       </p>
-      <label for="vorlName">Titel</label><br>
+      <label for="vorlName">Vorlesungsname</label><br>
       <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
       <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
       <label for="Lerngruppe">Lerngruppe</label><br>
@@ -64,7 +64,7 @@
       <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
       <label for="Beides">Beides</label><br>
 
-      <button id="button1">Suchen</button>
+      <button id="button1" class="btn btn-primary">Suchen</button>
     </form>
 </div>
   <!--endSearch in nullCase -->
@@ -101,7 +101,7 @@
         <p class="search__title">
           Schnellsuchfunktion:
         </p>
-        <label for="vorlName">Titel</label><br>
+        <label for="vorlName">Vorlesungsname</label><br>
         <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
         <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
         <label for="Lerngruppe">Lerngruppe</label><br>
@@ -110,9 +110,9 @@
         <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
         <label for="Beides">Beides</label><br>
 
-        <button id="button1">Suchen</button>
+        <button id="button1" class="btn btn-primary">Suchen</button>
       </form>
-      <div class="row" style="background-color: #e4e8eb">
+      <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-body text-center">
