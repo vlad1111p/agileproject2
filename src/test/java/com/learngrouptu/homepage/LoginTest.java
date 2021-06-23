@@ -64,6 +64,7 @@ public class LoginTest {
 
     @Test
     public void testCorrectUrlOnSuccessfulLogin() {
+      /*  driver.findElementById("loginModal").click();*/
         login("testuser", "testpasswort");
         driver.getCurrentUrl().equals(url_homepage);
     }
