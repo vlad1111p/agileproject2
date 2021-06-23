@@ -29,8 +29,8 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}"><b>Startseite</b></a></li>
-        <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}"><b>Annonce erstellen</b></a></li>
+        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
+        <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}"><b>Profil einstellen</b></a></li>
@@ -48,7 +48,29 @@
       <a class="btn btn-primary btn-xl text-uppercase" href="/annonceErstellen" th:href="@{/annonceErstellen(vorlName=${annonceDTO.getVorlName()}, choice=${annonceDTO.getChoice()})}">
         Annonce erstellen</a>
     </div>
-  </header><header class="masthead" id="masthead1" >
+  </header>
+  <!-- Search in nullCase -->
+<div class="container">
+    <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
+      <p class="search__title">
+        Schnellsuchfunktion:
+      </p>
+      <label for="vorlName">Titel</label><br>
+      <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
+      <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+      <label for="Lerngruppe">Lerngruppe</label><br>
+      <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+      <label for="Übungsgruppe">Übungsgruppe</label><br>
+      <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+      <label for="Beides">Beides</label><br>
+
+      <button id="button1">Suchen</button>
+    </form>
+</div>
+  <!--endSearch in nullCase -->
+
+
+  <header class="masthead" id="masthead1" >
 
 </header>
   <section class="page-section" id="contact" >
@@ -58,7 +80,10 @@
         <h3 class="section-subheading text-white">Wir freuen uns über Feedback jeglicher Art</h3>
       </div>
     </div>
-  </section></div>
+  </section>
+</div>
+<!--  End nullCase  -->
+
 <!-- Services-->
 <!-- Masthead-->
 <div th:case="*">
@@ -72,7 +97,7 @@
       </div>
     </div>
     <div class="container">
-      <form th:action="@{/searchAnnonce}" class="search__container" id="searchForm" method="GET" >
+      <form th:action="@{/searchAnnonce}" class="search__container" method="GET" >
         <p class="search__title">
           Schnellsuchfunktion:
         </p>
