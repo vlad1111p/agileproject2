@@ -71,17 +71,18 @@
             </div>
 
             <div id="choice" class="wrap-input1">
-                <label for="choice">Lern- oder Übungsgruppe</label>
+                <label for="choice">Lern- oder Übungsgruppe:</label>
                 <select class="wrap-input1 input1" id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
                     <option class="wrap-input1 input1" value="Lerngruppe">Lerngruppe</option>
                     <option class="wrap-input1 input1" value="Übungsgruppe">Übungsgruppe</option>
                     <span class="shadow-input1"></span>
+                </select>
             </div>
 
 
-
-            <div class="wrap-input1 validate-input">
-                <textarea class="input1" th:field="*{nachricht}" id="nachricht" placeholder="Was möchtest du noch sagen? (optional)"></textarea>
+            <div class="wrap-input1 validate-input" id="nachricht">
+                <label for="nachricht">Nachricht(optional):</label>
+                <textarea class="input1" th:field="*{nachricht}" name="nachricht" id="nachricht" placeholder="Was möchtest du noch sagen?"></textarea>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
             </div>
 

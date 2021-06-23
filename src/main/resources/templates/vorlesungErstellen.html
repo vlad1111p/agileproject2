@@ -59,29 +59,29 @@
 
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="titel">Gib hier die Daten der Vorlesung ein</label>
-                <input id="titel" placeholder="Titel"  th:field="*{titel}"
+                <label for="titel">Gib hier den Titel der Vorlesung ein:</label>
+                <input id="titel" placeholder="z.B. Informationssysteme"  th:field="*{titel}"
                        type="text" required="true"  class="input1">
                 <span class="shadow-input1" th:if="${#fields.hasErrors('titel')}" th:errors="*{titel}"></span>
             </div>
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="kursnr"></label>
-                <input class="input1" type="text" id="kursnr" th:field="*{kursnr}"  placeholder="Kursnummer" required>
+                <label for="kursnr">Kursnummer:</label>
+                <input class="input1" type="text" id="kursnr" th:field="*{kursnr}"  placeholder="z.B. INF-11-11-K-1" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('kursnr')}" th:errors="*{kursnr}"></span>
             </div>
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="studiengang"></label>
-                <input class="input1" type="text" id="studiengang" th:field="*{studiengang}" placeholder="Studiengang" required>
+                <label for="studiengang">Studiengang:</label>
+                <input class="input1" type="text" id="studiengang" th:field="*{studiengang}" placeholder="z.B. Informatik" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('studiengang')}" th:errors="*{studiengang}"></span>
             </div>
 
 
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="cp"></label>
-                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="CP" required>
+                <label for="cp">Credit Points:</label>
+                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="z.B. 4" required>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
             </div>
 
