@@ -29,7 +29,6 @@ public class ProfileController {
 
     @GetMapping("/profileChange")
     public String changeProfile(Model model, User user) {
-
         model.addAttribute("user", userService.getCurrentUser());
         return "profilBearbeiten";
     }

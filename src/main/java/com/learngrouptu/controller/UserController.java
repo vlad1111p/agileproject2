@@ -39,7 +39,6 @@ public class UserController {
     public ModelAndView addUser(@Valid User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            System.out.println("Something went wrong");
             return new ModelAndView("redirect:register");
         }
 
@@ -60,9 +59,6 @@ public class UserController {
             ModelAndView mav = new ModelAndView("redirect:register");
             mav.addObject("usererror", true);
             return mav;
-
-            //return "redirect:/register?error=usererror";
-
         } catch (EmailDuplicateException e) {
             ModelAndView mav = new ModelAndView("redirect:register");
             mav.addObject("emailerror", true);

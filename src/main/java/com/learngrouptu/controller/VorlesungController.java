@@ -29,9 +29,9 @@ public class VorlesungController {
     }
 
 
-    @GetMapping("/vorlesungsubersicht")
+    @GetMapping("/vorlesungEinsehen")
     public String showVorlesungEinsehen(Model model) {
-        model.addAttribute("vorlesungsubersicht", vorlesungRepository.findAll());
+        model.addAttribute("vorlesungen", vorlesungRepository.findAll());
         return "vorlesungEinsehen";
     }
 
