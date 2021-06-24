@@ -4036,7 +4036,8 @@ textarea.form-control-lg {
 }
 
 .navbar-nav-scroll {
-  max-height: var(--bs-scroll-height, 75vh);
+  /*max-height: var(--bs-scroll-height, 75vh);*/
+  max-height: content-box;
   overflow-y: auto;
 }
 
@@ -10917,8 +10918,13 @@ welcomeSection {
   padding: 0;
   border-radius: 100%;
 }
+.containerNavbar {
+  margin-right: auto;
+  margin-left: 4rem;
+}
 
 #mainNav {
+ /* height: 100px;*/
   padding-top: 1rem;
   padding-bottom: 1rem;
   background-color: #212529;
@@ -11609,7 +11615,10 @@ button{outline:none!important;border:none;background:0 0}
 button:hover{cursor:pointer}
 iframe{border:none!important}
 .contact1{width:100%;min-height:100%;
-  padding:15px;
+ /* padding:15px;*/
+  margin-top: auto;
+  margin-bottom: auto;
+
   background:#e4e8eb;
   /*
   background:-webkit-linear-gradient(left,#01588d,#00c6ff);
@@ -11628,6 +11637,7 @@ iframe{border:none!important}
   display:-webkit-flex;display:-moz-box;display:-ms-flexbox;display:flex;flex-wrap:wrap;justify-content:space-between;
   align-items:center;
   margin-top: auto;
+  /*margin-bottom: auto;*/
   padding:20px 130px 88px 148px;
 }
 .contact1-pic{width:296px}.contact1-pic img{max-width:100%}.contact1-form{width:390px}.contact1-form-title{display:block;font-family:Montserrat-ExtraBold;font-size:24px;color:#333;line-height:1.2;text-align:center;padding-bottom:44px}
