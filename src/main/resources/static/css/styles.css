@@ -7414,8 +7414,14 @@ textarea.form-control-lg {
   color: inherit !important;
 }
 
+.shadowText {
+  text-shadow: 2px 2px 4px #000000;
+}
+
+
 .bg-primary {
-  background-color: #01588d !important;
+  background-color: rgb(108,117,125, 0.25) !important;
+  background-color: transparent;
 }
 
 .bg-secondary {
