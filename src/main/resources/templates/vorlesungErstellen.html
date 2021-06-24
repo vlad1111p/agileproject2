@@ -57,10 +57,20 @@
         </div>
 
         <form class="contact1-form validate-form" th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post" id="nameForm">
+            <!-- TODO background here is not white, why? -->
+            <div class="container" th:if="${vorlesungDoppelt == true}">
+                <div class="row">
+                    <div class="card">
+                        <div class="alert alert-primary" role="alert">
+                            Diese Vorlesung existiert bereits.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <span class="contact1-form-title">
 					Vorlesung hinzufügen
 				</span>
-
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="titel">Gib hier die Daten der Vorlesung ein</label>

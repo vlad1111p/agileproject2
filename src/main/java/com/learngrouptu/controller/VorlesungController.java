@@ -103,9 +103,22 @@ public class VorlesungController {
             return "redirect:vorlesungErstellen?error=true";
         }
         else {
-            vorlesungRepository.save(vorlesung);
-            model.addAttribute("vorlesungCreated", true);
-            return showVorlesungEinsehen(model);
+            try {
+                if (vorlesungRepository.findVorlesungByKursnr(vorlesung.getKursnr()) != null) {
+                    throw new VorlesungController.VorlesungDuplicateException();
+                }
+                vorlesungRepository.save(vorlesung);
+                model.addAttribute("vorlesungCreated", true);
+                return showVorlesungEinsehen(model);
+            }
+            catch (VorlesungDuplicateException e) {
+                model.addAttribute("vorlesungDoppelt", true);
+                return "vorlesungErstellen";
+            }
+
         }
+    }
+
+    private class VorlesungDuplicateException extends Throwable {
     }
 }

@@ -1,9 +1,10 @@
 package com.learngrouptu.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+
+import javax.persistence.*;
+import javax.validation.Constraint;
 import java.io.Serializable;
 
 @Entity
@@ -15,6 +16,8 @@ public class Vorlesung implements Serializable {
     @Id
     @GeneratedValue
     private Integer vorlesungid;
+
+    @Column(unique = true)
     private String kursnr;
 
     private String titel;
