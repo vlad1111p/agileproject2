@@ -11,9 +11,10 @@
     }
 
 .search__container2 {
-    float: left;
+    width: 50%;
+    display: block;
     padding-top: 20px;
-    padding-right: 10%;
+    margin: auto;
 }
 
     .search__title {

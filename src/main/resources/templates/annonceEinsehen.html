@@ -29,7 +29,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite &nbsp;&nbsp; ☜ ( ͡^ ͜ʖ ͡^)</a></li>
+        <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite &nbsp;&nbsp; ☜ ( ͡* ͜ʖ ͡*)</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
@@ -49,7 +49,7 @@
     </div>
   </header>
   <!-- Search in nullCase -->
-<div class="container">
+  <div class="container">
     <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
       <p class="search__title">
         Schnellsuchfunktion:
@@ -65,8 +65,9 @@
 
       <button id="button1" class="btn btn-primary">Suchen</button>
     </form>
-</div>
+  </div>
   <!--endSearch in nullCase -->
+
 
 
   <header class="masthead" id="masthead1" >
@@ -86,11 +87,13 @@
 <!-- Services-->
 <!-- Masthead-->
 <div th:case="*">
-  <header class="masthead" id="masthead1" >
+
+ <header class="masthead" id="masthead1" >
 
   </header>
   <section class="page-section" id="services" >
     <div class="container">
+      <div class="sticky-top">
       <form th:action="@{/searchAnnonce}" class="search__container" method="GET" >
         <p class="search__title">
           Schnellsuchfunktion:
@@ -106,6 +109,7 @@
 
         <button id="button1" class="btn btn-primary">Suchen</button>
       </form>
+      </div>
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -117,7 +121,7 @@
                 <thead class="thead-light">
                 <tr>
                   <th scope="col">Vorlesungsname</th>
-                  <th scope="col">Choice</th>
+                  <th scope="col">Gruppentyp</th>
                   <th scope="col">Kontakt</th>
                   <th scope="col">Nachricht</th>
                   <th scope="col">Datum</th>

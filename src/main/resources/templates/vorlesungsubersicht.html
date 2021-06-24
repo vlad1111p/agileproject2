@@ -46,7 +46,28 @@
         <div class="masthead-subheading" id="textforwrong">Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</div>
         <a class="btn btn-primary btn-xl text-uppercase" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung erstellen</a>
     </div>
-</header><header class="masthead" id="masthead1" >
+</header>
+    <!-- Search in nullCase -->
+    <div class="container">
+        <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
+            <p class="search__title">
+                Schnellsuchfunktion:
+            </p>
+            <label for="vorlName">Vorlesungsname</label><br>
+            <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
+            <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+            <label for="Lerngruppe">Lerngruppe</label><br>
+            <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+            <label for="Übungsgruppe">Übungsgruppe</label><br>
+            <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+            <label for="Beides">Beides</label><br>
+
+            <button id="button1" class="btn btn-primary">Suchen</button>
+        </form>
+    </div>
+    <!--endSearch in nullCase -->
+
+    <header class="masthead" id="masthead1" >
 
 </header>
 <section class="page-section" id="contact" >
@@ -65,6 +86,7 @@
 </header>
 <section class="page-section" id="services" >
     <div class="container">
+        <div class="sticky-top">
         <form action="/searchLecture" class="search__container" method="GET" >
             <p class="search__title">
                 Schnellsuchfunktion:
@@ -77,6 +99,7 @@
             <input type="text"  class="search__input" id="Studiengang" name="Studiengang"><br><br>
             <input id="button1" class="btn btn-primary" type="submit" value="Suchen">
         </form>
+            </div>
         <div class="row" style="background-color: #e4e8eb">
             <div class="col-12">
                 <div class="card">

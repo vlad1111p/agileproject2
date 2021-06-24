@@ -11505,20 +11505,21 @@ table tr:hover td {
 }
 
 table a:link {
-  color: #666;
+  color: #01588d;
   font-weight: bold;
   text-decoration: none;
 }
 
 table a:visited {
-  color: #999999;
+  color: #BF1515;
   font-weight: bold;
   text-decoration: none;
 }
 
 table a:active,
 table a:hover {
-  color: #bd5a35;
+  color: #fff;
+  background-color: #01588d;
   text-decoration: underline;
 }
 
