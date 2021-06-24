@@ -54,15 +54,9 @@ public class LoginTest {
     }
 
     @Test
-    public void testNoAccessMessageWithoutLogin() {
-        assertTrue(driver.getPageSource().toLowerCase().contains("kein zugriff"));
-    }
-
-    @Test
     public void testRedirectToLoginWithoutLoginOnSupages() {
         driver.get("http://localhost:8080/annonceErstellen");
         testRedirectToLoginWithoutLogin();
-        testNoAccessMessageWithoutLogin();
     }
 
     @Test

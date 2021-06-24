@@ -6,7 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.support.ByIdOrName;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.xml.xpath.XPath;
 import java.sql.Connection;
@@ -36,20 +38,23 @@ public class AnnonceSuchenTest {
         login();
     }
 
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").click();
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).click();
+    }
+
     private static void register() {
         driver.get("http://localhost:8080/login.html");
         driver.findElement(By.name("register-button")).click();
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
-        driver.findElementByName("register-submit-button").click();
-    }
-
-    private static void login() {
-        driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("username")).sendKeys("testuser");
-        driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 
     @BeforeEach
