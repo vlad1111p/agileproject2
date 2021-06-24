@@ -1,6 +1,6 @@
 package com.learngrouptu.models;
 
-import org.hibernate.validator.constraints.UniqueElements;
+import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

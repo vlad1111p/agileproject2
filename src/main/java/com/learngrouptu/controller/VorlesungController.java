@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,7 +32,7 @@ public class VorlesungController {
     @GetMapping("/vorlesungsubersicht")
     public String showVorlesungEinsehen(Model model) {
         model.addAttribute("vorlesungsubersicht", vorlesungRepository.findAll());
-        return "vorlesungsubersicht";
+        return "vorlesungEinsehen";
     }
 
 
@@ -73,7 +69,7 @@ public class VorlesungController {
                 .filter(vorl -> vorl.getTitel().toLowerCase().contains(id1.toLowerCase()))
                 .collect(Collectors.toList());
             if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+                return "vorlesungEinsehen";
             }
         }
         if(id2!=""){
@@ -81,20 +77,20 @@ public class VorlesungController {
                     .filter(vorl -> vorl.getKursnr().contains(id2))
                     .collect(Collectors.toList());
             if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+                return "vorlesungEinsehen";
             }}
         if(id3!=""){
             vorllist = vorllist.stream()
                     .filter(vorl -> vorl.getStudiengang().contains(id3))
                     .collect(Collectors.toList());
             if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+                return "vorlesungEinsehen";
             }}
 
 
 
             model.addAttribute("vorlesungsubersicht", vorllist);
-        return "vorlesungsubersicht";
+        return "vorlesungEinsehen";
     }
 
     @PostMapping(value = "/vorlesungadd")

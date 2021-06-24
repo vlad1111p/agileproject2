@@ -1,4 +1,4 @@
-package com.learngrouptu.models;
+package com.learngrouptu.DTO;
 
 import org.hibernate.annotations.CreationTimestamp;
 

@@ -1,7 +1,7 @@
 package com.learngrouptu.controller;
 
 import com.learngrouptu.models.Annonce;
-import com.learngrouptu.models.AnnonceDTO;
+import com.learngrouptu.DTO.AnnonceDTO;
 import com.learngrouptu.models.AnnonceRepository;
 import com.learngrouptu.models.User;
 import com.learngrouptu.services.UserService;
@@ -12,15 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.lang.reflect.Array;
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Controller
@@ -52,7 +48,6 @@ public class AnnoncenController {
 
     @GetMapping("/annonceErstellen")
     public String showAnnonceErstellen(Model model, Annonce annonce){
-
         return "annonceErstellen";
     }
 
@@ -62,23 +57,23 @@ public class AnnoncenController {
             return "redirect:annonceErstellen";
         }
 
-        User user = userService.getCurrentUser();
-        user.addAnnonce(annonce);
-        annonceRepository.save(annonce);
+        insertAnnonceIntoRepo(annonce);
 
         model.addAttribute("annonceCreated", true);
 
         return showAnnonceEinsehen(model);
     }
 
+    private void insertAnnonceIntoRepo(Annonce annonce) {
+        User user = userService.getCurrentUser();
+        user.addAnnonce(annonce);
+        annonceRepository.save(annonce);
+    }
+
     @Transactional
     @PostMapping("/deleteannonce")
     public String deleteAnnonce(@RequestParam Integer id, Model model){
-
         annonceRepository.deleteByAnnonceId(id);
-       // return showAnnonceEinsehen(model);
-       // return showMeineAnnoncen(model);
-        //return "redirect:annonceEinsehen";
         return "redirect:meineAnnoncen";
     }
 
@@ -87,21 +82,11 @@ public class AnnoncenController {
     @GetMapping("/searchAnnonce")
     public String searchAnnonce(Model model, @RequestParam(name="vorlName",required = false) String vorlName,
                                 @RequestParam(name="choice",required = false) String choice) {
-        ArrayList<String> searchArray = new ArrayList<>();
-        searchArray.add(vorlName);
-        searchArray.add(choice);
-        model.addAttribute("search", searchArray);
 
-        List<Annonce> annonceList = annonceRepository.findAll();
-        annonceList = annonceList.stream()
-                        .filter(annonce -> annonce.getVorlName().toLowerCase().contains(vorlName.toLowerCase()))
-                        .collect(Collectors.toList());
+        List<Annonce> annonceList = getAnnoncesWithMatchingName(vorlName);
 
         if (annonceList.isEmpty()) {
-            AnnonceDTO annonceDTO = new AnnonceDTO();
-            annonceDTO.setVorlName(vorlName);
-            annonceDTO.setChoice(choice);
-            model.addAttribute("annonceDTO", annonceDTO);
+            addSearchAttributesToModel(model, vorlName, choice);
             return "annonceEinsehen";
         }
 
@@ -121,5 +106,19 @@ public class AnnoncenController {
 
     }
 
+    private void addSearchAttributesToModel(Model model, String vorlName, String choice) {
+        AnnonceDTO annonceDTO = new AnnonceDTO();
+        annonceDTO.setVorlName(vorlName);
+        annonceDTO.setChoice(choice);
+        model.addAttribute("annonceDTO", annonceDTO);
+    }
+
+    private List<Annonce> getAnnoncesWithMatchingName(String vorlName) {
+        List<Annonce> annonceList = annonceRepository.findAll();
+        annonceList = annonceList.stream()
+                        .filter(annonce -> annonce.getVorlName().toLowerCase().contains(vorlName.toLowerCase()))
+                        .collect(Collectors.toList());
+        return annonceList;
+    }
 
 }

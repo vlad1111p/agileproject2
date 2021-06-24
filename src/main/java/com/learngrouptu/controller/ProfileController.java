@@ -1,8 +1,7 @@
 package com.learngrouptu.controller;
 
 import com.learngrouptu.DTO.UserDTO;
-import com.learngrouptu.models.AbschlussNotAllowedException;
-import com.learngrouptu.models.AnnonceRepository;
+import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
 import com.learngrouptu.services.UserService;

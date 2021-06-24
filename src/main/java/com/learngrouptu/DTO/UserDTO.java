@@ -1,6 +1,6 @@
 package com.learngrouptu.DTO;
 
-import com.learngrouptu.models.AbschlussNotAllowedException;
+import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.models.Annonce;
 
 import java.util.HashSet;
