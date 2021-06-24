@@ -2,8 +2,11 @@ package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.*;
 
@@ -92,6 +95,9 @@ public class LoginTest {
 
     private void login(String username, String password) {
         driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").click();
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
         driver.findElement(By.name("login-button")).click();
@@ -103,6 +109,6 @@ public class LoginTest {
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
-        driver.findElementByName("register-submit-button").click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 }
