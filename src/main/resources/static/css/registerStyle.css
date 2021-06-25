@@ -10907,6 +10907,11 @@ p {
     border-radius: 100%;
 }
 
+.containerNavbar {
+    margin-right: auto;
+    margin-left: 4rem;
+}
+
 #mainNav {
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -11000,7 +11005,8 @@ p {
     }
 }
 header.masthead {
-    padding-top: 8rem;
+    margin-top: 10px;
+    padding-top: 4rem;
     padding-bottom: 6rem;
     text-align: center;
     font-size: 2rem;
@@ -11009,7 +11015,7 @@ header.masthead {
     /*background-image: url("../assets/img/TuKL.jpg");*/
     background-repeat: no-repeat;
     background-attachment: scroll;
-    background-position: center center;
+    /*background-position: center center; */
     background-size: cover;
 }
 header#masthead0 {
@@ -11023,17 +11029,7 @@ header#masthead0 {
     background-position: center center;
     background-size: cover;
 }
-header#masthead1 {
-    padding-top: 10.5rem;
-    padding-bottom: 6rem;
-    text-align: center;
-    color: #01588d;
-    background-image: url("../assets/img/greyTu.png");
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
-    background-size: cover;
-}
+
 header.masthead .masthead-subheading {
     font-size: 1.5rem;
     font-style: italic;
@@ -11048,7 +11044,7 @@ header#masthead1 .masthead-subheading {
 
 @media (min-width: 768px) {
     header.masthead {
-        padding-top: 17rem;
+        padding-top: 6rem;
         padding-bottom: 12.5rem;
     }
     header.masthead .masthead-subheading {
