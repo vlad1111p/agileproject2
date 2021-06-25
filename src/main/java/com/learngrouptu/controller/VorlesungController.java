@@ -42,55 +42,66 @@ public class VorlesungController {
     }
 
     @GetMapping("/vorlesungsgruppeerstellen")
-    public String showVorlesungGruppe(Model model, Annonce annonce, @RequestParam("id") Integer id) {
-        model.addAttribute("vorlesungsubersicht1", vorlesungRepository.getOne(id).getTitel());
+    public String createAnnonceFromVorlesung(Model model, Annonce annonce, @RequestParam("id") Integer id) {
+        model.addAttribute("titelFromVorlesung", vorlesungRepository.getOne(id).getTitel());
         return "annonceErstellen";
     }
 
     @GetMapping("/vorlesungsgruppesuchen")
-    public String showVorlesungGruppeErstellen(Model model, @RequestParam("id1") String id1) {
-        List<Annonce> vorliterator = annonceRepository.findAll();
-        List<Annonce> vorllist = vorliterator.stream()
-                .filter(vorl -> vorl.getVorlName().matches(id1))
-                .collect(Collectors.toList());
-        model.addAttribute("annoncen", vorllist);
+    public String searchAnnoncenFromVorlesung(Model model, @RequestParam("titel") String titel) {
+        List<Annonce> filteredAnnoncen = annonceRepository.findAllByVorlName(titel);
+        model.addAttribute("annoncen", filteredAnnoncen);
         return "annonceEinsehen";
     }
 
     @GetMapping("/searchLecture")
-    public String searchLecture(Model model, @RequestParam(name="VorlName",required = false) String id1, @RequestParam(name="Kursname",required = false) String id2, @RequestParam(name="Studiengang",required = false) String id3) {
+    public String searchLecture(Model model,
+                                @RequestParam(name="VorlName",required = false) String vorlName,
+                                @RequestParam(name="kursNr",required = false) String kursNr,
+                                @RequestParam(name="Studiengang",required = false) String studiengang) {
 
+        List<Vorlesung> vorlList = vorlesungRepository.findAll();
 
-
-        List<Vorlesung> vorllist = vorlesungRepository.findAll();
-
-        if(id1!=""){
-            vorllist = vorllist.stream()
-                .filter(vorl -> vorl.getTitel().toLowerCase().contains(id1.toLowerCase()))
-                .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
+        if(!vorlName.equals("")) {
+            vorlList = filterByTitelIgnoringCases(vorlName, vorlList);
+            if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }
         }
-        if(id2!=""){
-            vorllist = vorllist.stream()
-                    .filter(vorl -> vorl.getKursnr().contains(id2))
-                    .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
+        if(!kursNr.equals("")){
+            vorlList = filterByKursNr(kursNr, vorlList);
+            if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
-        if(id3!=""){
-            vorllist = vorllist.stream()
-                    .filter(vorl -> vorl.getStudiengang().contains(id3))
-                    .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
+        if(!studiengang.equals("")){
+            vorlList = filterByStudiengang(studiengang, vorlList);
+            if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
 
-
-
-            model.addAttribute("vorlesungsubersicht", vorllist);
+            model.addAttribute("vorlesungen", vorlList);
         return "vorlesungEinsehen";
+    }
+
+    private List<Vorlesung> filterByStudiengang(String studiengang, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+                .filter(vorl -> vorl.getStudiengang().contains(studiengang))
+                .collect(Collectors.toList());
+        return vorlList;
+    }
+
+    private List<Vorlesung> filterByKursNr(String kursNr, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+                .filter(vorl -> vorl.getKursnr().contains(kursNr))
+                .collect(Collectors.toList());
+        return vorlList;
+    }
+
+    private List<Vorlesung> filterByTitelIgnoringCases(String vorlName, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+            .filter(vorl -> vorl.getTitel().toLowerCase().contains(vorlName.toLowerCase()))
+            .collect(Collectors.toList());
+        return vorlList;
     }
 
     @PostMapping(value = "/vorlesungadd")

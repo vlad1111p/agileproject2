@@ -17,7 +17,7 @@
     <link href="/css/styles.css" rel="stylesheet">
     <!--===============================================================================================-->
 </head>
-<body id="page-top" th:switch="${vorlesungEinsehen1}">
+<body id="page-top" th:switch="${titelFromVorlesung}">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="containerNavbar">
@@ -59,7 +59,7 @@
                 <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
                 <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
                        type="text" required="true"  class="input1">
-                <input class="input1" type="text" id="vorlName" name="vorlName" th:case="*" th:value="${vorlesungEinsehen1}" required="true" placeholder="Vorlesung">
+                <input class="input1" type="text" id="vorlName" name="vorlName" th:case="*" th:value="${titelFromVorlesung}" required="true" placeholder="Vorlesung">
                 <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
             </div>
 
