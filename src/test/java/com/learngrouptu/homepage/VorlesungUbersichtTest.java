@@ -42,17 +42,17 @@ public class VorlesungUbersichtTest {
 
     private static void login() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElementById("loginModal").click();
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
         WebDriverWait wait=new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
     }
 
     private static void register() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
@@ -78,7 +78,7 @@ public class VorlesungUbersichtTest {
 //        System.out.println(driver.getPageSource());
 //        JavascriptExecutor jse = (JavascriptExecutor)driver;
 //        jse.executeScript("window.scrollBy(0,250)");
-//        driver.findElement(By.linkText("Gruppe erstellen")).click();
+//        driver.findElement(By.linkText("Gruppe erstellen")).sendKeys(Keys.RETURN);
 //
 //        assertEquals("Annonce erstellen", driver.getTitle());
 //        System.out.println("title of page is: " + driver.getTitle());
@@ -100,8 +100,8 @@ public class VorlesungUbersichtTest {
     public void verifySuchfunktionCorrectInput() {
         ChromeDriver driver = init();
         driver.findElement(By.id("VorlName")).sendKeys("hjkl;");
-        driver.findElement(By.id("button1")).click();
-        driver.findElement(By.partialLinkText("Gruppe suchen")).click();
+        driver.findElement(By.id("button1")).sendKeys(Keys.RETURN);
+        driver.findElement(By.partialLinkText("Gruppe suchen")).sendKeys(Keys.RETURN);
 
         assertEquals("Annoncen einsehen", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());

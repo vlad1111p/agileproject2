@@ -61,7 +61,7 @@ public class LoginTest {
 
     @Test
     public void testCorrectUrlOnSuccessfulLogin() {
-      /*  driver.findElementById("loginModal").click();*/
+      /*  driver.findElementById("loginModal").sendKeys(Keys.RETURN);*/
         login("testuser", "testpasswort");
         driver.getCurrentUrl().equals(url_homepage);
     }
@@ -89,17 +89,17 @@ public class LoginTest {
 
     private void login(String username, String password) {
         driver.get("http://localhost:8080/login.html");
-        driver.findElementById("loginModal").click();
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
         WebDriverWait wait=new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
-        driver.findElement(By.name("login-button")).click();
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
     }
 
     private static void register(String username, String email, String password) {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);

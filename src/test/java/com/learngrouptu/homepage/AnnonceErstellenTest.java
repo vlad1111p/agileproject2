@@ -35,17 +35,17 @@ class AnnonceErstellenTest {
 
     private static void login() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElementById("loginModal").click();
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
         WebDriverWait wait=new WebDriverWait(driver, 20);
         wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
     }
 
     private static void register() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
@@ -170,7 +170,7 @@ class AnnonceErstellenTest {
         } else {
             objSelect.selectByVisibleText("Übungsgruppe");
         }
-        driver.findElement(By.id("nachricht")).sendKeys(nachricht);
+        driver.findElement(By.name("nachricht")).sendKeys(nachricht);
         driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
     }
 
