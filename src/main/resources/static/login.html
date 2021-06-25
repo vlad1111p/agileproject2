@@ -19,7 +19,7 @@
 <body id="page-top" th:switch="${/login}">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
+    <div class="containerNavbar">  <!--class  container  -->
         <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
         <!--<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -37,8 +37,8 @@
 <header class="masthead">
     <div class="container">
         <!--   https://www.uni-kl.de/fileadmin/_processed_/1/5/csm_Turm_2d1a4c58a6.jpg    -->
-        <div class="masthead-subheading">Welcome To LearngroupTU</div>
-        <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
+        <div class="masthead-heading shadowText">Welcome To LearngroupTU</div>
+        <div class="masthead-heading text-uppercase shadowText">It's Nice To Meet You</div>
         <!--Start Neu Login -->
         <!-- Button trigger modal -->
         <button type="button" id="loginModal" class="btn btn-primary btn-xl text-uppercase" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -107,7 +107,7 @@
         <div class="text-center">
             <h2 class="section-heading text-uppercase">Gemeinsam statt Einsam!</h2>
             <h3 class="section-subheading text-muted">
-                Deine Suche hat ein Ende! Mit LearngroupTU findest du die richtigen Mitstudierende im Handumdrehen.<br>
+                Deine Suche hat ein Ende! Mit LearngroupTU findest du die richtigen Mitstudierenden im Handumdrehen.<br>
                 Das bieten wir dir!</h3>
         </div>
         <div class="row text-center">
@@ -125,7 +125,7 @@
                             <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
                         </span>
                 <h4 class="my-3">Digital Connecten</h4>
-                <p class="text-muted">Wie oft sucht jemand eine Lern- oder Übungsgruppe? Bisher haben das die Studenten
+                <p class="text-muted">Wie oft sucht jemand eine Lern- oder Übungsgruppe? Bisher haben das die StudentInnen
                     meist persönlich nach einer Vorlesung oder in der ersten Übungsstunde unter sich geregelt. Wie wäre es, wenn du online
                     gezielt nach Mitstudierenden für eine Zusammenarbeit suchen könntest? Das ist durch unsere Suchfunktion kein Problem mehr!    </p>
             </div>
@@ -180,7 +180,7 @@
                         <h4 class="subheading">Online Unterricht</h4>
                     </div>
                     <div class="timeline-body"><p class="text-muted">Soziale Isolation, Angst um Angehörige und ein möglicherweise verlängertes Studium:
-                        Viele Studenten leiden unter den Corona-Maßnahmen nicht nur finanziell. Besonders hart trifft es jene, die vorbelastet sind. </p></div>
+                        Viele StudentInnen leiden unter den Corona-Maßnahmen nicht nur finanziell. Besonders hart trifft es jene, die vorbelastet sind. </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">
@@ -190,7 +190,11 @@
                         <h4>Mai 2021</h4>
                         <h4 class="subheading">Unsere bescheidenen Anfänge</h4>
                     </div>
-                    <div class="timeline-body"><p class="text-muted">//todo</p></div>
+                    <div class="timeline-body"><p class="text-muted">
+                        Um der schleppenden Digitalisierung und der Vereinsamung entgegenzuwirken soll LearngroupTU die Vernetzung von Studierenden vereinfachen.<br>
+                        Hierbei legen wir den Fokus darauf den Wissensaustausch zu gewährleisten. Dafür unterstützen wir euch bei der Suche nach Lern-und Übungsgruppen, welche ein elementarer Bestandteil eines erfolgreichen Studiums sind.
+                        <br>Frei nach unserem Motto: <b>GEMEINSAM STATT EINSAM!</b>
+                    </p></div>
                 </div>
             </li>
             <li class="timeline-inverted">
@@ -208,7 +212,7 @@
     </div>
 </section>
 <!-- Team-->
-<section class="page-section bg-light" id="team">
+<section class="page-section" id="team">
     <div class="container">
         <div class="text-center">
             <h2 class="section-heading text-uppercase">unser erstaunliches Team</h2>
@@ -220,12 +224,12 @@
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="assets/img/team/mark.png" alt="..." />
                     <h4>Mark Emmert</h4>
-                    <p class="text-muted">//todo</p>
+                    <p class="text-muted">Denkt immer an den User</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="team-member">
-                    <img class="mx-auto rounded-circle" src="assets/img/team/jonas.png" alt="..." />
+                    <img class="mx-auto rounded-circle" src="assets/img/team/jonas.JPG" alt="..." />
                     <h4>Jonas der Master Elsler</h4>
                     <p class="text-muted">Heftigster Scrum-Master</p>
                 </div>
@@ -234,14 +238,14 @@
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="assets/img/team/felix.png" alt="..." />
                     <h4>Felix Homola</h4>
-                    <p class="text-muted">//todo</p>
+                    <p class="text-muted">Knuddels-Flüsterer</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="assets/img/team/milli.jpg" alt="..." />
                     <h4>Milli Müller</h4>
-                    <p class="text-muted">Für die Frauenquote</p>
+                    <p class="text-muted">Könnt ihr mich hören? Hallo?</p>
            <!--         <a class="btn btn-dark btn-social mx-2" href="https://twitter.com/drdarkoo"><i class="fab fa-twitter"></i></a>
 
                     <a class="btn btn-dark btn-social mx-2" href="https://de.linkedin.com/in/darko-obradovic-39666b168"><i class="fab fa-linkedin-in"></i></a>   -->
@@ -251,14 +255,14 @@
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="assets/img/team/andy.png" alt="..." />
                     <h4>Andreas Nowack</h4>
-                    <p class="text-muted">Tschu tschuuuuu</p>
+                    <p class="text-muted">Bootstrap ist mächtig!</p>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="team-member">
                     <img class="mx-auto rounded-circle" src="assets/img/team/julian.jpg" alt="..." />
                     <h4>Julian Schneider</h4>
-                    <p class="text-muted">Maschine - die nie funktioniert</p>
+                    <p class="text-muted">Maschine - die selten funktioniert</p>
                 </div>
             </div>
             <div class="col-lg-4">
