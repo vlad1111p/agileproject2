@@ -20,21 +20,22 @@
 </head>
 <body th:each="userProfile : ${userProfile}">
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+    <div class="containerNavbar">
+        <!--  <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>  -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ms-1"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}"><b>Startseite</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}"><b>Annonce erstellen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
+                <li class="nav-item"><a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a></li>
+                <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
                 <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}"><b>Profil einstellen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}"><b>Vorlesungen</b></a></li>
-                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}"><b>Vorlesung hinzufügen</b></a></li>
+                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung hinzufügen</a></li>
             </ul>
         </div>
     </div>
