@@ -1,5 +1,6 @@
 package com.learngrouptu.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learngrouptu.models.*;
 import com.learngrouptu.services.AnnonceService;
 import com.learngrouptu.services.UserService;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 
 @Controller
 public class ChatController {
@@ -27,7 +30,7 @@ public class ChatController {
     public String showChat(){return "chatnew";}
 
     @PostMapping("/startChat")
-    public String startChat(@RequestParam Integer id, Model model){
+    public String startChat(@RequestParam Integer id, Model model) throws IOException {
 
         User user = userRepository.findByUserAnnoncen_AnnonceId(id);
         System.out.println(user);
@@ -37,6 +40,9 @@ public class ChatController {
         chatroom.setSender(userService.getCurrentUser().getUsername());
         model.addAttribute("chatroom", chatroom);
         chatroomRepository.save(chatroom);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writeValue(new File("target/chatroom.json"), chatroom);
         //return ("chat"/*+ chatroom.getChatroomId()*/);
         return showChat();
     }

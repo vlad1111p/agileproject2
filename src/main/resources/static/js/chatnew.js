@@ -6,8 +6,14 @@ var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
 
+var sender = document.querySelector('#sender').value;
+var chatroomid = document.querySelector('#chatroomid').value;
+var recipient = document.querySelector('#recipient').value;
+
+
+
 var stompClient = null;
-var username = 'tester';
+var username = sender;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
