@@ -21,8 +21,8 @@ import javax.validation.Valid;
 @Controller
 public class ChatController {
 
-    private ChatroomRepository chatroomRepository;
 
+    @Autowired ChatroomRepository chatroomRepository;
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
 
@@ -34,8 +34,13 @@ public class ChatController {
 
         User user = userRepository.findByUserAnnoncen_AnnonceId(id);
         System.out.println(user);
-        //chatroom.setSender(user.getUsername());
-        return "redirect:annonceEinsehen";
+
+        Chatroom chatroom = new Chatroom();
+        chatroom.setRecipient(user.getUsername());
+        chatroom.setSender(userService.getCurrentUser().getUsername());
+        model.addAttribute("chatroom", chatroom);
+        chatroomRepository.save(chatroom);
+        return "chat";
     }
 /*
     @RequestMapping(value = "/singleChat", method = RequestMethod.GET)
