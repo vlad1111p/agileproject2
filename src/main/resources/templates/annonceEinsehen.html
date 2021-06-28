@@ -107,6 +107,11 @@
                   <td th:text="${annonce.kontakt}"></td>
                   <td th:text="${annonce.nachricht}"></td>
                   <td th:text="${annonce.datum}"></td>
+                  <td>
+                    <form th:action="@{/startChat(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
+                      <button id="delete" type="submit">Kontakt</button>
+                    </form>
+                  </td>
                 </tr>
                 </tbody>
               </table>

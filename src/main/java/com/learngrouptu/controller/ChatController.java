@@ -1,6 +1,7 @@
 package com.learngrouptu.controller;
 
 import com.learngrouptu.models.*;
+import com.learngrouptu.services.AnnonceService;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -13,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -22,10 +24,20 @@ public class ChatController {
     private ChatroomRepository chatroomRepository;
 
     @Autowired UserService userService;
+    @Autowired UserRepository userRepository;
 
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public String showChat(){return "chat";}
 
+    @PostMapping("/startChat")
+    public String startChat(@RequestParam Integer id, Model model){
+
+        User user = userRepository.findByUserAnnoncen_AnnonceId(id);
+        System.out.println(user);
+        //chatroom.setSender(user.getUsername());
+        return "redirect:annonceEinsehen";
+    }
+/*
     @RequestMapping(value = "/singleChat", method = RequestMethod.GET)
     public String showSingleChat(){return "singleChat";}
 
@@ -55,8 +67,8 @@ public class ChatController {
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
-    }
-/*
+    }*/
+
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
@@ -70,5 +82,5 @@ public class ChatController {
         // Add username in web socket session
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
-    }*/
+    }
 }

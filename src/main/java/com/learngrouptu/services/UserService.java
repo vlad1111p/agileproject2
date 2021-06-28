@@ -54,4 +54,6 @@ public class UserService implements UserDetailsService {
                 .getAuthentication().getPrincipal()).getUsername();
         return findUserByUsername(currentUserEmail);
     }
+
+
 }
