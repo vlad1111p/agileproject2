@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <link href="/css/table.css" rel="stylesheet">
+    <title>Meine Annoncen</title>
+</head>
+<body>
+<div class="navbarContainer" id="navBar">
+    <ul>
+        <li><a href="/home" th:href="@{/home}">Homepage</a></li>
+        <li><a href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+        <li><a href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annonce einsehen</a></li>
+        <li><a href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
+        <li><a href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}">Vorlesungsübersicht</a></li>
+        <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}"><b>Vorlesung hinzufügen</b></a></li>
+    </ul>
+</div>
+
+<div class="content" id="content">
+    <div th:switch="${erstellteChats}">
+        <h2 th:case="null">Keine erstellten Chats bisher</h2>
+        <div th:case="*">
+            <h2>Alle von mir erstellten Chats</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ChatId</th>
+                    <th>Empfänger</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tableRow" th:each="chat : ${erstellteChats}">
+                    <td th:text="${chat.chatroomId}"></td>
+                    <td th:text="${chat.recipient}"></td>
+                    <td>
+                        <form th:action="@{/loadChat(id=${chat.chatroomId})}" method="post" th:object="${chatroom}">
+                            <button type="submit">Chat laden</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div th:switch="${empfangeneChats}">
+        <h2 th:case="null">Keine empfangenen Chats bisher</h2>
+        <div th:case="*">
+            <h2>Alle von mir empfangenen Chats</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>ChatId</th>
+                    <th>Sender</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="tableRow" th:each="chat : ${empfangeneChats}">
+                    <td th:text="${chat.chatroomId}"></td>
+                    <td th:text="${chat.recipient}"></td>
+                    <td>
+                        <form th:action="@{/loadChat(id=${chat.chatroomId})}" method="post" th:object="${chatroom}">
+                            <button type="submit">Chat laden</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

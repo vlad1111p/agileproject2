@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class ChatController {
@@ -26,11 +29,20 @@ public class ChatController {
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
 
+    @GetMapping("/meineChats")
+    public String showMyChats(Map<String, Object> model){
+        User user = userService.getCurrentUser();
+        Set<Chatroom> erstellteChats = chatroomRepository.findAllBySender(user.getUsername());
+        Set<Chatroom> empfangeneChats = chatroomRepository.findAllByRecipient(user.getUsername());
+        model.put("erstellteChats", erstellteChats);
+        model.put("empfangeneChats", empfangeneChats);
+        return "meineChats";}
+
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public String showChat(){return "chatnew";}
 
     @PostMapping("/startChat")
-    public String startChat(@RequestParam Integer id, Model model) throws IOException {
+    public String startChat(@RequestParam Integer id, Model model) {
 
         User user = userRepository.findByUserAnnoncen_AnnonceId(id);
         System.out.println(user);
@@ -41,35 +53,17 @@ public class ChatController {
         model.addAttribute("chatroom", chatroom);
         chatroomRepository.save(chatroom);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.writeValue(new File("target/chatroom.json"), chatroom);
-        //return ("chat"/*+ chatroom.getChatroomId()*/);
         return showChat();
     }
 
-/*
-    @PostMapping(value = "/chooseRecipient")
-    public String openChatroom(@Valid Chatroom chatroom, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            return "redirect:singleChat";
-        }
-
-        User user = userService.getCurrentUser();
-        chatroom.setSender(user.getUsername());
-        chatroomRepository.save(chatroom);
-
-        return showSingleChat();
-    }
-    }*/
-
-    @MessageMapping("/chat.sendMessage")
-    @SendTo("/channel")
+    @MessageMapping("/chat/{roomId}/sendMessage")
+    @SendTo("/channel/{roomId}")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
 
-    @MessageMapping("/chat.addUser")
-    @SendTo("/channel")
+    @MessageMapping("/chat/{roomId}/addUser")
+    @SendTo("/channel/{roomId}")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session

@@ -11,9 +11,11 @@ var chatroomid = document.querySelector('#chatroomid').value;
 var recipient = document.querySelector('#recipient').value;
 
 
-
+var roomIdDisplay;
 var stompClient = null;
 var username = sender;
+var topic = null;
+var currentSubscription;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
@@ -26,16 +28,27 @@ stompClient = Stomp.over(socket);
 stompClient.connect({}, onConnected, onError);
 
 
-function onConnected() {
-    // Subscribe to the Public Topic
-    stompClient.subscribe('/channel', onMessageReceived);
+function enterRoom(newRoomId) {
+    chatroomid = newRoomId;
+    //Cookies.set('roomId', roomId);
+    //roomIdDisplay.textContent = chatroomid;
+    topic = `/app/chat/${newRoomId}`;
 
-    // Tell your username to the server
-    stompClient.send("/app/chat.addUser",
+    if (currentSubscription) {
+        currentSubscription.unsubscribe();
+    }
+    currentSubscription = stompClient.subscribe(`/channel/${chatroomid}`, onMessageReceived);
+
+    stompClient.send(`${topic}/addUser`,
         {},
         JSON.stringify({sender: username, type: 'JOIN'})
-    )
+    );
 
+}
+
+function onConnected() {
+    // Subscribe to the Public Topic
+    enterRoom(chatroomid);
     connectingElement.classList.add('hidden');
 }
 
@@ -48,17 +61,21 @@ function onError(error) {
 
 function sendMessage(event) {
     var messageContent = messageInput.value.trim();
-
-    if(messageContent && stompClient) {
+    if (messageContent.startsWith('/join ')) {
+        var newRoomId = messageContent.substring('/join '.length);
+        enterRoom(newRoomId);
+        while (messageArea.firstChild) {
+            messageArea.removeChild(messageArea.firstChild);
+        }
+    } else if (messageContent && stompClient) {
         var chatMessage = {
             sender: username,
             content: messageInput.value,
             type: 'CHAT'
         };
-
-        stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-        messageInput.value = '';
+        stompClient.send(`${topic}/sendMessage`, {}, JSON.stringify(chatMessage));
     }
+        messageInput.value = '';
     event.preventDefault();
 }
 

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionConnectedEvent;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+import static java.lang.String.format;
+
 
 @Component
 public class WebSocketEventListener {
@@ -30,6 +32,8 @@ public class WebSocketEventListener {
         StompHeaderAccessor headerAccessor = StompHeaderAccessor.wrap(event.getMessage());
 
         String username = (String) headerAccessor.getSessionAttributes().get("username");
+        String roomId = (String) headerAccessor.getSessionAttributes().get("chatroomid");
+
         if(username != null) {
             logger.info("User Disconnected : " + username);
 
@@ -37,7 +41,7 @@ public class WebSocketEventListener {
             chatMessage.setType(ChatMessage.MessageType.LEAVE);
             chatMessage.setSender(username);
 
-            messagingTemplate.convertAndSend("/channel", chatMessage);
+            messagingTemplate.convertAndSend(format("/channel/%s", roomId), chatMessage);
         }
     }
 }
