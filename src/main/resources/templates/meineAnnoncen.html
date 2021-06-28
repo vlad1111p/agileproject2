@@ -88,10 +88,10 @@
                   <!-- <th scope="col"></th> -->
                 </tr>
                 </thead>
-                <tbody class="customtable">
+                <tbody class="customtable" name="annoncentable_body">
                 <tr th:each="userAnnonce : ${userAnnoncen}">
 
-                  <td th:text="${userAnnonce.vorlName}"></td>
+                  <td name="vorlName" th:text="${userAnnonce.vorlName}"></td>
                   <td th:text="${userAnnonce.choice}"></td>
                   <td th:text="${userAnnonce.kontakt}"></td>
                   <td th:text="${userAnnonce.nachricht}"></td>
