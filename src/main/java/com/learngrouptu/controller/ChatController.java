@@ -11,10 +11,7 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -27,7 +24,7 @@ public class ChatController {
     @Autowired UserRepository userRepository;
 
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
-    public String showChat(){return "chat";}
+    public String showChat(){return "chatnew";}
 
     @PostMapping("/startChat")
     public String startChat(@RequestParam Integer id, Model model){
@@ -40,12 +37,11 @@ public class ChatController {
         chatroom.setSender(userService.getCurrentUser().getUsername());
         model.addAttribute("chatroom", chatroom);
         chatroomRepository.save(chatroom);
-        return "chat";
+        //return ("chat"/*+ chatroom.getChatroomId()*/);
+        return showChat();
     }
-/*
-    @RequestMapping(value = "/singleChat", method = RequestMethod.GET)
-    public String showSingleChat(){return "singleChat";}
 
+/*
     @PostMapping(value = "/chooseRecipient")
     public String openChatroom(@Valid Chatroom chatroom, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -58,30 +54,16 @@ public class ChatController {
 
         return showSingleChat();
     }
-
-    @MessageMapping("singleChat.sendMessage")
-    @SendTo("/topic/public")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
-    }
-
-    @MessageMapping("/singleChat.addUser")
-    @SendTo("/topic/public")
-    public ChatMessage addUser(@Payload ChatMessage chatMessage,
-                               SimpMessageHeaderAccessor headerAccessor) {
-        // Add username in web socket session
-        headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        return chatMessage;
     }*/
 
     @MessageMapping("/chat.sendMessage")
-    @SendTo("/topic/public")
+    @SendTo("/channel")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
         return chatMessage;
     }
 
     @MessageMapping("/chat.addUser")
-    @SendTo("/topic/public")
+    @SendTo("/channel")
     public ChatMessage addUser(@Payload ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         // Add username in web socket session
