@@ -5,6 +5,7 @@ import com.learngrouptu.models.*;
 import com.learngrouptu.services.AnnonceService;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -28,6 +29,7 @@ public class ChatController {
     @Autowired ChatroomRepository chatroomRepository;
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
+    @Autowired ChatMessageRepository chatMessageRepository;
 
     @GetMapping("/meineChats")
     public String showMyChats(Map<String, Object> model){
@@ -58,7 +60,16 @@ public class ChatController {
 
     @MessageMapping("/chat/{roomId}/sendMessage")
     @SendTo("/channel/{roomId}")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
+    public ChatMessage sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+        // TODO: 29.06.2021 datum zufügen, evtl noch meineChats umbenennen in Nachrichten, Chat laden
+        // TODO: 29.06.2021 Code aufräumen: 
+
+        chatMessage.setChatroom(chatroomRepository.getOne(Integer.valueOf(roomId)));
+        System.out.println("sender: " + chatMessage.getSender());
+        System.out.println("content: " + chatMessage.getContent());
+        System.out.println("chatroomid: " + chatMessage.getChatroom().getChatroomId());
+
+        chatMessageRepository.save(chatMessage);
         return chatMessage;
     }
 

@@ -11,7 +11,7 @@ public class ChatMessage {
     private MessageType type;
     private String content;
     private String sender;
-    private String recipient;
+    //private Integer chatid;
 
     public enum MessageType {
         CHAT,
@@ -20,7 +20,7 @@ public class ChatMessage {
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chat_id", nullable = false)
+    @JoinColumn(name = "chat_id", nullable = false, insertable = true)
     private Chatroom chatroom;
 
     public Integer getChatMessageId() {
@@ -55,11 +55,20 @@ public class ChatMessage {
         this.sender = sender;
     }
 
-    public String getRecipient() {
-        return recipient;
+    public Chatroom getChatroom() {
+        return chatroom;
     }
 
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
+    public void setChatroom(Chatroom chatroom) {
+        this.chatroom = chatroom;
     }
+
+    /*
+    public Integer getChatid() {
+        return chatid;
+    }
+
+    public void setChatid(Integer chatid) {
+        this.chatid = chatid;
+    }*/
 }
