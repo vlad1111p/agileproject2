@@ -1,6 +1,9 @@
 package com.learngrouptu.models;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.Set;
 
 @Entity

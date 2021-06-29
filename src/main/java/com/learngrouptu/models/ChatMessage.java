@@ -1,6 +1,9 @@
 package com.learngrouptu.models;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 public class ChatMessage {
@@ -63,12 +66,4 @@ public class ChatMessage {
         this.chatroom = chatroom;
     }
 
-    /*
-    public Integer getChatid() {
-        return chatid;
-    }
-
-    public void setChatid(Integer chatid) {
-        this.chatid = chatid;
-    }*/
 }

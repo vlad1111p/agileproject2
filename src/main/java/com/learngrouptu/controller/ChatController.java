@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
@@ -58,18 +59,21 @@ public class ChatController {
         return showChat();
     }
 
+
     @MessageMapping("/chat/{roomId}/sendMessage")
     @SendTo("/channel/{roomId}")
-    public ChatMessage sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
+    public ChatMessage sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage) {
         // TODO: 29.06.2021 datum zufügen, evtl noch meineChats umbenennen in Nachrichten, Chat laden
-        // TODO: 29.06.2021 Code aufräumen: 
+        // TODO: 29.06.2021 Code aufräumen:
 
-        chatMessage.setChatroom(chatroomRepository.getOne(Integer.valueOf(roomId)));
+        Chatroom chatroom = chatroomRepository.getOne(Integer.valueOf(roomId));
+        chatMessage.setChatroom(chatroom);
         System.out.println("sender: " + chatMessage.getSender());
         System.out.println("content: " + chatMessage.getContent());
         System.out.println("chatroomid: " + chatMessage.getChatroom().getChatroomId());
 
         chatMessageRepository.save(chatMessage);
+
         return chatMessage;
     }
 
