@@ -3,10 +3,12 @@ package com.learngrouptu.homepage;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.management.StringValueExp;
@@ -14,13 +16,18 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AnnonceLöschenTest
 {
     private static ChromeDriver driver;
     private static Connection connection;
+    private String createAnnonceURL = "http://localhost:8080/annonceErstellen";
+    private String annoncenEinsehenURL = "http://localhost:8080/annonceEinsehen";
+    private String meineAnnoncenURL = "http://localhost:8080/meineAnnoncen";
 
 
     @BeforeAll
@@ -62,70 +69,79 @@ public class AnnonceLöschenTest
 
     @BeforeEach
     public void reset() {
-        driver.get("http://localhost:8080/annonceEinsehen");
-    }
-
-    //TODO
-    /*
-    @Test
-    public void canClickDeleteButton() throws SQLException
-    {
-        String sqlStatement = "INSERT INTO annonce (choice, kontakt, nachricht, vorl_name) VALUES ('LerngruppeTest', 'test@uni-kl.de', 'Testnachricht', 'Testvorlesung')";
-        Statement insStmt = connection.createStatement();
-        insStmt.executeUpdate(sqlStatement);
-        driver.navigate().refresh();
-
-        driver.findElementById("delete").click();
-        String delIdURL = driver.getCurrentUrl();
-        System.out.println(delIdURL);
-        String [] splitString = delIdURL.split("=");
-        Integer testID = Integer.valueOf(splitString[1]);
-        System.out.println(testID);
-
-        String afterDel = driver.getPageSource();
-       // System.out.println(afterDel);
-
-        System.out.println(  driver.findElementByCssSelector(".tableRow:first-child"));
-        System.out.println(driver.findElementByCssSelector( ".tableRow>td" ));
+        driver.get(annoncenEinsehenURL);
     }
 
     @Test
-    public void deletionSuccessful() throws SQLException
+    public void successfullyInsertAndDeleteAnnonce()
     {
+        String vorlesung = getRandVorl();
+        String kontakt = getRandKontakt();
+        String typ = getRandTyp();
+        String nachricht = getRandNachricht();
 
-        String realContent = driver.getPageSource();
+        driver.get(createAnnonceURL);
+        createAnnonce(vorlesung, kontakt, typ, nachricht);
 
-        String sqlStatement = "INSERT INTO annonce (choice, kontakt, nachricht, vorl_name) VALUES ('LerngruppeTest', 'test@uni-kl.de', 'Testnachricht', 'Testvorlesung')";
-        Statement insStmt = connection.createStatement();
-        insStmt.executeUpdate(sqlStatement);
-        driver.navigate().refresh();
-
-        String afterInsert = driver.getPageSource();
-        driver.findElementById("delete").click();
-
-        driver.navigate().refresh();
-        String afterDeletion = driver.getPageSource();
-        boolean expected = false;
-        if(realContent == afterDeletion && realContent!= afterInsert){
-            expected = true;
+        driver.get(meineAnnoncenURL);
+        WebElement table = driver.findElementByName("annoncentable_body");
+        List<WebElement> rows = table.findElements(By.tagName("TR"));
+        for (WebElement row : rows) {
+            String rowVorlName = row.findElement(By.name("vorlName")).getText();
+            if (rowVorlName.equals(vorlesung)) {
+                row.findElement(By.tagName("BUTTON")).sendKeys(Keys.RETURN);
+                break;
+            }
         }
-        assertEquals(expected, true);
 
-    }*/
-/* TODO
+        String content = driver.getPageSource();
+        assertTrue(!content.contains(vorlesung));
+        assertTrue(!content.contains(kontakt));
+        assertTrue(!content.contains(nachricht));
 
-    @Test
-    public void deleteCorrectAnnonce() throws SQLException
-    {
+        driver.get(annoncenEinsehenURL);
+        content = driver.getPageSource();
+        assertTrue(!content.contains(vorlesung));
+        assertTrue(!content.contains(kontakt));
+        assertTrue(!content.contains(nachricht));
+    }
 
-        WebElement elem = driver.findElementById("ID");
-        System.out.println(elem.getText());
+    private String getRandKontakt() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        return "testkontakt" + rand;
+    }
 
-    }*/
+    private String getRandNachricht() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        return "testnachricht" + rand;
+    }
 
+    private String getRandVorl() {
+        Double randNumb = Math.random();
+        String rand = randNumb.toString().substring(2, 6);
+        return "testvorlesung" + rand;
+    }
 
+    private String getRandTyp() {
+        Double randNumb = Math.random();
+        if (randNumb < 5.0) {
+            return "Übungsgruppe";
+        }
+        else {
+            return "Lerngruppe";
+        }
+    }
 
-
+    private void createAnnonce(String vorlName, String kontakt, String typ, String nachricht) {
+        driver.findElement(By.id("vorlName")).sendKeys(vorlName);
+        driver.findElement(By.id("kontakt")).sendKeys(kontakt);
+        Select objSelect = new Select(driver.findElement(By.name("choice")));
+        objSelect.selectByVisibleText(typ);
+        driver.findElement(By.name("nachricht")).sendKeys(nachricht);
+        driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
+    }
 
     @AfterAll
     public static void deleteTestDebrisAndClose() throws SQLException {
