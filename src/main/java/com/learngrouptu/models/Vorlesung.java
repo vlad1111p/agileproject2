@@ -22,11 +22,11 @@ public class Vorlesung implements Serializable {
 
     private String titel;
 
-    private Integer cp;
+    private Double cp;
 
     private String studiengang;
 
-    public Vorlesung(Integer vorlesungid,String kursnr, String titel, Integer cp, String studiengang){
+    public Vorlesung(Integer vorlesungid,String kursnr, String titel, Double cp, String studiengang){
         super();
         this.vorlesungid=vorlesungid;
         this.kursnr = kursnr;
@@ -42,7 +42,7 @@ public class Vorlesung implements Serializable {
     //basic getter and setter
     public String getKursnr(){return kursnr;}
     public String getTitel(){return titel;}
-    public Integer getCp(){return cp;}
+    public Double getCp(){return cp;}
     public String getStudiengang(){return studiengang;}
 
 
@@ -50,7 +50,7 @@ public class Vorlesung implements Serializable {
     public void setTitel(String titel){
         this.titel = titel;
     }
-    public void setCp(Integer cp){this.cp = cp;}
+    public void setCp(Double cp){this.cp = cp;}
     public void setStudiengang(String studiengang){this.studiengang = studiengang;}
 
 
