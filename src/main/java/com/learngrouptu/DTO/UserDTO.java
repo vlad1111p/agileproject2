@@ -21,6 +21,8 @@ public class UserDTO {
 
     private String abschluss;
 
+    private String altesPassword;
+
     private String bio;
 
     public UserDTO(){
@@ -102,4 +104,7 @@ public class UserDTO {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+
+
 }
