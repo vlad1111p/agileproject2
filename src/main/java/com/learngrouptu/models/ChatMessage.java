@@ -1,9 +1,7 @@
 package com.learngrouptu.models;
 
-import org.hibernate.annotations.Proxy;
-
 import javax.persistence.*;
-import javax.transaction.Transactional;
+
 
 @Entity
 public class ChatMessage {
@@ -14,7 +12,7 @@ public class ChatMessage {
     private MessageType type;
     private String content;
     private String sender;
-    //private Integer chatid;
+    private Integer chatid;
 
     public enum MessageType {
         CHAT,
@@ -23,7 +21,7 @@ public class ChatMessage {
     }
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "chat_id", nullable = false, insertable = true)
+    @JoinColumn(name = "chatid", nullable = false, insertable = false, updatable = false)
     private Chatroom chatroom;
 
     public Integer getChatMessageId() {
@@ -66,4 +64,11 @@ public class ChatMessage {
         this.chatroom = chatroom;
     }
 
+    public Integer getChatid() {
+        return chatid;
+    }
+
+    public void setChatid(Integer chatid) {
+        this.chatid = chatid;
+    }
 }

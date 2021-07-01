@@ -30,8 +30,6 @@ stompClient.connect({}, onConnected, onError);
 
 function enterRoom(newRoomId) {
     chatroomid = newRoomId;
-    //Cookies.set('roomId', roomId);
-    //roomIdDisplay.textContent = chatroomid;
     topic = `/app/chat/${newRoomId}`;
 
     if (currentSubscription) {

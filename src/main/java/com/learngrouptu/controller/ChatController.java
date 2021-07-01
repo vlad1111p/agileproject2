@@ -12,14 +12,8 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,7 +42,7 @@ public class ChatController {
     public String startChat(@RequestParam Integer id, Model model) {
 
         User user = userRepository.findByUserAnnoncen_AnnonceId(id);
-        System.out.println(user);
+        System.out.println(user.getUsername());
 
         Chatroom chatroom = new Chatroom();
         chatroom.setRecipient(user.getUsername());
@@ -66,11 +60,10 @@ public class ChatController {
         // TODO: 29.06.2021 datum zufügen, evtl noch meineChats umbenennen in Nachrichten, Chat laden
         // TODO: 29.06.2021 Code aufräumen:
 
-        Chatroom chatroom = chatroomRepository.getOne(Integer.valueOf(roomId));
-        chatMessage.setChatroom(chatroom);
+        chatMessage.setChatid(Integer.valueOf(roomId));
         System.out.println("sender: " + chatMessage.getSender());
         System.out.println("content: " + chatMessage.getContent());
-        System.out.println("chatroomid: " + chatMessage.getChatroom().getChatroomId());
+        System.out.println("chatroomid: " + chatMessage.getChatid());
 
         chatMessageRepository.save(chatMessage);
 
