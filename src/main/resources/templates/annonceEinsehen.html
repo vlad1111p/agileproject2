@@ -135,7 +135,7 @@
                 <tr>
                   <th scope="col">Vorlesungsname</th>
                   <th scope="col">Gruppentyp</th>
-                  <th scope="col">Kontakt</th>
+                  <th scope="col">ErstellerIn</th>
                   <th scope="col">Nachricht</th>
                   <th scope="col">Datum</th>
                  <!-- <th scope="col"></th> -->
@@ -146,7 +146,7 @@
 
                   <td th:text="${annonce.vorlName}"></td>
                   <td th:text="${annonce.choice}"></td>
-                  <td th:text="${annonce.kontakt}"></td>
+                  <td> <a class = "boring-link" th:text="${annonce.getErsteller().getUsername()}" th:href="@{/profilBesuchen(username=${annonce.getErsteller().getUsername()})}"></a></td>
                   <td th:text="${annonce.nachricht}"></td>
                   <td th:text="${annonce.datum}"></td>
                 </tr>

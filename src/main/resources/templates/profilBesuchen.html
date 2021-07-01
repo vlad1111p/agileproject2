@@ -50,8 +50,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-2">
-                            <h3>Dein Profil</h3>
+                        <div class="col-6">
+                            <h3>Profil von <span th:text="${userProfile.getUsername()}"></span></h3>
                         </div>
                     </div>
                 </div>
@@ -59,11 +59,11 @@
                     <div>
                         <div class="row">
                             <div class="col">
-                                Dein Studiengang
+                                Studiengang
                             </div>
                             <div name="studiengang" class="col">
                                 <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
-                                    Du hast hier noch nichts eingetragen
+                                    Nichts eingetragen
                                 </div>
                                 <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
                                     <div th:text="${userProfile.getStudiengang()}"></div>
@@ -72,11 +72,11 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                Dein Abschluss
+                                Abschluss
                             </div>
                             <div name="abschluss" class="col">
                                 <div th:if="${userProfile.getAbschluss()==null}">
-                                    Du hast hier noch nichts eingetragen
+                                    Nichts eingetragen
                                 </div>
                                 <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
                                     <div th:text="${userProfile.getAbschluss()}"></div>
@@ -92,10 +92,10 @@
                         </div>
                     </div>
                     <div>
-                        <div>Deine Bio</div>
+                        <div>Bio</div>
                         <div name="bio">
                             <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                                Du hast hier noch nichts eingetragen
+                                Nichts eingetragen
                             </div>
                             <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
                                 <div th:text="${userProfile.getBio()}"></div>
