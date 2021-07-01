@@ -18,35 +18,61 @@
     <link href="/css/searchBar.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
 </head>
-<body id="page-top" th:switch="${vorlesungsubersicht}">
+<body id="page-top" th:switch="${vorlesungen}">
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-        <a class="navbar-brand" id="logotukl2" href="#page-top"><img src="assets/img/logoTu2.png" alt="..." /></a>
+    <div class="containerNavbar">
+       <!-- <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>  -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ms-1"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}"><b>Startseite</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}"><b>Annonce erstellen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/vorlesungsubersicht" th:href="@{/vorlesungsubersicht}"><b>Vorlesungen</b></a></li>
-                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}"><b>Vorlesung hinzufügen</b></a></li>
+                <li class="nav-item"><a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a></li>
+                <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}">Profil einstellen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}"><b>Vorlesungen einsehen</b></a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung hinzufügen</a></li>
             </ul>
         </div>
     </div>
+    <form style="margin-right: 2%" class="d-flex" action="perform_logout">
+        <button class="btn btn-secondary" type="submit">Logout</button>
+    </form>
 </nav>
 <div th:case="null">
 <!-- Masthead-->
 <header class="masthead" id="masthead1" >
     <div class="container">
         <div class="masthead-subheading" id="textforwrong">Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.</div>
-        <a class="btn btn-primary btn-xl text-uppercase" href="/vorlesungsubersichterstellen" th:href="@{/vorlesungsubersichterstellen}">Vorlesung erstellen</a>
+        <a class="btn btn-primary btn-xl text-uppercase" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung erstellen</a>
     </div>
-</header><header class="masthead" id="masthead1" >
+</header>
+    <!-- Search in nullCase -->
+    <div class="container">
+        <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
+            <p class="search__title">
+                Schnellsuchfunktion:
+            </p>
+            <label for="vorlName">Vorlesungsname</label><br>
+            <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
+            <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+            <label for="Lerngruppe">Lerngruppe</label><br>
+            <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+            <label for="Übungsgruppe">Übungsgruppe</label><br>
+            <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+            <label for="Beides">Beides</label><br>
+
+            <button id="button1" class="btn btn-primary">Suchen</button>
+        </form>
+    </div>
+    <!--endSearch in nullCase -->
+
+    <header class="masthead" id="masthead1" >
 
 </header>
 <section class="page-section" id="contact" >
@@ -60,23 +86,34 @@
 <!-- Services-->
 <!-- Masthead-->
 <div th:case="*">
-<header class="masthead" id="masthead1" >
-
-</header>
 <section class="page-section" id="services" >
+    <div class="container" th:if="${vorlesungCreated == true}">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-9">
+                <div class="card">
+                    <div class="alert alert-primary" role="alert">
+                        Die Vorlesung wurde erstellt.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container">
+        <div class="sticky-top">
         <form action="/searchLecture" class="search__container" method="GET" >
             <p class="search__title">
                 Schnellsuchfunktion:
             </p>
             <label for="VorlName">Titel</label><br>
             <input type="text" class="search__input" id="VorlName" name="VorlName"><br>
-            <label for="Kursname">Kursnummer</label><br>
-            <input type="text" class="search__input" id="Kursname" name="Kursname"><br>
+            <label for="kursNr">Kursnummer</label><br>
+            <input type="text" class="search__input" id="kursNr" name="kursNr"><br>
             <label for="Studiengang">Studiengang</label><br>
             <input type="text"  class="search__input" id="Studiengang" name="Studiengang"><br><br>
-            <input id="button1" type="submit" value="Search" style="background-color: #e4e8eb">
+            <input id="button1" class="btn btn-primary" type="submit" value="Suchen">
         </form>
+            </div>
         <div class="row" style="background-color: #e4e8eb">
             <div class="col-12">
                 <div class="card">
@@ -96,7 +133,7 @@
                             </tr>
                             </thead>
                             <tbody class="customtable">
-                            <tr th:each="vorlesung : ${vorlesungsubersicht}">
+                            <tr th:each="vorlesung : ${vorlesungen}">
 
                                 <td th:text="${vorlesung.titel}"></td>
                                 <td th:text="${vorlesung.kursnr}"></td>
@@ -105,7 +142,7 @@
                                 <td><a href="/vorlesungsgruppeerstellen"
                                        th:href="@{/vorlesungsgruppeerstellen(id=${vorlesung.vorlesungid})}">Gruppe erstellen</a>
                                 </td>
-                                <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(id1=${vorlesung.titel})}">Gruppe
+                                <td><a href="/vorlesungsgruppesuchen" th:href="@{/vorlesungsgruppesuchen(titel=${vorlesung.titel})}">Gruppe
                                     suchen</a></td>
                             </tr>
                             </tbody>
@@ -126,11 +163,6 @@
     </div>
 </section>
     </div>
-
-
-
-
-
 
 
 <!-- Bootstrap core JS-->

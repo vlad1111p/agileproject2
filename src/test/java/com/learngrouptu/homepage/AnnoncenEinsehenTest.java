@@ -3,8 +3,11 @@ package com.learngrouptu.homepage;
 
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.*;
 
@@ -37,20 +40,23 @@ public class AnnoncenEinsehenTest
         login();
     }
 
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
+    }
+
     private static void register() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
-        driver.findElementByName("register-submit-button").click();
-    }
-
-    private static void login() {
-        driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("username")).sendKeys("testuser");
-        driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 
     @BeforeEach

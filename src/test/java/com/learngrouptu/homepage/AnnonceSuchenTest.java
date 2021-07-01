@@ -6,7 +6,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Coordinates;
 import org.openqa.selenium.support.ByIdOrName;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.xml.xpath.XPath;
 import java.sql.Connection;
@@ -36,20 +38,23 @@ public class AnnonceSuchenTest {
         login();
     }
 
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
+    }
+
     private static void register() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
-        driver.findElementByName("register-submit-button").click();
-    }
-
-    private static void login() {
-        driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("username")).sendKeys("testuser");
-        driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 
     @BeforeEach
@@ -74,7 +79,7 @@ public class AnnonceSuchenTest {
         driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
         Select objSelect = new Select(driver.findElement(By.name("choice")));
         objSelect.selectByVisibleText("Lerngruppe");
-        driver.findElement(By.id("nachricht")).sendKeys("Testnachricht");
+        driver.findElement(By.name("nachricht")).sendKeys("Testnachricht");
         driver.findElement(By.name("submit-button")).sendKeys(Keys.RETURN);
         Assertions.assertTrue(driver.getCurrentUrl().equals("http://localhost:8080/addannonce"));
         driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung");
@@ -114,9 +119,9 @@ public class AnnonceSuchenTest {
 //        driver.findElement(By.id("vorlName")).sendKeys("Testvorlesung"+ rand);
 //        driver.findElement(By.id("button1")).submit();
 //        WebElement link = driver.findElementByLinkText("Neue Annonce erstellen");
-//        link.click();
+//        link.sendKeys(Keys.RETURN);
 //        driver.findElement(By.id("kontakt")).sendKeys("Testkontakt");
-//        driver.findElement(By.id("button1")).click();
+//        driver.findElement(By.id("button1")).sendKeys(Keys.RETURN);
 //        boolean ifCorrect = driver.getPageSource().contains("Testvorlesung"+rand) && driver.getPageSource().contains("Testkontakt");
 //        Assertions.assertTrue(ifCorrect);
 //    }

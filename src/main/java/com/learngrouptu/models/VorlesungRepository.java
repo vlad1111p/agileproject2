@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VorlesungRepository extends JpaRepository<Vorlesung, Integer> {
-
+    Vorlesung findVorlesungByKursnr(String kursnr);
 }

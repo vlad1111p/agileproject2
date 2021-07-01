@@ -1,10 +1,19 @@
 package com.learngrouptu.homepage;
 
+
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,12 +57,12 @@ public class RegisterTest {
 
     @Test
     public void testRegisterButton() {
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         assertEquals(driver.getCurrentUrl(), url_register);
     }
 
     @Test
-    public void testSuccessfullRegisterRedirectToHome() {
+    public void testSuccessfullRegisterRedirectToHome()  {
         String username = getRandUsername();
         String email = getRandEmail();
         String password = getRandPassword();
@@ -83,7 +92,7 @@ public class RegisterTest {
     }
 
     @Test
-    public void successfullRegisterAndLoginAfterwardsWithSameCredentials() {
+    public void successfullRegisterAndLoginAfterwardsWithSameCredentials()  {
         String username = getRandUsername();
         String email = getRandEmail();
         String password = getRandPassword();
@@ -101,7 +110,7 @@ public class RegisterTest {
     }
 
     @Test
-    public void successfullRegisterAndLoginAfterwardsWithWrongPassword() {
+    public void successfullRegisterAndLoginAfterwardsWithWrongPassword()  {
         String username = getRandUsername();
         String email = getRandEmail();
         String password = getRandPassword();
@@ -157,7 +166,7 @@ public class RegisterTest {
     }
 
     @Test
-    public void afterUnsuccessfulRegisterNoLoginPoss() {
+    public void afterUnsuccessfulRegisterNoLoginPoss()  {
         String username = getRandUsername();
         String email = getRandEmail();
         register(username, email, "");
@@ -249,17 +258,20 @@ public class RegisterTest {
 
     private void login(String username, String password) {
         driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElement(By.name("password")).sendKeys(password);
-        driver.findElement(By.name("login-button")).click();
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
     }
 
     private void register(String username, String email, String password) {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys(username);
         driver.findElementByName("password").sendKeys(password);
         driver.findElementByName("email").sendKeys(email);
-        driver.findElementByName("register-submit-button").click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 }

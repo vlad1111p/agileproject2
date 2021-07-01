@@ -1,27 +1,18 @@
 package com.learngrouptu.controller;
 
-import com.learngrouptu.DTO.RegisterDTO;
-import com.learngrouptu.models.Annonce;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.validation.Valid;
-import java.util.Map;
 
 @Controller
 public class UserController {
@@ -48,7 +39,6 @@ public class UserController {
     public ModelAndView addUser(@Valid User user, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            System.out.println("Something went wrong");
             return new ModelAndView("redirect:register");
         }
 
@@ -69,9 +59,6 @@ public class UserController {
             ModelAndView mav = new ModelAndView("redirect:register");
             mav.addObject("usererror", true);
             return mav;
-
-            //return "redirect:/register?error=usererror";
-
         } catch (EmailDuplicateException e) {
             ModelAndView mav = new ModelAndView("redirect:register");
             mav.addObject("emailerror", true);

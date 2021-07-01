@@ -1,36 +1,20 @@
-package com.learngrouptu.models;
+package com.learngrouptu.DTO;
 
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
+import com.learngrouptu.models.Annonce;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue
+public class UserDTO {
     private Integer userID;
 
-    @NotBlank
-    @NotNull
-    @Column(unique = true)
     private String username;
 
-    @NotBlank
-    @NotNull
-    @Column(unique = true)
     private String email;
 
-    @NotBlank
-    @NotNull
     private String password;
 
-    @ManyToMany
-    @JoinTable
     private Set<Annonce> userAnnoncen = new HashSet<>();
 
     private String studiengang;
@@ -39,11 +23,11 @@ public class User {
 
     private String bio;
 
-    public User(){
+    public UserDTO(){
         super();
     }
 
-    public User(Integer userID, String username, String email, String password){
+    public UserDTO(Integer userID, String username, String email, String password){
 
         super();
         this.userID = userID;

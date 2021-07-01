@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -33,10 +29,10 @@ public class VorlesungController {
     }
 
 
-    @GetMapping("/vorlesungsubersicht")
+    @GetMapping("/vorlesungEinsehen")
     public String showVorlesungEinsehen(Model model) {
-        model.addAttribute("vorlesungsubersicht", vorlesungRepository.findAll());
-        return "vorlesungsubersicht";
+        model.addAttribute("vorlesungen", vorlesungRepository.findAll());
+        return "vorlesungEinsehen";
     }
 
 
@@ -46,55 +42,66 @@ public class VorlesungController {
     }
 
     @GetMapping("/vorlesungsgruppeerstellen")
-    public String showVorlesungGruppe(Model model, Annonce annonce, @RequestParam("id") Integer id) {
-        model.addAttribute("vorlesungsubersicht1", vorlesungRepository.getOne(id).getTitel());
+    public String createAnnonceFromVorlesung(Model model, Annonce annonce, @RequestParam("id") Integer id) {
+        model.addAttribute("titelFromVorlesung", vorlesungRepository.getOne(id).getTitel());
         return "annonceErstellen";
     }
 
     @GetMapping("/vorlesungsgruppesuchen")
-    public String showVorlesungGruppeErstellen(Model model, @RequestParam("id1") String id1) {
-        List<Annonce> vorliterator = annonceRepository.findAll();
-        List<Annonce> vorllist = vorliterator.stream()
-                .filter(vorl -> vorl.getVorlName().matches(id1))
-                .collect(Collectors.toList());
-        model.addAttribute("annoncen", vorllist);
+    public String searchAnnoncenFromVorlesung(Model model, @RequestParam("titel") String titel) {
+        List<Annonce> filteredAnnoncen = annonceRepository.findAllByVorlName(titel);
+        model.addAttribute("annoncen", filteredAnnoncen);
         return "annonceEinsehen";
     }
 
     @GetMapping("/searchLecture")
-    public String searchLecture(Model model, @RequestParam(name="VorlName",required = false) String id1, @RequestParam(name="Kursname",required = false) String id2, @RequestParam(name="Studiengang",required = false) String id3) {
+    public String searchLecture(Model model,
+                                @RequestParam(name="VorlName",required = false) String vorlName,
+                                @RequestParam(name="kursNr",required = false) String kursNr,
+                                @RequestParam(name="Studiengang",required = false) String studiengang) {
 
+        List<Vorlesung> vorlList = vorlesungRepository.findAll();
 
-
-        List<Vorlesung> vorllist = vorlesungRepository.findAll();
-
-        if(id1!=""){
-            vorllist = vorllist.stream()
-                .filter(vorl -> vorl.getTitel().toLowerCase().contains(id1.toLowerCase()))
-                .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+        if(!vorlName.equals("")) {
+            vorlList = filterByTitelIgnoringCases(vorlName, vorlList);
+            if (vorlList.isEmpty()){
+                return "vorlesungEinsehen";
             }
         }
-        if(id2!=""){
-            vorllist = vorllist.stream()
-                    .filter(vorl -> vorl.getKursnr().contains(id2))
-                    .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+        if(!kursNr.equals("")){
+            vorlList = filterByKursNr(kursNr, vorlList);
+            if (vorlList.isEmpty()){
+                return "vorlesungEinsehen";
             }}
-        if(id3!=""){
-            vorllist = vorllist.stream()
-                    .filter(vorl -> vorl.getStudiengang().contains(id3))
-                    .collect(Collectors.toList());
-            if (vorllist.isEmpty()){
-                return "vorlesungsubersicht";
+        if(!studiengang.equals("")){
+            vorlList = filterByStudiengang(studiengang, vorlList);
+            if (vorlList.isEmpty()){
+                return "vorlesungEinsehen";
             }}
 
+            model.addAttribute("vorlesungen", vorlList);
+        return "vorlesungEinsehen";
+    }
 
+    private List<Vorlesung> filterByStudiengang(String studiengang, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+                .filter(vorl -> vorl.getStudiengang().contains(studiengang))
+                .collect(Collectors.toList());
+        return vorlList;
+    }
 
-            model.addAttribute("vorlesungsubersicht", vorllist);
-        return "vorlesungsubersicht";
+    private List<Vorlesung> filterByKursNr(String kursNr, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+                .filter(vorl -> vorl.getKursnr().contains(kursNr))
+                .collect(Collectors.toList());
+        return vorlList;
+    }
+
+    private List<Vorlesung> filterByTitelIgnoringCases(String vorlName, List<Vorlesung> vorlList) {
+        vorlList = vorlList.stream()
+            .filter(vorl -> vorl.getTitel().toLowerCase().contains(vorlName.toLowerCase()))
+            .collect(Collectors.toList());
+        return vorlList;
     }
 
     @PostMapping(value = "/vorlesungadd")
@@ -103,8 +110,22 @@ public class VorlesungController {
             return "redirect:vorlesungErstellen?error=true";
         }
         else {
-            vorlesungRepository.save(vorlesung);
-            return "redirect:vorlesungsubersicht";
+            try {
+                if (vorlesungRepository.findVorlesungByKursnr(vorlesung.getKursnr()) != null) {
+                    throw new VorlesungController.VorlesungDuplicateException();
+                }
+                vorlesungRepository.save(vorlesung);
+                model.addAttribute("vorlesungCreated", true);
+                return showVorlesungEinsehen(model);
+            }
+            catch (VorlesungDuplicateException e) {
+                model.addAttribute("vorlesungDoppelt", true);
+                return "vorlesungErstellen";
+            }
+
         }
+    }
+
+    private class VorlesungDuplicateException extends Throwable {
     }
 }

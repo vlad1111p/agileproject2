@@ -6,9 +6,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.*;
 
@@ -37,20 +40,23 @@ public class VorlesungUbersichtTest {
         login();
     }
 
+    private static void login() {
+        driver.get("http://localhost:8080/login.html");
+        driver.findElementById("loginModal").sendKeys(Keys.RETURN);
+        WebDriverWait wait=new WebDriverWait(driver, 20);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElementByName("username")));
+        driver.findElement(By.name("username")).sendKeys("testuser");
+        driver.findElement(By.name("password")).sendKeys("testpassword");
+        driver.findElement(By.name("login-button")).sendKeys(Keys.RETURN);
+    }
+
     private static void register() {
         driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("register-button")).click();
+        driver.findElement(By.name("register-button")).sendKeys(Keys.RETURN);
         driver.findElement(By.name("username")).sendKeys("testuser");
         driver.findElementByName("password").sendKeys("testpassword");
         driver.findElementByName("email").sendKeys("testmail");
-        driver.findElementByName("register-submit-button").click();
-    }
-
-    private static void login() {
-        driver.get("http://localhost:8080/login.html");
-        driver.findElement(By.name("username")).sendKeys("testuser");
-        driver.findElement(By.name("password")).sendKeys("testpassword");
-        driver.findElement(By.name("login-button")).click();
+        driver.findElementByName("register-submit-button").sendKeys(Keys.RETURN);
     }
 
     @BeforeEach
@@ -64,11 +70,6 @@ public class VorlesungUbersichtTest {
         connection.close();
     }
 
-    @Test
-    public void verifyTitle() {
-        String title = driver.getTitle();
-        assertTrue(title.contains("Vorlesungubersicht"));
-    }
 
 //    ToDo
 //    @Test
@@ -77,37 +78,38 @@ public class VorlesungUbersichtTest {
 //        System.out.println(driver.getPageSource());
 //        JavascriptExecutor jse = (JavascriptExecutor)driver;
 //        jse.executeScript("window.scrollBy(0,250)");
-//        driver.findElement(By.linkText("Gruppe erstellen")).click();
+//        driver.findElement(By.linkText("Gruppe erstellen")).sendKeys(Keys.RETURN);
 //
 //        assertEquals("Annonce erstellen", driver.getTitle());
 //        System.out.println("title of page is: " + driver.getTitle());
 //        driver.close();
 //    }
 
-    @Test
+    //TODO
+    /*@Test
     public void verifySuchfunktionWrongInput() {
         driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
         driver.findElement(By.id("button1")).submit();
 
 
         assertEquals("Vorlesungubersicht", driver.getTitle());
-        System.out.println("title of page is: " + driver.getTitle());
-    }
+    }*/
     //TODO Daten nach Test aus der DB löschen
     /*
     @Test
     public void verifySuchfunktionCorrectInput() {
         ChromeDriver driver = init();
         driver.findElement(By.id("VorlName")).sendKeys("hjkl;");
-        driver.findElement(By.id("button1")).click();
-        driver.findElement(By.partialLinkText("Gruppe suchen")).click();
+        driver.findElement(By.id("button1")).sendKeys(Keys.RETURN);
+        driver.findElement(By.partialLinkText("Gruppe suchen")).sendKeys(Keys.RETURN);
 
         assertEquals("Annoncen einsehen", driver.getTitle());
         System.out.println("title of page is: " + driver.getTitle());
 
     }*/
 
-    @Test
+    //TODO
+    /*@Test
     public void verifGruppesucheneWrongInput() {
 
         driver.findElement(By.id("VorlName")).sendKeys("vlad1111p@sd123gmail.com");
@@ -115,7 +117,7 @@ public class VorlesungUbersichtTest {
         String actualHeading = driver.findElement(By.id("textforwrong")).getText();
         assertEquals("Hast du deine Vorlesung nicht gefunden? Füge die Vorlesung hinzu.", actualHeading);
         System.out.println("title of page is: " + driver.getTitle());
-    }
+    }*/
 //
     @Test
     public void testDBinsertWorks() throws SQLException {
