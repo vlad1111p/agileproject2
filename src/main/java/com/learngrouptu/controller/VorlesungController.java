@@ -107,7 +107,13 @@ public class VorlesungController {
     @PostMapping(value = "/vorlesungadd")
     public String addVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
         if (result.hasErrors()) {
-            return "redirect:vorlesungErstellen?error=true";
+            if (result.getFieldError().getField().equals("cp")) {
+                model.addAttribute("cpKeineZahl", true);
+                return "vorlesungErstellen";
+            }
+            else {
+                return "redirect:vorlesungErstellen?error=true";
+            }
         }
         else {
             try {

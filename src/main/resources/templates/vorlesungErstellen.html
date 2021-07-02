@@ -64,11 +64,24 @@
 
         <form class="contact1-form validate-form" th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post" id="nameForm">
             <!-- TODO background here is not white, why? -->
+            <!-- Fehleranzeige falls Vorlesung schon existiert -->
             <div class="container" th:if="${vorlesungDoppelt == true}">
                 <div class="row">
                     <div class="card">
                         <div class="alert alert-primary" role="alert">
                             Diese Vorlesung existiert bereits.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TODO background here is not white, why? -->
+            <!-- Fehleranzeige falls CP keine Zahl waren -->
+            <div class="container" th:if="${cpKeineZahl == true}">
+                <div class="row">
+                    <div class="card">
+                        <div class="alert alert-primary" role="alert">
+                            Credit Points müssen Zahlen sein! Eine Dezimalzahl kann z.B. als 4.5 dargestellt werden.
                         </div>
                     </div>
                 </div>
@@ -101,8 +114,8 @@
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="cp">Credit Points:</label>
-                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="z.B. 4" required>
-                <span class="shadow-input1" th:if="${#fields.hasErrors('cp')}" th:errors="*{cp}"></span>
+                <input class="input1" type="text" id="cp" th:field="*{cp}" placeholder="z.B. 4.0" required>
+                <span class="shadow-input1" th:if="${#fields.hasErrors('cp')}"></span>
             </div>
 
             <div class="container-contact1-form-btn">

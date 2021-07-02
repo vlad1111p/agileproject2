@@ -6,13 +6,17 @@ import com.learngrouptu.models.AnnonceRepository;
 import com.learngrouptu.models.User;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +37,16 @@ public class AnnoncenController {
 
 
     @GetMapping("/annonceEinsehen")
-    public String showAnnonceEinsehen(Model model){
+    public ModelAndView showAnnonceEinsehen(Model model, @RequestParam(name = "annonceCreated", required = false) Boolean created){
+        // TODO Refactoring und so, dass es so funktioniert wie ich will!!!
         model.addAttribute("annoncen", annonceRepository.findAll());
-        return "annonceEinsehen";
+        if (created) {
+            model.addAttribute("annonceCreated", true);
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.addAllObjects(model.asMap());
+        mav.setViewName("annonceEinsehen");
+        return mav;
     }
 
     @GetMapping("/meineAnnoncen")
@@ -52,16 +63,16 @@ public class AnnoncenController {
     }
 
     @PostMapping("/addannonce")
-    public String addAnnonce(@Valid Annonce annonce, BindingResult result, Model model) {
+    public ModelAndView addAnnonce(@Valid Annonce annonce, BindingResult result, Model model, ModelAndView mav) {
         if (result.hasErrors()) {
-            return "redirect:annonceErstellen";
+            return new ModelAndView("redirect:annonceErstellen");
         }
 
         insertAnnonceIntoRepo(annonce);
 
         model.addAttribute("annonceCreated", true);
 
-        return showAnnonceEinsehen(model);
+        return new ModelAndView("redirect:annonceEinsehen", model.asMap());
     }
 
     private void insertAnnonceIntoRepo(Annonce annonce) {
