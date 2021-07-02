@@ -21,8 +21,6 @@ public class UserDTO {
 
     private String abschluss;
 
-
-
     private String bio;
 
 

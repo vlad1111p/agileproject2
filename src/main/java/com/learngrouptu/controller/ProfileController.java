@@ -83,13 +83,12 @@ public class ProfileController {
         Boolean userInputPasswordEncrypted = bCryptPasswordEncoder.matches(altesPassword, userCurrentPassword);
         System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
         if (altesPassword.equals(altesPassword1)) {
-//
-//
-            if (!neuesPassword.equals(altesPassword)) {
-//
-                if (neuesPassword.equals(neuesPassword1)) {
-//
-                    if (userInputPasswordEncrypted) {
+
+            if (neuesPassword.equals(neuesPassword1)) {
+
+                if (!neuesPassword.equals(altesPassword)) {
+
+                     if (userInputPasswordEncrypted) {
 
 
                         String encryptedNeuesPassword = bCryptPasswordEncoder.encode(neuesPassword);
@@ -118,19 +117,11 @@ public class ProfileController {
             model.addAttribute("oldpassworddoesnotmatch", "please add new password");
             return "passwordChange";
         }
-//
-//                    }
-//                }
-//
-//
-//            }
-//
+
+
 ////, @RequestParam(name="altesPassword",required = false) String altesPassword,
 ////            @RequestParam(name="altesPassword1",required = false) String altesPassword1, @RequestParam(name="neuesPassword",required = false) String neuesPassword, @RequestParam(name="neuesPassword1",required = false) String neuesPassword1
-//
-//
-//
-//        }
+
         return "passwordChange";
 
     }
