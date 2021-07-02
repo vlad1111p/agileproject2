@@ -1,29 +1,36 @@
 package com.learngrouptu.controller;
 
+import com.learngrouptu.DTO.PasswordDTO;
 import com.learngrouptu.DTO.UserDTO;
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
     private final UserRepository userRepository;
-
+    @Autowired
+    private JavaMailSender mailSender;
     @Autowired
     UserService userService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public ProfileController(UserRepository userRepository){this.userRepository = userRepository;}
+    public ProfileController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/profilEinstellen")
     public String showProfile(Model model, User user) {
@@ -38,7 +45,7 @@ public class ProfileController {
     }
 
     @GetMapping("/passwordChange")
-    public String changePassword(Model model, User user) {
+    public String changePassword(Model model, User user, PasswordDTO password) {
         model.addAttribute("user", userService.getCurrentUser());
         return "passwordChange";
     }
@@ -61,43 +68,69 @@ public class ProfileController {
 
         return "redirect:profilEinstellen";
     }
-    @PostMapping("/change_password")
-    public String editPassword(Model model, UserDTO user,@RequestParam(name="altesPassword",required = false) String altesPassword,
-                               @RequestParam(name="altesPassword1",required = false) String altesPassword1,@RequestParam(name="neuesPassword",required = false) String neuesPassword,@RequestParam(name="neuesPassword1",required = false) String neuesPassword1)  {
 
-        System.out.println(altesPassword);
+    @PostMapping("/change_password")
+    public String editPassword(Model model, PasswordDTO passwordDTO, UserDTO user) {
+
+
         User currUser = userService.getCurrentUser();
+        String altesPassword = passwordDTO.getAltesPassword();
+        String altesPassword1 = passwordDTO.getAltesPassword1();
+        String neuesPassword = passwordDTO.getNeuesPassword();
+        String neuesPassword1 = passwordDTO.getNeuesPassword1();
         String userCurrentPassword = currUser.getPassword();
 
-        String userInputPasswordEncrypted=bCryptPasswordEncoder.encode(altesPassword);
-        if(altesPassword.equals(altesPassword1) ) {
-
-
-            if(!neuesPassword.equals(altesPassword)){
-
-                if( neuesPassword.equals(neuesPassword1)){
-
-                    if( userCurrentPassword.equals(userInputPasswordEncrypted)) {
+        Boolean userInputPasswordEncrypted = bCryptPasswordEncoder.matches(altesPassword, userCurrentPassword);
+        System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
+        if (altesPassword.equals(altesPassword1)) {
+//
+//
+            if (!neuesPassword.equals(altesPassword)) {
+//
+                if (neuesPassword.equals(neuesPassword1)) {
+//
+                    if (userInputPasswordEncrypted) {
 
 
                         String encryptedNeuesPassword = bCryptPasswordEncoder.encode(neuesPassword);
                         currUser.setPassword(encryptedNeuesPassword);
                         userRepository.save(currUser);
+
+                        String from = "vladmihalea1111p@gmail.com";
+                        String to = currUser.getEmail();
+
+                        SimpleMailMessage message = new SimpleMailMessage();
+
+                        message.setFrom(from);
+                        message.setTo(to);
+                        message.setSubject("This is a plain text email");
+                        message.setText("Hello guys! This is a plain text email.");
+
+                        mailSender.send(message);
+
+
                         return "redirect:profilEinstellen";
 
                     }
                 }
-
-
             }
-
-
-
-
-
-
-
+        }else{
+            model.addAttribute("oldpassworddoesnotmatch", "please add new password");
+            return "passwordChange";
         }
+//
+//                    }
+//                }
+//
+//
+//            }
+//
+////, @RequestParam(name="altesPassword",required = false) String altesPassword,
+////            @RequestParam(name="altesPassword1",required = false) String altesPassword1, @RequestParam(name="neuesPassword",required = false) String neuesPassword, @RequestParam(name="neuesPassword1",required = false) String neuesPassword1
+//
+//
+//
+//        }
         return "passwordChange";
 
     }
