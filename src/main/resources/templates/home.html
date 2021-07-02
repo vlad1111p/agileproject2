@@ -15,6 +15,9 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
   <!-- Core theme CSS (includes Bootstrap)-->
   <link href="css/styles.css" rel="stylesheet" />
+  <!--Icons  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="navbarIcons.css" rel="stylesheet">
 </head>
 <body>
 <!-- Navigation-->
@@ -32,12 +35,13 @@
         <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
         <li class="nav-item"><a class="nav-link" href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
-        <li class="nav-item"><a class="nav-link" href="/profilEinstellen" th:href="@{/profilEinstellen}">Profil einstellen</a></li>
         <li class="nav-item"><a class="nav-link" href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
         <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung hinzufügen</a></li>
       </ul>
     </div>
   </div>
+  <a href="/meineChats" th:href="@{/meineChats}"><i class="bi bi-envelope navbarIcon"></i></a>
+  <a href="/profilEinstellen" th:href="@{/profilEinstellen}"><i class="bi bi-person"></i></a>
   <form style="margin-right: 2%" class="d-flex" action="perform_logout">
     <button class="btn btn-secondary" type="submit">Logout</button>
   </form>

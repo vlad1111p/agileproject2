@@ -1,0 +1,36 @@
+@font-face {
+    font-family: "bootstrap-icons";
+    src: url("./fonts/bootstrap-icons.woff2?856008caa5eb66df68595e734e59580d") format("woff2"),
+    url("./fonts/bootstrap-icons.woff?856008caa5eb66df68595e734e59580d") format("woff");
+}
+
+[class^="bi-"]::before,
+[class*=" bi-"]::before {
+    display: inline-block;
+    font-family: bootstrap-icons !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    vertical-align: -.125em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.bi-envelope-fill::before { content: "\f32c"; }
+.bi-envelope-open-fill::before { content: "\f32d"; }
+.bi-envelope-open::before { content: "\f32e"; }
+.bi-envelope::before { content: "\f32f"; }
+
+
+a .navbarIcon{
+    color:#fff;
+    background-color: #01588d;
+}
+
+a .navbarIcon:hover{
+    text-decoration:none;
+    color:#01588d;
+    background-color: #fff;
+}

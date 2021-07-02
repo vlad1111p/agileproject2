@@ -3954,6 +3954,11 @@ textarea.form-control-lg {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+navbar-Icon {
+  color: #fff;
+}
+
+
 .navbar > .container,
 .navbar > .container-fluid,
 .navbar > .container-sm,
@@ -4447,8 +4452,8 @@ textarea.form-control-lg {
   }
 }
 .accordion-button:not(.collapsed) {
-  color: #e6b400;
-  background-color: #fffae6;
+  color: #fff;
+  background-color: #01588d;
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 .accordion-button:not(.collapsed)::after {
@@ -4474,11 +4479,12 @@ textarea.form-control-lg {
 .accordion-button:hover {
   z-index: 2;
 }
+
 .accordion-button:focus {
   z-index: 3;
-  border-color: #BF1515;
+  border-color: #01588d;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(191, 21, 21, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(1, 88, 141, 0.25);
 }
 
 .accordion-header {
@@ -11468,7 +11474,7 @@ body {
      border: 0px solid transparent;
      border-radius: 0px
  }
- }
+
 
  .card-body {
      -webkit-box-flex: 1;
@@ -11601,8 +11607,23 @@ table a:hover {
 @font-face{font-family:Montserrat-ExtraBold;src:url(../fonts/montserrat/Montserrat-ExtraBold.ttf)}
 @font-face{font-family:Montserrat-Medium;src:url(../fonts/montserrat/Montserrat-Medium.ttf)}
 *{margin:0;padding:0;box-sizing:border-box}
-body,html{height:100%;font-family:Montserrat-Regular,sans-serif}a{font-family:Montserrat-Regular;font-size:14px;line-height:1.7;color:#666;margin:0;transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s}
-a:focus{outline:none!important}a:hover{text-decoration:none;color:#57b846}
+body,html{height:100%;font-family:Montserrat-Regular,sans-serif}
+a{font-family:Montserrat-Regular;
+  font-size:2em;
+  color:#fff;
+  margin-right: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s}
+
+a:focus{outline:none!important}
+a:hover{
+    border-radius: 5px;
+    text-decoration:none;
+    color:#01588d;
+    background-color: #fff;
+                               }
+
 h1,h2,h3,h4,h5,h6{margin:0}
 p{font-family:Montserrat-Regular;font-size:14px;line-height:1.7;color:#666;margin:0}
 ul,li{margin:0;list-style-type:none}
