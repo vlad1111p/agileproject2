@@ -80,7 +80,8 @@ public class AnnoncenEinsehenTest
 //        String actualHeading = driver.findElement(By.xpath("/html/body/div[@id='content']/div/div/h2")).getText();
 //        assertEquals(expectedHeading, actualHeading);
 //    }
-
+/*
+TODO
     @Test
     public void testDBpresentationWorks() throws SQLException
 
@@ -104,7 +105,7 @@ public class AnnoncenEinsehenTest
         Statement delStmt = connection.createStatement();
         delStmt.executeUpdate(sqlDel);
     }
-
+*/
 
     @Test
     public void testDBinsertWorks() throws SQLException
