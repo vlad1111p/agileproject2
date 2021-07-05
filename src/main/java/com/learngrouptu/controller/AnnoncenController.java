@@ -38,9 +38,9 @@ public class AnnoncenController {
 
     @GetMapping("/annonceEinsehen")
     public ModelAndView showAnnonceEinsehen(Model model, @RequestParam(name = "annonceCreated", required = false) Boolean created){
-        // TODO Refactoring und so, dass es so funktioniert wie ich will!!!
+        // TODO evtl. Refactoring und so, dass es so funktioniert wie ich will!!!
         model.addAttribute("annoncen", annonceRepository.findAll());
-        if (created) {
+        if (created != null && created) {
             model.addAttribute("annonceCreated", true);
         }
         ModelAndView mav = new ModelAndView();
