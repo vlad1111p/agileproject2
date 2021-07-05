@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
     <title>LearngroupTU</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico" />
+    <link href="assets/LGTU4.ico" rel="icon" type="image/x-icon"/>
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <script crossorigin="anonymous" src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css"/>
     <!-- Core theme CSS (includes Bootstrap)-->
 
     <link href="/css/searchBar.css" rel="stylesheet">
@@ -22,28 +22,36 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="containerNavbar">
         <!--  <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>  -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"
+                class="navbar-toggler" data-bs-target="#navbarResponsive" data-bs-toggle="collapse" type="button">
             Menu
             <i class="fas fa-bars ms-1"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a></li>
+                <li class="nav-item"><a class="navbar-brand" href="/home" id="logotukl2" th:href="@{/home}"><img
+                        alt="..." src="assets/img/logoTu2.png"/></a></li>
                 <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
-                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
-                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
-                <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}"><b>Profil einstellen</b></a></li>
-                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
-                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung hinzufügen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce
+                    erstellen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen
+                    einsehen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine
+                    Annoncen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}"><b>Profil
+                    einstellen</b></a></li>
+                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen
+                    einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung
+                    hinzufügen</a></li>
             </ul>
         </div>
     </div>
-    <form style="margin-right: 2%" class="d-flex" action="perform_logout">
+    <form action="perform_logout" class="d-flex" style="margin-right: 2%">
         <button class="btn btn-secondary" type="submit">Logout</button>
     </form>
 </nav>
-<header class="masthead" id="masthead1"></header>
+<header class="masthead-profil"></header>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -54,57 +62,66 @@
                             <h3>Dein Profil</h3>
                         </div>
                         <div class="col">
-                            <a name="profileChangeButton" class="btn btn-primary" role="button" href="profileChange">Bearbeiten </a>
+                            <a class="btn btn-primary" href="profileChange" name="profileChangeButton" role="button">Bearbeiten </a>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <div>
-                        <div class="row">
-                            <div class="col">
-                                Dein Studiengang
-                            </div>
-                            <div name="studiengang" class="col">
-                                <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
-                                    Du hast hier noch nichts eingetragen
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h5>Studiengang</h5>
                                 </div>
-                                <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
-                                    <div th:text="${userProfile.getStudiengang()}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                Dein Abschluss
-                            </div>
-                            <div name="abschluss" class="col">
-                                <div th:if="${userProfile.getAbschluss()==null}">
-                                    Du hast hier noch nichts eingetragen
-                                </div>
-                                <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
-                                    <div th:text="${userProfile.getAbschluss()}"></div>
+                                <div class="col" name="studiengang">
+
+                                        <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
+                                            Du hast hier noch nichts eingetragen
+                                        </div>
+                                        <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
+                                            <div th:text="${userProfile.getStudiengang()}"></div>
+                                        </div>
+
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <br />
+                        </li>
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h5>Angestrebter Abschluss</h5>
+                                </div>
+                                <div class="col" name="abschluss">
+
+                                        <div th:if="${userProfile.getAbschluss()==null}">
+                                            Du hast hier noch nichts eingetragen
+                                        </div>
+                                        <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
+                                            <div th:text="${userProfile.getAbschluss()}"></div>
+                                        </div>
+
+                                </div>
                             </div>
-                            <div class="col">
+                        </li>
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div><h5>Eine kurze Selbstbeschreibung</h5></div>
+                                </div>
+                                <div name="bio" class="col">
+
+                                        <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                            Du hast hier noch nichts eingetragen
+                                        </div>
+                                        <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                            <div th:text="${userProfile.getBio()}"></div>
+                                        </div>
+
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>Deine Bio</div>
-                        <div name="bio">
-                            <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                                Du hast hier noch nichts eingetragen
-                            </div>
-                            <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                                <div th:text="${userProfile.getBio()}"></div>
-                            </div>
-                        </div>
-                    </div>
+                        </li>
+
+                    </ul>
+
 
                 </div>
             </div>

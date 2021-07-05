@@ -65,7 +65,7 @@
       <span th:if="${#fields.hasErrors('abschluss')}" th:errors="*{abschluss}"></span>
       <br />
 
-      <label for="bio" class="form-label">Gib hier deine Bio ein:</label>
+      <label for="bio" class="form-label">Gib hier eine kurze Selbstbeschreibung über dich ein:</label>
       <textarea type="text" class="form-control" th:field="*{bio}" id="bio" placeholder="Bio"></textarea>
       <span th:if="${#fields.hasErrors('bio')}" th:errors="*{bio}"></span>
       <br />

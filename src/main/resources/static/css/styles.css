@@ -5118,6 +5118,12 @@ textarea.form-control-lg {
   color: #41464b;
   background-color: #e2e3e5;
 }
+
+.list-group-item-profil{
+  color: #212529;
+  background-color: #e4e8eb;
+}
+
 .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
   color: #41464b;
   background-color: #cbccce;
@@ -11096,6 +11102,18 @@ header.masthead {
   background-position: center center;
   background-size: cover;
 }
+header.masthead-profil {
+  padding-top: 4rem;
+  padding-bottom: 0.5rem;
+  text-align: center;
+  color: #01588d;
+  background-image: url("../assets/img/greyTu.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+
 header#masthead0 {
   padding-top: 10.5rem;
   padding-bottom: 6rem;
@@ -11118,6 +11136,7 @@ header#masthead1 {
   background-position: center center;
   background-size: cover;
 }
+
 header.masthead .masthead-subheading {
   font-size: 1.5rem;
   font-style: italic;
