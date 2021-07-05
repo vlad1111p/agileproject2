@@ -9,8 +9,6 @@ import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ProfileController {
     private final UserRepository userRepository;
     @Autowired
-    private JavaMailSender mailSender;
-    @Autowired
     UserService userService;
+    @Autowired
+    private JavaMailSender mailSender;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -88,33 +86,30 @@ public class ProfileController {
 
                 if (!neuesPassword.equals(altesPassword)) {
 
-                     if (userInputPasswordEncrypted) {
+                    if (userInputPasswordEncrypted) {
 
 
                         String encryptedNeuesPassword = bCryptPasswordEncoder.encode(neuesPassword);
                         currUser.setPassword(encryptedNeuesPassword);
                         userRepository.save(currUser);
 
-                        String from = "vladmihalea1111p@gmail.com";
-                        String to = currUser.getEmail();
-
-                        SimpleMailMessage message = new SimpleMailMessage();
-
-                        message.setFrom(from);
-                        message.setTo(to);
-                        message.setSubject("This is a plain text email");
-                        message.setText("Hello guys! This is a plain text email.");
-
-                        mailSender.send(message);
+                        sendConfirmationEmail(currUser);
 
 
                         return "redirect:profilEinstellen";
 
                     }
+                } else {
+                    model.addAttribute("oldpassworddoesnotmatch", true);
+                    return "passwordChange";
                 }
+
+            } else {
+                model.addAttribute("oldpassworddoesnotmatch", true);
+                return "passwordChange";
             }
-        }else{
-            model.addAttribute("oldpassworddoesnotmatch", "please add new password");
+        } else {
+            model.addAttribute("oldpassworddoesnotmatch", true);
             return "passwordChange";
         }
 
@@ -124,5 +119,19 @@ public class ProfileController {
 
         return "passwordChange";
 
+    }
+
+    private void sendConfirmationEmail(User currUser) {
+        String from = "vladmihalea1111p@gmail.com";
+        String to = currUser.getEmail();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Password change from LearngroupTU");
+        message.setText("You just have successfully changed your password.");
+
+        mailSender.send(message);
     }
 }

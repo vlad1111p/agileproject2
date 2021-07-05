@@ -210,7 +210,7 @@ public class RegisterTest {
     private String getRandEmail() {
         Double randNumb = Math.random();
         String rand = randNumb.toString().substring(2, 6);
-        return "testuser" + rand;
+        return "testuser" + rand +"@test.de";
     }
 
     private String getRandPassword() {
