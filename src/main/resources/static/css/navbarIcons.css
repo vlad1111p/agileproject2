@@ -23,14 +23,22 @@
 .bi-envelope-open::before { content: "\f32e"; }
 .bi-envelope::before { content: "\f32f"; }
 
-
-a .navbarIcon{
+/*
+.navbarIcon{
+    font-size: 2em;
     color:#fff;
     background-color: #01588d;
+    margin-right: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
+ */
+/*
 a .navbarIcon:hover{
     text-decoration:none;
     color:#01588d;
     background-color: #fff;
 }
+
+ */

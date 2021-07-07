@@ -42,8 +42,11 @@
       </ul>
     </div>
   </div>
-  <a href="/meineChats" th:href="@{/meineChats}"><i class="bi bi-envelope navbarIcon"></i></a>
-  <a href="/profilEinstellen" th:href="@{/profilEinstellen}"><i class="bi bi-person"></i></a>
+  <span class="chatbox_toggle"><button>
+    <a href="/meineChats" id="chats" th:href="@{/meineChats}"><!--class="chatbox_toggle"--><i
+            class="bi bi-envelope"></i></a>
+    </button></span>
+  <button><a href="/profilEinstellen" id="profil" th:href="@{/profilEinstellen}" class="btn-primary"><i class="bi bi-person"></i></a></button>
   <form style="margin-right: 2%" class="d-flex" action="perform_logout">
     <button class="btn btn-secondary" type="submit">Logout</button>
   </form>

@@ -66,10 +66,10 @@
         </div>
     </div>
     <span class="chatbox_toggle"><button>
-    <a href="/meineChats" th:href="@{/meineChats}"><!--class="chatbox_toggle"--><i
-            class="bi bi-envelope navbarIcon"></i></a>
+    <a href="#" id="chats"><i
+            class="bi bi-envelope"></i></a>
     </button></span>
-    <a href="/profilEinstellen" th:href="@{/profilEinstellen}"><i class="bi bi-person"></i></a>
+    <button><a href="/profilEinstellen" id="profil" th:href="@{/profilEinstellen}" class="btn-primary"><i class="bi bi-person"></i></a></button>
     <form style="margin-right: 2%" class="d-flex" action="perform_logout">
         <button class="btn btn-secondary" type="submit">Logout</button>
     </form>

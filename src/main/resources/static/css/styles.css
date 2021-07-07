@@ -3957,6 +3957,10 @@ textarea.form-control-lg {
 navbar-Icon {
   color: #fff;
 }
+navbarBootIcon{
+  color: #fff;
+  background-color: #01588d;
+}
 
 
 .navbar > .container,
@@ -11609,12 +11613,43 @@ table a:hover {
 *{margin:0;padding:0;box-sizing:border-box}
 body,html{height:100%;font-family:Montserrat-Regular,sans-serif}
 a{font-family:Montserrat-Regular;
-  font-size:2em;
+/*
+
+ font-size:2em;
   color:#fff;
+
   margin-right: 3px;
   padding-left: 5px;
   padding-right: 5px;
+  */
+  color: #fff;
   transition:all .4s;-webkit-transition:all .4s;-o-transition:all .4s;-moz-transition:all .4s}
+
+#profil{
+  font-size: 2em;
+  color: #fff;
+  background-color: #01588d;
+  margin-right: 3px;
+  margin-left: 3px;
+}
+#profil:hover{
+  color: #01588d;
+  background-color: #fff;
+}
+#chats{
+  font-size: 2em;
+  color: #fff;
+  background-color: #01588d;
+  margin-right: 3px;
+  margin-left: 3px;
+  padding-right: 3px;
+  padding-left: 3px;
+}
+#chats:hover{
+  color: #01588d;
+  background-color: #fff;
+}
+
 
 a:focus{outline:none!important}
 a:hover{
