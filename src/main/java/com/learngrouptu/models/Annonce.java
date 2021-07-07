@@ -1,6 +1,7 @@
 package com.learngrouptu.models;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -23,7 +24,7 @@ public class Annonce {
 
     private String nachricht;
 
-    @CreationTimestamp
+    @UpdateTimestamp
     private Date datum;
 
     @ManyToMany (mappedBy = "userAnnoncen")

@@ -135,17 +135,15 @@ public class AnnoncenController {
     }
 
     @PostMapping("/editannonce")
-    public ModelAndView editAnnonce(@Valid Annonce annonce, BindingResult result, Model model, ModelAndView mav) {
+    public ModelAndView editAnnonce(@Valid Annonce annonce, BindingResult result, @RequestParam(name = "annonceId") Integer annonceId, Model model) {
         if (result.hasErrors()) {
             return new ModelAndView("redirect:annonceAendern");
         }
-        Integer annonceID = Integer.parseInt(model.getAttribute("annonceID").toString());
-        Annonce currentAnnonce = annonceRepository.findAnnonceById(annonceID);
+        Annonce currentAnnonce = annonceRepository.findAnnonceByAnnonceId(annonceId);
         currentAnnonce.setVorlName(annonce.getVorlName());
         currentAnnonce.setChoice(annonce.getChoice());
         currentAnnonce.setKontakt(annonce.getKontakt());
         currentAnnonce.setNachricht(annonce.getNachricht());
-        currentAnnonce.setDatum(annonce.getDatum());
 
         annonceRepository.save(currentAnnonce);
 
@@ -156,12 +154,11 @@ public class AnnoncenController {
 
     @PostMapping("annonceAendern")
     public String annonceAendern(Model model, @RequestParam(name = "annonceId",required = true) Integer annonceId) throws AnnonceDoesNotExistException {
-        if (annonceRepository.findAnnonceById(annonceId) == null) {
+        if (annonceRepository.findAnnonceByAnnonceId(annonceId) == null) {
             throw new AnnonceDoesNotExistException();
         }
         else {
-            model.addAttribute("annonce", annonceRepository.findAnnonceById(annonceId));
-            model.addAttribute("annonceId", annonceId);
+            model.addAttribute("annonce", annonceRepository.findAnnonceByAnnonceId(annonceId));
             return "annonceAendern";
         }
     }
