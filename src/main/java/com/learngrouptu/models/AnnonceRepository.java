@@ -9,5 +9,6 @@ import java.util.List;
 public interface AnnonceRepository extends JpaRepository<Annonce, Integer> {
     List<Annonce> deleteByAnnonceId(Integer annonceId);
     List<Annonce> findAllByVorlName(String vorlName);
+    Annonce findAnnonceById(Integer annonceId);
 }
 

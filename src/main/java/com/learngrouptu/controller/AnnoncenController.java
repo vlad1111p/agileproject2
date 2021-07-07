@@ -1,5 +1,7 @@
 package com.learngrouptu.controller;
 
+import com.learngrouptu.Exceptions.AnnonceDoesNotExistException;
+import com.learngrouptu.Exceptions.UsernameDoesNotExistException;
 import com.learngrouptu.models.Annonce;
 import com.learngrouptu.DTO.AnnonceDTO;
 import com.learngrouptu.models.AnnonceRepository;
@@ -132,4 +134,35 @@ public class AnnoncenController {
         return annonceList;
     }
 
+    @PostMapping("/editannonce")
+    public ModelAndView editAnnonce(@Valid Annonce annonce, BindingResult result, Model model, ModelAndView mav) {
+        if (result.hasErrors()) {
+            return new ModelAndView("redirect:annonceAendern");
+        }
+        Integer annonceID = Integer.parseInt(model.getAttribute("annonceID").toString());
+        Annonce currentAnnonce = annonceRepository.findAnnonceById(annonceID);
+        currentAnnonce.setVorlName(annonce.getVorlName());
+        currentAnnonce.setChoice(annonce.getChoice());
+        currentAnnonce.setKontakt(annonce.getKontakt());
+        currentAnnonce.setNachricht(annonce.getNachricht());
+        currentAnnonce.setDatum(annonce.getDatum());
+
+        annonceRepository.save(currentAnnonce);
+
+        model.addAttribute("annonceEdited", true);
+
+        return new ModelAndView("redirect:meineAnnoncen", model.asMap());
+    }
+
+    @PostMapping("annonceAendern")
+    public String annonceAendern(Model model, @RequestParam(name = "annonceId",required = true) Integer annonceId) throws AnnonceDoesNotExistException {
+        if (annonceRepository.findAnnonceById(annonceId) == null) {
+            throw new AnnonceDoesNotExistException();
+        }
+        else {
+            model.addAttribute("annonce", annonceRepository.findAnnonceById(annonceId));
+            model.addAttribute("annonceId", annonceId);
+            return "annonceAendern";
+        }
+    }
 }

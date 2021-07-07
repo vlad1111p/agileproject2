@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Annonce ändern</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="assets/icons/favicon.ico"/>
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="/css/styles.css" rel="stylesheet">
+    <!--===============================================================================================-->
+</head>
+<body id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="containerNavbar">
+    <!--    <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>  -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a></li>
+                <li class="nav-item"><a class="nav-link" href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/profilEinstellen" th:href="@{/profilEinstellen}">Profil einstellen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung hinzufügen</a></li>
+            </ul>
+        </div>
+    </div>
+    <form style="margin-right: 2%" class="d-flex" action="perform_logout">
+        <button class="btn btn-secondary" type="submit">Logout</button>/
+    </form>
+</nav>
+
+<div class="contact1">
+    <div class="container-contact1">
+        <div class="contact1-pic js-tilt" data-tilt>
+            <img src="assets/tulogoTest2.png" alt="IMG">
+        </div>
+
+        <form class="contact1-form validate-form" th:action = "@{/editannonce}" th:object="${annonceDTO}" method = "post" id="nameForm">
+				<span class="contact1-form-title">
+					Annonce erstellen
+				</span>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
+                <input id="vorlName" placeholder="Vorlesung" th:field="*{vorlName}" th:value="vorlName1"
+                       type="text" required="true"  class="input1">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
+            </div>
+
+            <div class="wrap-input1 validate-input" data-validate = "Name is required">
+                <label for="kontakt">Wie kann man dich erreichen?</label>
+                <input class="input1" type="text" id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email">
+                <span class="shadow-input1" th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
+            </div>
+
+            <div id="choice" class="wrap-input1">
+                <label for="choice">Lern- oder Übungsgruppe:</label>
+                <select class="wrap-input1 input1" id="choice" th:field="*{choice}" name="choice" placeholder="Lerngruppe oder Übung" required="true">
+                    <option class="wrap-input1 input1" value="Lerngruppe">Lerngruppe</option>
+                    <option class="wrap-input1 input1" value="Übungsgruppe">Übungsgruppe</option>
+                </select>
+                    <span class="shadow-input1"></span>
+                </select>
+            </div>
+
+
+            <div class="wrap-input1 validate-input" id="nachricht">
+                <label for="nachricht">Nachricht(optional):</label>
+                <textarea class="input1" th:field="*{nachricht}" name="nachricht" id="nachricht" placeholder="Was möchtest du noch sagen?"></textarea>
+                <span class="shadow-input1" th:if="${#fields.hasErrors('nachricht')}" th:errors="*{nachricht}"></span>
+            </div>
+
+            <div class="container-contact1-form-btn">
+                <button class="contact1-form-btn" name="submit-button">
+						<span>
+							Abschicken
+						<!--	<i class="fa fa-long-arrow-right" aria-hidden="true"></i> -->
+						</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!--===============================================================================================-->
+<script src="js/scripts.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/bootstrap/js/popper.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+<script src="vendor/tilt/tilt.jquery.min.js"></script>
+<script >
+    $('.js-tilt').tilt({
+        scale: 1.1
+    })
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+<!--===============================================================================================-->
+<script src="js/main.js"></script>
+
+</body>
+</html>

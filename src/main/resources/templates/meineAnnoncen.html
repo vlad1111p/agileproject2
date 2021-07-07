@@ -101,6 +101,11 @@
                       <button id="delete" type="submit" class="btn btn-primary">Annonce löschen</button>
                     </form>
                   </td>
+                  <td>
+                    <form th:action="@{/annonceAendern(annonceId=${userAnnonce.annonceId})}" method="post" th:object="${userAnnonce}">
+                      <button id="edit" type="submit" class="btn btn-primary">Annonce bearbeiten</button>
+                    </form>
+                  </td>
                 </tr>
                 </tbody>
               </table>
