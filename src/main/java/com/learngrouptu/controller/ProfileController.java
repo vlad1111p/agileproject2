@@ -1,6 +1,7 @@
 package com.learngrouptu.controller;
 
 import com.learngrouptu.DTO.PasswordDTO;
+import com.learngrouptu.DTO.PasswordResetDTO;
 import com.learngrouptu.DTO.UserDTO;
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.models.User;
@@ -113,10 +114,6 @@ public class ProfileController {
             return "passwordChange";
         }
 
-
-////, @RequestParam(name="altesPassword",required = false) String altesPassword,
-////            @RequestParam(name="altesPassword1",required = false) String altesPassword1, @RequestParam(name="neuesPassword",required = false) String neuesPassword, @RequestParam(name="neuesPassword1",required = false) String neuesPassword1
-
         return "passwordChange";
 
     }
@@ -133,5 +130,36 @@ public class ProfileController {
         message.setText("You just have successfully changed your password.");
 
         mailSender.send(message);
+    }
+
+    @GetMapping("/passwortVergessen")
+    public String resetPassword(Model model, User user, PasswordResetDTO password) {
+        model.addAttribute("user", userService.getCurrentUser());
+        return "passwortVergessen";
+    }
+
+
+    @PostMapping("/reset_password")
+    public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
+
+        String usermail = passwordResetDTO.getUsermail();
+
+        String from = "vladmihalea1111p@gmail.com";
+        String to = usermail;
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Password reset from LearngroupTU");
+        message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail." +
+                "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link:" +
+                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + usermail);
+
+        mailSender.send(message);
+
+        return "login";
+
+
     }
 }
