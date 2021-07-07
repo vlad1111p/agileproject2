@@ -23,6 +23,8 @@ public class UserDTO {
 
     private String bio;
 
+
+
     public UserDTO(){
         super();
     }
@@ -102,4 +104,6 @@ public class UserDTO {
     public void setBio(String bio) {
         this.bio = bio;
     }
+
+
 }
