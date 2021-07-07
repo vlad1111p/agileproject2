@@ -94,8 +94,8 @@
                                 th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
                                 th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|">
                             <p th:text="${chat.recipient}"></p><br>Testvorlesung
-                            <input type = "hidden" id="chatroomid" th:value='${chat.chatroomId}'>
-                            <input type = "hidden" id="sender" th:value='${chat.sender}'>
+                            <input  id="chatroomid" th:value='${chat.chatroomId}'>
+                            <input  id="sender" th:value='${chat.sender}'>
                         </button>
                     </h2>
                     <div th:id="'ID'+${chat.chatroomId}" class="accordion-collapse collapse" aria-labelledby="test"

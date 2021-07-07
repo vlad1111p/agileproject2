@@ -48,7 +48,7 @@ function connect(number) {
 function enterRoom(newRoomId) {
 
     username = document.querySelector('#sender').value;
-    newRoomId = document.querySelector('#chatroomid').value;
+    console.log(username);
     topic = `/app/chat/${newRoomId}`;
 
     if (currentSubscription) {
@@ -65,7 +65,9 @@ function enterRoom(newRoomId) {
 
 function onConnected() {
 
-    var chatroomid = document.querySelector('#chatroomid').value;
+    //todo: Iwie muss hier die richtige chatroomid rein, da sucht er sich immer die kack id vom ersten element -.-
+    //var chatroomid = document.querySelector('#chatroomid').value;
+    console.log(chatroomid);
     enterRoom(chatroomid);
 
 }
