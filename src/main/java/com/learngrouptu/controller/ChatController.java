@@ -29,12 +29,8 @@ public class ChatController {
     @GetMapping("/meineChats")
     public String showMyChats(Map<String, Object> model){
         User user = userService.getCurrentUser();
-        //Set<Chatroom> erstellteChats = chatroomRepository.findAllBySender(user.getUsername());
-        //Set<Chatroom> empfangeneChats = chatroomRepository.findAllByRecipient(user.getUsername());
         Set<Chatroom> alleChats = chatroomRepository.findAllBySenderOrRecipient(user.getUsername(), user.getUsername());
         model.put("alleChats", alleChats);
-        //model.put("erstellteChats", erstellteChats);
-        //model.put("empfangeneChats", empfangeneChats);
         return "meineChats";}
 
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
