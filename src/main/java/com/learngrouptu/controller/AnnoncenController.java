@@ -52,7 +52,10 @@ public class AnnoncenController {
     }
 
     @GetMapping("/meineAnnoncen")
-    public String showMeineAnnoncen(Map<String, Object> model){
+    public String showMeineAnnoncen(Map<String, Object> model ,@RequestParam(name="annonceEdited", required = false) Boolean edited){
+        if (edited != null && edited) {
+            model.put("annonceEdited", true);
+        }
         User user = userService.getCurrentUser();
         Set<Annonce> userAnnoncen = user.getUserAnnonces();
         model.put("userAnnoncen", userAnnoncen);

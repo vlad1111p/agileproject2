@@ -69,6 +69,17 @@
 <!-- Masthead-->
 <div th:case="*">
   <section class="page-section" id="services" >
+    <div class="container" th:if="${annonceEdited == true}">
+      <div class="row">
+        <div class="col-9">
+          <div class="card">
+            <div class="alert alert-primary" role="alert">
+              Deine Anonnce wurde geändert.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <div class="row" style="background-color: #e4e8eb">
         <div class="col-12">
