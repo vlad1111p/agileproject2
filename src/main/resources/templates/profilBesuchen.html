@@ -43,7 +43,7 @@
         <button class="btn btn-secondary" type="submit">Logout</button>
     </form>
 </nav>
-<header class="masthead" id="masthead1"></header>
+<header class="masthead-profil"></header>
 <div class="container">
     <div class="row">
         <div class="col-12">
@@ -56,53 +56,59 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div>
-                        <div class="row">
-                            <div class="col">
-                                Studiengang
-                            </div>
-                            <div name="studiengang" class="col">
-                                <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
-                                    Nichts eingetragen
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h5>Studiengang</h5>
                                 </div>
-                                <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
-                                    <div th:text="${userProfile.getStudiengang()}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                Abschluss
-                            </div>
-                            <div name="abschluss" class="col">
-                                <div th:if="${userProfile.getAbschluss()==null}">
-                                    Nichts eingetragen
-                                </div>
-                                <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
-                                    <div th:text="${userProfile.getAbschluss()}"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <br />
-                            </div>
-                            <div class="col">
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>Bio</div>
-                        <div name="bio">
-                            <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                                Nichts eingetragen
-                            </div>
-                            <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
-                                <div th:text="${userProfile.getBio()}"></div>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="col" name="studiengang">
 
+                                    <div th:if="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()} ">
+                                        Nichts eingetragen
+                                    </div>
+                                    <div th:unless="${userProfile.getStudiengang()==null or userProfile.getStudiengang().isEmpty()}">
+                                        <div th:text="${userProfile.getStudiengang()}"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <h5>Angestrebter Abschluss</h5>
+                                </div>
+                                <div class="col" name="abschluss">
+
+                                    <div th:if="${userProfile.getAbschluss()==null}">
+                                        Nichts eingetragen
+                                    </div>
+                                    <div th:unless="${userProfile.getAbschluss()==null or userProfile.getAbschluss().isEmpty()}">
+                                        <div th:text="${userProfile.getAbschluss()}"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item list-group-item-profil">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div><h5>Eine kurze Selbstbeschreibung</h5></div>
+                                </div>
+                                <div name="bio" class="col">
+
+                                    <div th:if="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                        Nichts eingetragen
+                                    </div>
+                                    <div th:unless="${userProfile.getBio()==null or userProfile.getBio().isEmpty()}">
+                                        <div th:text="${userProfile.getBio()}"></div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
