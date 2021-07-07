@@ -60,7 +60,7 @@
         <form th:action = "@{/perform_register}" th:object="${user}" name='register_form' method='POST'>
             <div class="form-group">
             <label for="email" class="labelclassRegister">Gib eine E-Mail Adresse ein</label>
-            <input type="text" th:field="*{email}" id="email" placeholder="E-Mail" class="form-control" required>
+            <input type="email" th:field="*{email}" id="email" placeholder="E-Mail" class="form-control" required>
             <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
             </div>
             <div class="form-group">
