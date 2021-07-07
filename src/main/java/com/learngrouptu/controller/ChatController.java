@@ -55,8 +55,6 @@ public class ChatController {
     @MessageMapping("/chat/{roomId}/sendMessage")
     @SendTo("/channel/{roomId}")
     public ChatMessage sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage) {
-        // TODO: 29.06.2021 datum zufügen, evtl noch meineChats umbenennen in Nachrichten, Chat laden
-        // TODO: 29.06.2021 Code aufräumen:
 
         chatMessage.setChatid(Integer.valueOf(roomId));
         System.out.println("sender: " + chatMessage.getSender());

@@ -4,18 +4,10 @@ var chatPage = document.querySelector('#chat-page');
 var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
-var connectingElement = document.querySelector('.connecting');
 
 
+//btn.addEventListener('click', connect, false);
 
-var sender = document.querySelector('#sender').value;
-var chatroomid = document.querySelector('#chatroomid').value;
-var recipient = document.querySelector('#recipient').value;
-var btnid = 'button' + chatroomid;
-
-var btn = document.querySelector('#' + btnid);
-
-var roomIdDisplay;
 var stompClient = null;
 var username = sender;
 var topic = null;
@@ -26,32 +18,43 @@ var colors = [
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-function connect() {
 
-    var state = btn.getAttribute('aria-expanded');
-    console.log(state);
 
-    if(state=='true') {
+
+function connect(number) {
+    //var sender = document.querySelector('#sender').value;
+    //var chatroomid = document.querySelector('#chatroomid').value;
+
+
+        var chatroomid = number;
+        console.log(chatroomid);
+        var btnid = 'button' + chatroomid;
+        console.log(btnid);
+
+
+        //var btn = document.querySelector('#' + btnid);
+
+        //var state = btn.getAttribute('aria-expanded');
+        //console.log(state);
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
 
         stompClient.connect({}, onConnected, onError);
-    }
-    else {
-        stompClient.disconnect();
-    }
+
 }
 
 
 function enterRoom(newRoomId) {
-    chatroomid = newRoomId;
+
+    username = document.querySelector('#sender').value;
+    newRoomId = document.querySelector('#chatroomid').value;
     topic = `/app/chat/${newRoomId}`;
 
     if (currentSubscription) {
         currentSubscription.unsubscribe();
     }
-    currentSubscription = stompClient.subscribe(`/channel/${chatroomid}`, onMessageReceived);
+    currentSubscription = stompClient.subscribe(`/channel/${newRoomId}`, onMessageReceived);
 
     stompClient.send(`${topic}/addUser`,
         {},
@@ -62,18 +65,22 @@ function enterRoom(newRoomId) {
 
 function onConnected() {
 
+    var chatroomid = document.querySelector('#chatroomid').value;
     enterRoom(chatroomid);
-    connectingElement.classList.add('hidden');
+
 }
 
 
 function onError(error) {
-    connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-    connectingElement.style.color = 'red';
+
 }
 
 
 function sendMessage(event) {
+
+    var sender = document.querySelector('#sender').value;
+    var chatroomid = document.querySelector('#chatroomid').value;
+
     var messageContent = messageInput.value.trim();
     if (messageContent.startsWith('/join ')) {
         var newRoomId = messageContent.substring('/join '.length);

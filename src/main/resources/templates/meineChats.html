@@ -90,13 +90,12 @@
             <th:block th:each="chat : ${alleChats}">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="test">
-                        <input type = "hidden" id="chatroomid" th:value='${chat.chatroomId}'>
-                        <input type = "hidden" id="sender" th:value='${chat.sender}'>
-                        <input type = "hidden" id="recipient" th:value='${chat.recipient}'>
                         <button th:id="'button'+${chat.chatroomId}" class="accordion-button" type="button" data-bs-toggle="collapse"
                                 th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
-                                th:aria-controls="'ID'+${chat.chatroomId}" onclick="connect()">
+                                th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|">
                             <p th:text="${chat.recipient}"></p><br>Testvorlesung
+                            <input type = "hidden" id="chatroomid" th:value='${chat.chatroomId}'>
+                            <input type = "hidden" id="sender" th:value='${chat.sender}'>
                         </button>
                     </h2>
                     <div th:id="'ID'+${chat.chatroomId}" class="accordion-collapse collapse" aria-labelledby="test"
