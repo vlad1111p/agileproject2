@@ -6,8 +6,6 @@ var messageInput;
 var messageArea;
 
 
-//btn.addEventListener('click', connect, false);
-
 var stompClient = null;
 var username = sender;
 var topic = null;
@@ -22,9 +20,6 @@ var colors = [
 var chatroomid;
 
 function connect(number) {
-    //var sender = document.querySelector('#sender').value;
-    //var chatroomid = document.querySelector('#chatroomid').value;
-
 
         chatroomid = number;
         console.log(chatroomid);
@@ -36,11 +31,6 @@ function connect(number) {
      messageInput = document.querySelector('#message'+chatroomid);
      messageArea = document.querySelector('#messageArea'+chatroomid);
 
-
-        //var btn = document.querySelector('#' + btnid);
-
-        //var state = btn.getAttribute('aria-expanded');
-        //console.log(state);
 
         var socket = new SockJS('/ws');
         stompClient = Stomp.over(socket);
@@ -70,8 +60,6 @@ function enterRoom(newRoomId) {
 
 function onConnected() {
 
-    //todo: Iwie muss hier die richtige chatroomid rein, da sucht er sich immer die kack id vom ersten element -.-
-    //var chatroomid = document.querySelector('#chatroomid').value;
     console.log('onConnected');
     console.log('chatroomId: '+chatroomid);
     enterRoom(chatroomid);
@@ -86,9 +74,6 @@ function onError(error) {
 
 
 function sendMessage(event) {
-
-  //  var sender = document.querySelector('#sender').value;
-   // var chatroomid = document.querySelector('#chatroomid').value;
 
     var messageContent = messageInput.value.trim();
     if (messageContent.startsWith('/join ')) {
@@ -157,5 +142,3 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % colors.length);
     return colors[index];
 }
-
-//messageForm.addEventListener('submit', sendMessage, true)

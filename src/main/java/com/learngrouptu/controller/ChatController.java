@@ -14,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -31,10 +33,18 @@ public class ChatController {
         User user = userService.getCurrentUser();
         Set<Chatroom> alleChats = chatroomRepository.findAllBySenderOrRecipient(user.getUsername(), user.getUsername());
         model.put("alleChats", alleChats);
+
+        for (Chatroom chatroom : alleChats){
+            Set<ChatMessage> chatroomMessages = chatroom.getChatroomMessages();
+            System.out.println(chatroomMessages);
+            //model.put("chatroomMessages", chatroomMessages);
+        }
         return "meineChats";}
+
 
     @RequestMapping(value = "/chat", method = RequestMethod.GET)
     public String showChat(){return "chatnew";}
+
 
     @PostMapping("/startChat")
     public String startChat(@RequestParam Integer id, Model model) {
@@ -65,6 +75,7 @@ public class ChatController {
 
         return chatMessage;
     }
+
 
     @MessageMapping("/chat/{roomId}/addUser")
     @SendTo("/channel/{roomId}")

@@ -80,6 +80,16 @@
         <div class="masthead-subheading"><br>Dies ist ein Button Test:<br> Klick auf den Brief oben
             <strong>rechts</strong>!
         </div>
+        <ul th:each="nachricht : ${chatroomMessages}">
+            <li th:text="${nachricht.sender}"></li>
+            <li th:text="${nachricht.content}"></li>
+        </ul>
+        <!--
+        <ul th:each="chat: ${alleChats}">
+            <li th:text="${chat.chatroomId}"></li>
+
+        </ul>
+        -->
     </div>
 </header>
 
@@ -104,6 +114,7 @@
                             <!--BEGIN CHAT TEST  -->
                             <div th:id="'chat-page'+${chat.chatroomId}">
                                 <div class="chat-container">
+
 
                                     <ul th:id="'messageArea'+${chat.chatroomId}">
 
