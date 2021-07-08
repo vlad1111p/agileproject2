@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import java.util.List;
 
 @Controller
 public class ProfileController {
@@ -133,8 +134,7 @@ public class ProfileController {
     }
 
     @GetMapping("/passwortVergessen")
-    public String resetPassword(Model model, User user, PasswordResetDTO password) {
-        model.addAttribute("user", userService.getCurrentUser());
+    public String resetPassword(Model model, PasswordResetDTO password) {
         return "passwortVergessen";
     }
 
@@ -143,12 +143,16 @@ public class ProfileController {
     public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
 
         String usermail = passwordResetDTO.getUsermail();
-
         String from = "vladmihalea1111p@gmail.com";
         String to = usermail;
+        boolean ifUsermailExists=userRepository.existsByEmail(usermail);
+
+        if(!ifUsermailExists){
+            model.addAttribute("oldpassworddoesnotmatch", true);
+            return "passwortVergessen";
+        }
 
         SimpleMailMessage message = new SimpleMailMessage();
-
         message.setFrom(from);
         message.setTo(to);
         message.setSubject("Password reset from LearngroupTU");
@@ -158,7 +162,10 @@ public class ProfileController {
 
         mailSender.send(message);
 
-        return "login";
+
+
+        model.addAttribute("correctinput", true);
+        return "passwortVergessen";
 
 
     }

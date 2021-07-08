@@ -35,6 +35,26 @@
     <div class="col-12">
         <h2>Trage hier deine E-Mail-Adresse ein:</h2>
         <br />
+        <div class="container" th:if="${oldpassworddoesnotmatch == true}">
+            <div class="row">
+                <div class="card">
+                    <div class="alert alert-primary" role="alert">
+                        Es is ein Fehler aufgetreten. Bitte versuch es erneut.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" th:if="${correctinput == true}">
+            <div class="row">
+                <div class="card">
+                    <div class="alert alert-primary" role="alert">
+                        Ein Email wurde zu dir geschickt.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <form th:action = "@{/reset_password}" th:object="${passwordResetDTO}" name='reset_password-form' method='POST'>
             <label for="usermail" class="form-label">Gib deinen Username an</label>
             <input type="email" class="form-control" th:field="*{usermail}" id="usermail" placeholder="">
