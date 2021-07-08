@@ -61,7 +61,7 @@
             <img src="assets/tulogoTest2.png" alt="IMG">
         </div>
 
-        <form class="contact1-form validate-form" th:action = "@{/vorlesungadd}" th:object="${vorlesung}" method = "post" id="nameForm">
+        <form class="contact1-form validate-form" th:action = "@{/admin/vorlesungErstellen}" th:object="${vorlesung}" method = "post" id="nameForm">
             <!-- TODO background here is not white, why? -->
             <!-- Fehleranzeige falls Vorlesung schon existiert -->
             <div class="container" th:if="${vorlesungDoppelt == true}">

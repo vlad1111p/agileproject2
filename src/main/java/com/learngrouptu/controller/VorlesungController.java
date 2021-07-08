@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,24 +27,47 @@ public class VorlesungController {
     private JavaMailSender mailSender;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     public VorlesungController(VorlesungRepository vorlesungRepository, AnnonceRepository annonceRepository) {
         this.vorlesungRepository = vorlesungRepository;
         this.annonceRepository = annonceRepository;
     }
 
-    @Autowired
-    UserService userService;
 
 
     @GetMapping("/vorlesungEinsehen")
-    public String showVorlesungEinsehen(Model model) {
-        model.addAttribute("vorlesungen", vorlesungRepository.findAll());
-        return "vorlesungEinsehen";
+    public ModelAndView showVorlesungEinsehen(Model model,
+                                              @RequestParam(value = "vorlesungCreated", required = false) Boolean created,
+                                              @RequestParam(value = "vorlesungRequested", required = false) Boolean requested) {
+        ModelAndView mav = new ModelAndView("vorlesungEinsehen");
+
+        if (created != null && created) {
+            mav.addObject("vorlesungCreated", true);
+        }
+
+        if (requested != null && requested) {
+            mav.addObject("vorlesungRequested", true);
+        }
+
+        mav.addObject("vorlesungen", vorlesungRepository.findAll());
+        return mav;
     }
 
 
     @GetMapping("/admin/vorlesungErstellen")
-    public String showVorlesungErstellen(Vorlesung vorlesung) {
+    public String showVorlesungErstellen(Vorlesung vorlesung, Model model,
+                                         @RequestParam(name = "cpKeineZahl", required = false) Boolean cpKeinZahl,
+                                         @RequestParam(name="vorlesungDoppelt",required = false) Boolean duplVorl) {
+        if (cpKeinZahl != null && cpKeinZahl) {
+            model.addAttribute("cpKeineZahl", true);
+        }
+
+        if (duplVorl != null && duplVorl) {
+            model.addAttribute("vorlesungDoppelt", true);
+        }
+
         return "vorlesungErstellen";
     }
 
@@ -89,11 +113,90 @@ public class VorlesungController {
         return "vorlesungEinsehen";
     }
 
+    @PostMapping(value = "/admin/vorlesungErstellen")
+    public ModelAndView addVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
+        ModelAndView mav = new ModelAndView();
+        if (result.hasErrors()) {
+            if (result.getFieldError().getField().equals("cp")) {
+                mav.setViewName("vorlesungErstellen");
+                mav.addObject("cpKeineZahl", true);
+                return mav;
+            }
+            else {
+                mav.setViewName("vorlesungErstellen");
+                mav.addObject("error", true);
+                return mav;
+            }
+        }
+        else {
+            try {
+                checkForDuplicateKursNrAndStudiengang(vorlesung); // can throw VorlesungDuplicateException
+                vorlesungRepository.save(vorlesung);
+                mav.setViewName("redirect:vorlesungEinsehen");
+                mav.addObject("vorlesungCreated", true);
+                return mav;
+            }
+            catch (VorlesungDuplicateException e) {
+                mav.setViewName("vorlesungErstellen");
+                mav.addObject("vorlesungDoppelt", true);
+                return mav;
+            }
+
+        }
+    }
+
+    @PostMapping(value = "/vorlesungBeantragen")
+    public ModelAndView requestVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
+        ModelAndView mav = new ModelAndView();
+        if (result.hasErrors()) {
+            if (result.getFieldError().getField().equals("cp")) {
+                mav.setViewName("vorlesungBeantragen");
+                mav.addObject("cpKeineZahl", true);
+                return mav;
+            }
+            else {
+                mav.setViewName("vorlesungBeantragen");
+                mav.addObject("error", true);
+                return mav;
+            }
+        }
+        else {
+            try {
+                checkForDuplicateKursNrAndStudiengang(vorlesung); // can throw VorlesungDuplicateException
+                sendRequestEmail(vorlesung);
+                mav.setViewName("redirect:vorlesungEinsehen");
+                mav.addObject("vorlesungRequested", true);
+                return mav;
+            }
+            catch (VorlesungDuplicateException e) {
+                mav.setViewName("vorlesungBeantragen");
+                mav.addObject("vorlesungDoppelt", true);
+                return mav;
+            }
+
+        }
+    }
+
+    @GetMapping("/vorlesungBeantragen")
+    public String showVorlesungBeantragen(Vorlesung vorlesung, Model model) {
+        return "vorlesungBeantragen";
+    }
+
     private List<Vorlesung> filterByStudiengang(String studiengang, List<Vorlesung> vorlList) {
         vorlList = vorlList.stream()
                 .filter(vorl -> vorl.getStudiengang().contains(studiengang))
                 .collect(Collectors.toList());
         return vorlList;
+    }
+
+    private void checkForDuplicateKursNrAndStudiengang(@Valid Vorlesung vorlesung) throws VorlesungDuplicateException {
+        List<Vorlesung> vorlesungenWithSameKursNr = vorlesungRepository.findVorlesungsByKursnr(vorlesung.getKursnr());
+        List<String> vorl_studiengaenge = vorlesungenWithSameKursNr.stream()
+                .map(vorl -> vorl.getStudiengang())
+                .collect(Collectors.toList());
+        if (!vorlesungenWithSameKursNr.isEmpty() && vorl_studiengaenge.contains(vorlesung.getStudiengang())) {
+            throw new VorlesungDuplicateException();
+        }
     }
 
     private List<Vorlesung> filterByKursNr(String kursNr, List<Vorlesung> vorlList) {
@@ -102,78 +205,11 @@ public class VorlesungController {
                 .collect(Collectors.toList());
         return vorlList;
     }
-
     private List<Vorlesung> filterByTitelIgnoringCases(String vorlName, List<Vorlesung> vorlList) {
         vorlList = vorlList.stream()
-            .filter(vorl -> vorl.getTitel().toLowerCase().contains(vorlName.toLowerCase()))
-            .collect(Collectors.toList());
+                .filter(vorl -> vorl.getTitel().toLowerCase().contains(vorlName.toLowerCase()))
+                .collect(Collectors.toList());
         return vorlList;
-    }
-
-    @PostMapping(value = "/vorlesungadd")
-    public String addVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            if (result.getFieldError().getField().equals("cp")) {
-                model.addAttribute("cpKeineZahl", true);
-                return "vorlesungErstellen";
-            }
-            else {
-                return "redirect:vorlesungErstellen?error=true";
-            }
-        }
-        else {
-            try {
-                List<Vorlesung> vorlesungenWithSameKursNr = vorlesungRepository.findVorlesungsByKursnr(vorlesung.getKursnr());
-                List<String> vorlesungenWithSameKursNr_studiengaenge = vorlesungenWithSameKursNr.stream()
-                        .map(vorl -> vorl.getStudiengang())
-                        .collect(Collectors.toList());
-                if (!vorlesungenWithSameKursNr.isEmpty() && vorlesungenWithSameKursNr_studiengaenge.contains(vorlesung.getStudiengang())) {
-                    throw new VorlesungController.VorlesungDuplicateException();
-                }
-                vorlesungRepository.save(vorlesung);
-                model.addAttribute("vorlesungCreated", true);
-                return showVorlesungEinsehen(model);
-            }
-            catch (VorlesungDuplicateException e) {
-                model.addAttribute("vorlesungDoppelt", true);
-                return "vorlesungErstellen";
-            }
-
-        }
-    }
-
-    private class VorlesungDuplicateException extends Throwable {
-    }
-
-    @PostMapping(value = "/vorlesungrequest")
-    public String requestVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            if (result.getFieldError().getField().equals("cp")) {
-                model.addAttribute("cpKeineZahl", true);
-                return "vorlesungErstellen";
-            }
-            else {
-                return "redirect:admin/vorlesungErstellen?error=true";
-            }
-        }
-        else {
-            try {
-                List<Vorlesung> vorlesungenWithSameKursNr = vorlesungRepository.findVorlesungsByKursnr(vorlesung.getKursnr());
-                List<String> vorlesungenWithSameKursNr_studiengaenge = vorlesungenWithSameKursNr.stream()
-                                                                        .map(vorl -> vorl.getStudiengang())
-                                                                        .collect(Collectors.toList());
-                if (!vorlesungenWithSameKursNr.isEmpty() && vorlesungenWithSameKursNr_studiengaenge.contains(vorlesung.getStudiengang())) {
-                    throw new VorlesungController.VorlesungDuplicateException();
-                }
-                sendRequestEmail(vorlesung);
-                return "redirect:home";
-            }
-            catch (VorlesungDuplicateException e) {
-                model.addAttribute("vorlesungDoppelt", true);
-                return "vorlesungErstellen";
-            }
-
-        }
     }
 
     private void sendRequestEmail(Vorlesung vorl) {
@@ -184,11 +220,10 @@ public class VorlesungController {
         //String to = "pam2-2021-LearngroupTU@cs.uni-kl.de"; TODO für Livebetrieb sollte diese Mailadresse genutzt werden
         String messageTextHead = "Es wurde eine neue Vorlesung von " + username + " beantragt: \n";
         String messageTextBody = "Vorlesungsname: " + vorl.getTitel() + "\n" +
-                            "Vorlesungsnummer: " + vorl.getKursnr() + "\n" +
-                            "Studiengang: " + vorl.getStudiengang() + "\n" +
-                            "CP: " + vorl.getCp();
+                "Vorlesungsnummer: " + vorl.getKursnr() + "\n" +
+                "Studiengang: " + vorl.getStudiengang() + "\n" +
+                "CP: " + vorl.getCp();
         String messageText = messageTextHead + messageTextBody;
-
 
         SimpleMailMessage message = new SimpleMailMessage();
 
@@ -199,8 +234,10 @@ public class VorlesungController {
 
         mailSender.send(message);
     }
-    @GetMapping("/vorlesungBeantragen")
-    public String showVorlesungBeantragen(Vorlesung vorlesung) {
-        return "vorlesungBeantragen";
+
+    private class VorlesungDuplicateException extends Throwable {
+
     }
+
 }
+

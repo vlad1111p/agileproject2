@@ -67,16 +67,7 @@ public class ProfileController {
     @PostMapping("/change_profile")
     public String editProfile(Model model, UserDTO user) throws AbschlussNotAllowedException {
         User currUser = userService.getCurrentUser();
-        String studiengang = user.getStudiengang();
-        String abschluss = user.getAbschluss();
-        String bio = user.getBio();
-
-
-        currUser.setStudiengang(studiengang);
-
-        currUser.setAbschluss(abschluss);
-
-        currUser.setBio(bio);
+        configuteCurrUser(user, currUser);
 
         userRepository.save(currUser);
 
@@ -133,26 +124,11 @@ public class ProfileController {
 
     }
 
-    private void sendConfirmationEmail(User currUser) {
-        String from = "vladmihalea1111p@gmail.com";
-        String to = currUser.getEmail();
-
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom(from);
-        message.setTo(to);
-        message.setSubject("Password change from LearngroupTU");
-        message.setText("You just have successfully changed your password.");
-
-        mailSender.send(message);
-    }
-
     @GetMapping("/passwortVergessen")
     public String resetPassword(Model model, User user, PasswordResetDTO password) {
         model.addAttribute("user", userService.getCurrentUser());
         return "passwortVergessen";
     }
-
 
     @PostMapping("/reset_password")
     public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
@@ -177,4 +153,32 @@ public class ProfileController {
 
 
     }
+
+    private void configuteCurrUser(UserDTO user, User currUser) throws AbschlussNotAllowedException {
+        String studiengang = user.getStudiengang();
+        String abschluss = user.getAbschluss();
+        String bio = user.getBio();
+
+
+        currUser.setStudiengang(studiengang);
+
+        currUser.setAbschluss(abschluss);
+
+        currUser.setBio(bio);
+    }
+
+    private void sendConfirmationEmail(User currUser) {
+        String from = "vladmihalea1111p@gmail.com";
+        String to = currUser.getEmail();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Password change from LearngroupTU");
+        message.setText("You just have successfully changed your password.");
+
+        mailSender.send(message);
+    }
+
 }
