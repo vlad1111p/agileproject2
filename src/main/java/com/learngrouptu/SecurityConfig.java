@@ -90,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/vergessenesPasswortErsetzen*").permitAll()
                 .antMatchers("/passwortVergessen*").permitAll()
                 .antMatchers("/reset_password*").permitAll()
+                .antMatchers("/reset_passwordfromemail*").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
                 .anyRequest().authenticated()

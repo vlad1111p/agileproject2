@@ -2,8 +2,10 @@ package com.learngrouptu.controller;
 
 import com.learngrouptu.DTO.PasswordDTO;
 import com.learngrouptu.DTO.PasswordResetDTO;
+import com.learngrouptu.DTO.PasswordResetWithEmailDTO;
 import com.learngrouptu.DTO.UserDTO;
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
+import com.learngrouptu.encryption.AES;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
 import com.learngrouptu.services.UserService;
@@ -15,10 +17,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
+    final String secretKey = "qazwsx123456";
     private final UserRepository userRepository;
     @Autowired
     UserService userService;
@@ -26,6 +29,7 @@ public class ProfileController {
     private JavaMailSender mailSender;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     @Autowired
     public ProfileController(UserRepository userRepository) {
@@ -138,6 +142,40 @@ public class ProfileController {
         return "passwortVergessen";
     }
 
+    @GetMapping("/vergessenesPasswortErsetzen")
+    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO) {
+
+
+        return "vergessenesPasswortErsetzen";
+
+    }
+
+    @PostMapping("/reset_passwordfromemail")
+    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO, UserDTO user) {
+
+        String usermail = passwordResetWithEmailDTO.getEmail();
+        System.out.println(usermail);
+        User currUser = userRepository.findUserByEmail(usermail);
+
+
+        String neuesPassword = passwordResetWithEmailDTO.getNeuesPassword();
+        String neuesPassword1 = passwordResetWithEmailDTO.getNeuesPassword1();
+        if(neuesPassword.equals(neuesPassword1)) {
+            String encryptedNeuesPassword = bCryptPasswordEncoder.encode(neuesPassword);
+            currUser.setPassword(encryptedNeuesPassword);
+            userRepository.save(currUser);
+
+            sendConfirmationEmail(currUser);
+
+
+            return "redirect:vergessenesPasswortErsetzen";
+        }else {
+            model.addAttribute("oldpassworddoesnotmatch", true);
+            return "vergessenesPasswortErsetzen";
+        }
+
+    }
+
 
     @PostMapping("/reset_password")
     public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
@@ -145,9 +183,9 @@ public class ProfileController {
         String usermail = passwordResetDTO.getUsermail();
         String from = "vladmihalea1111p@gmail.com";
         String to = usermail;
-        boolean ifUsermailExists=userRepository.existsByEmail(usermail);
+        boolean ifUsermailExists = userRepository.existsByEmail(usermail);
 
-        if(!ifUsermailExists){
+        if (!ifUsermailExists) {
             model.addAttribute("oldpassworddoesnotmatch", true);
             return "passwortVergessen";
         }
@@ -158,10 +196,9 @@ public class ProfileController {
         message.setSubject("Password reset from LearngroupTU");
         message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail." +
                 "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link:" +
-                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + usermail);
+                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
 
         mailSender.send(message);
-
 
 
         model.addAttribute("correctinput", true);
@@ -169,4 +206,7 @@ public class ProfileController {
 
 
     }
+
+
 }
+
