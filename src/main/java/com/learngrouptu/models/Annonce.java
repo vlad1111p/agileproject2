@@ -51,6 +51,10 @@ public class Annonce {
     public String getKontakt(){return kontakt;}
     public String getNachricht(){return nachricht;}
     public Date getDatum(){return datum;}
+    public User getErsteller() {
+        return ersteller.stream().findFirst().get();
+    }
+
 
     public void setAnnonceId(Integer annonceId){this.annonceId = annonceId;}
     public void setVorlName(String vorlName){
@@ -60,5 +64,9 @@ public class Annonce {
     public void setKontakt(String kontakt){this.kontakt = kontakt;}
     public void setNachricht(String nachricht){this.nachricht = nachricht;}
     public void setDatum(Date datum){this.datum = datum;}
+    public void setErsteller(Set<User> ersteller) {
+        this.ersteller = ersteller;
+    }
+
 
 }
