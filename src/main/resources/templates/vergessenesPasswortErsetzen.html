@@ -35,10 +35,28 @@
   <div class="col-12">
     <h2>Trage hier deine E-Mail-Adresse ein:</h2>
     <br />
-    <form th:action = "@{/reset_password}" th:object="${passwordResetDTO}" name='reset_password-form' method='POST'>
-      <label for="usermail" class="form-label">Gib deinen Username an</label>
-      <input type="email" class="form-control" th:field="*{usermail}" id="usermail" placeholder="">
-      <span th:if="${#fields.hasErrors('usermail')}" th:errors="*{usermail}"></span>
+    <div class="container" th:if="${oldpassworddoesnotmatch == true}">
+      <div class="row">
+        <div class="card">
+          <div class="alert alert-primary" role="alert">
+           Die eingegebenen Passwörter stimmen nicht überein
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/*@thymesVar id="passwordResetWithEmailDTO" type="com.learngrouptu.DTO.PasswordResetWithEmailDTO"*/-->
+    <form th:action = "@{/reset_passwordfromemail}" th:object="${passwordResetWithEmailDTO}" name='reset_password-form' method='POST'>
+      <label for="email" class="form-label">Gib deinen Email an</label>
+      <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="">
+      <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+      <br />
+      <label for="neuesPassword" class="form-label">Gib hier dein neues Passwort ein</label>
+      <input type='password' class="form-control" th:field="*{neuesPassword}" id="neuesPassword" placeholder="">
+      <span th:if="${#fields.hasErrors('neuesPassword')}" th:errors="*{neuesPassword}"></span>
+      <br />
+      <label for="neuesPassword1" class="form-label">Gib dein neues Passwort nochmal ein</label>
+      <input type='password' class="form-control" th:field="*{neuesPassword1}" id="neuesPassword1" placeholder="">
+      <span th:if="${#fields.hasErrors('neuesPassword1')}" th:errors="*{neuesPassword1}"></span>
       <br />
 
       <input name="reset_password-submit-button" class="btn btn-primary" type="submit" value="Abschicken" />

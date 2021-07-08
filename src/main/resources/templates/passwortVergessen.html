@@ -56,7 +56,7 @@
         </div>
 
         <form th:action = "@{/reset_password}" th:object="${passwordResetDTO}" name='reset_password-form' method='POST'>
-            <label for="usermail" class="form-label">Gib deinen Username an</label>
+            <label for="usermail" class="form-label">Gib deinen Email an</label>
             <input type="email" class="form-control" th:field="*{usermail}" id="usermail" placeholder="">
             <span th:if="${#fields.hasErrors('usermail')}" th:errors="*{usermail}"></span>
             <br />
