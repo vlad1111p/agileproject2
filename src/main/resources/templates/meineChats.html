@@ -92,7 +92,7 @@
                     <h2 class="accordion-header" id="test">
                         <button th:id="'button'+${chat.chatroomId}" class="accordion-button" type="button" data-bs-toggle="collapse"
                                 th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
-                                th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|">
+                                th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
                             <p th:text="${chat.recipient}"></p><br>Testvorlesung
                             <input  id="chatroomid" th:value='${chat.chatroomId}'>
                             <input  id="sender" th:value='${chat.sender}'>
@@ -102,18 +102,18 @@
                          data-bs-parent="#accordionExample">
                         <div class="accordion-body">
                             <!--BEGIN CHAT TEST  -->
-                            <div id="chat-page">
+                            <div th:id="'chat-page'+${chat.chatroomId}">
                                 <div class="chat-container">
 
-                                    <ul id="messageArea">
+                                    <ul th:id="'messageArea'+${chat.chatroomId}">
 
                                     </ul>
-                                    <form id="messageForm" name="messageForm" nameForm="messageForm">
+                                    <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">
                                         <div class="form-group">
                                             <div class="input-group clearfix">
-                                                <input type="text" id="message" placeholder="Type a message..."
+                                                <input type="text" th:id="'message'+${chat.chatroomId}" placeholder="Type a message..."
                                                        autocomplete="off" class="form-control"/>
-                                                <button type="submit" class="primary">Send</button>
+                                                <button type="button" class="primary" onclick="return sendMessage()">Send</button>
                                             </div>
                                         </div>
                                     </form>

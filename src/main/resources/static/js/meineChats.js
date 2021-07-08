@@ -1,9 +1,9 @@
 'use strict';
 
-var chatPage = document.querySelector('#chat-page');
-var messageForm = document.querySelector('#messageForm');
-var messageInput = document.querySelector('#message');
-var messageArea = document.querySelector('#messageArea');
+var chatPage;
+var messageForm;
+var messageInput;
+var messageArea;
 
 
 //btn.addEventListener('click', connect, false);
@@ -19,17 +19,22 @@ var colors = [
 ];
 
 
-
+var chatroomid;
 
 function connect(number) {
     //var sender = document.querySelector('#sender').value;
     //var chatroomid = document.querySelector('#chatroomid').value;
 
 
-        var chatroomid = number;
+        chatroomid = number;
         console.log(chatroomid);
         var btnid = 'button' + chatroomid;
         console.log(btnid);
+
+     chatPage = document.querySelector('#chat-page'+ chatroomid);
+     messageForm = document.querySelector('#messageForm'+chatroomid);
+     messageInput = document.querySelector('#message'+chatroomid);
+     messageArea = document.querySelector('#messageArea'+chatroomid);
 
 
         //var btn = document.querySelector('#' + btnid);
@@ -67,21 +72,23 @@ function onConnected() {
 
     //todo: Iwie muss hier die richtige chatroomid rein, da sucht er sich immer die kack id vom ersten element -.-
     //var chatroomid = document.querySelector('#chatroomid').value;
-    console.log(chatroomid);
+    console.log('onConnected');
+    console.log('chatroomId: '+chatroomid);
     enterRoom(chatroomid);
 
 }
 
 
 function onError(error) {
+    console.log(error);
 
 }
 
 
 function sendMessage(event) {
 
-    var sender = document.querySelector('#sender').value;
-    var chatroomid = document.querySelector('#chatroomid').value;
+  //  var sender = document.querySelector('#sender').value;
+   // var chatroomid = document.querySelector('#chatroomid').value;
 
     var messageContent = messageInput.value.trim();
     if (messageContent.startsWith('/join ')) {
@@ -151,4 +158,4 @@ function getAvatarColor(messageSender) {
     return colors[index];
 }
 
-messageForm.addEventListener('submit', sendMessage, true)
+//messageForm.addEventListener('submit', sendMessage, true)
