@@ -80,9 +80,9 @@
         <div class="masthead-subheading"><br>Dies ist ein Button Test:<br> Klick auf den Brief oben
             <strong>rechts</strong>!
         </div>
-        <ul th:each="nachricht : ${chatroomMessages}">
-            <li th:text="${nachricht.sender}"></li>
-            <li th:text="${nachricht.content}"></li>
+        <ul th:each="thing : ${map}">
+            <li th:text="${thing.chatroomId}"></li>
+            <li th:text="${thing.nachricht}"></li>
         </ul>
         <!--
         <ul th:each="chat: ${alleChats}">

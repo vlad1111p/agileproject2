@@ -14,10 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class ChatController {
@@ -34,11 +31,16 @@ public class ChatController {
         Set<Chatroom> alleChats = chatroomRepository.findAllBySenderOrRecipient(user.getUsername(), user.getUsername());
         model.put("alleChats", alleChats);
 
+        HashMap map = new HashMap();
+
         for (Chatroom chatroom : alleChats){
-            Set<ChatMessage> chatroomMessages = chatroom.getChatroomMessages();
-            System.out.println(chatroomMessages);
+            //Set<ChatMessage> chatroomMessages = chatroom.getChatroomMessages();
+            map.put(new Integer(chatroom.getChatroomId()), chatroom.getChatroomMessages());
+            //System.out.println(chatroomMessages);
             //model.put("chatroomMessages", chatroomMessages);
         }
+        model.put("map", map);
+        System.out.println(map);
         return "meineChats";}
 
 
