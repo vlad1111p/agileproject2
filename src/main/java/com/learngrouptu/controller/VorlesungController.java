@@ -1,6 +1,7 @@
 package com.learngrouptu.controller;
 
 import com.learngrouptu.models.*;
+import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,11 +24,15 @@ public class VorlesungController {
 
     @Autowired
     private JavaMailSender mailSender;
+
     @Autowired
     public VorlesungController(VorlesungRepository vorlesungRepository, AnnonceRepository annonceRepository) {
         this.vorlesungRepository = vorlesungRepository;
         this.annonceRepository = annonceRepository;
     }
+
+    @Autowired
+    UserService userService;
 
 
     @GetMapping("/vorlesungEinsehen")
@@ -118,7 +123,11 @@ public class VorlesungController {
         }
         else {
             try {
-                if (vorlesungRepository.findVorlesungByKursnr(vorlesung.getKursnr()) != null) {
+                List<Vorlesung> vorlesungenWithSameKursNr = vorlesungRepository.findVorlesungsByKursnr(vorlesung.getKursnr());
+                List<String> vorlesungenWithSameKursNr_studiengaenge = vorlesungenWithSameKursNr.stream()
+                        .map(vorl -> vorl.getStudiengang())
+                        .collect(Collectors.toList());
+                if (!vorlesungenWithSameKursNr.isEmpty() && vorlesungenWithSameKursNr_studiengaenge.contains(vorlesung.getStudiengang())) {
                     throw new VorlesungController.VorlesungDuplicateException();
                 }
                 vorlesungRepository.save(vorlesung);
@@ -144,12 +153,16 @@ public class VorlesungController {
                 return "vorlesungErstellen";
             }
             else {
-                return "redirect:vorlesungErstellen?error=true";
+                return "redirect:admin/vorlesungErstellen?error=true";
             }
         }
         else {
             try {
-                if (vorlesungRepository.findVorlesungByKursnr(vorlesung.getKursnr()) != null) {
+                List<Vorlesung> vorlesungenWithSameKursNr = vorlesungRepository.findVorlesungsByKursnr(vorlesung.getKursnr());
+                List<String> vorlesungenWithSameKursNr_studiengaenge = vorlesungenWithSameKursNr.stream()
+                                                                        .map(vorl -> vorl.getStudiengang())
+                                                                        .collect(Collectors.toList());
+                if (!vorlesungenWithSameKursNr.isEmpty() && vorlesungenWithSameKursNr_studiengaenge.contains(vorlesung.getStudiengang())) {
                     throw new VorlesungController.VorlesungDuplicateException();
                 }
                 sendRequestEmail(vorlesung);
@@ -166,17 +179,22 @@ public class VorlesungController {
     private void sendRequestEmail(Vorlesung vorl) {
         String from = "vladmihalea1111p@gmail.com";
         String to = "l_cezanne19@cs.uni-kl.de";
-        //String to = "pam2-2021-LearngroupTU@cs.uni-kl.de";
-        String messageText = "Vorlesungsname: " + vorl.getTitel() + "\n" +
+        User currUser = userService.getCurrentUser();
+        String username = currUser.getUsername();
+        //String to = "pam2-2021-LearngroupTU@cs.uni-kl.de"; TODO für Livebetrieb sollte diese Mailadresse genutzt werden
+        String messageTextHead = "Es wurde eine neue Vorlesung von " + username + " beantragt: \n";
+        String messageTextBody = "Vorlesungsname: " + vorl.getTitel() + "\n" +
                             "Vorlesungsnummer: " + vorl.getKursnr() + "\n" +
                             "Studiengang: " + vorl.getStudiengang() + "\n" +
                             "CP: " + vorl.getCp();
+        String messageText = messageTextHead + messageTextBody;
+
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(from);
         message.setTo(to);
-        message.setSubject("Vorlesungs Request");
+        message.setSubject("Vorlesungs Request von " + username + " zu " + vorl.getTitel());
         message.setText(messageText);
 
         mailSender.send(message);

@@ -8,6 +8,7 @@ import javax.validation.Constraint;
 import java.io.Serializable;
 
 @Entity
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames={"kursnr", "studiengang"})})
 public class Vorlesung implements Serializable {
 
 
@@ -17,7 +18,7 @@ public class Vorlesung implements Serializable {
     @GeneratedValue
     private Integer vorlesungid;
 
-    @Column(unique = true)
+    //@Column(unique = true) -> now unique only together for kursnr and studiengang
     private String kursnr;
 
     private String titel;

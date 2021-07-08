@@ -35,12 +35,12 @@ public class UserService implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(), user.getPassword(), enabled, accountNonExpired,
-                credentialsNonExpired, accountNonLocked, getAuthorities());
+                credentialsNonExpired, accountNonLocked, getAuthorities(user));
     }
 
-    private static List<GrantedAuthority> getAuthorities () {
+    private static List<GrantedAuthority> getAuthorities (User user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority(user.getRole()));
         return authorities;
     }
 

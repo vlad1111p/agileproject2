@@ -1,6 +1,9 @@
 package com.learngrouptu.models;
 
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
+import net.bytebuddy.implementation.bind.annotation.Default;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -9,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@DynamicInsert
 public class User {
 
     @Id
@@ -28,6 +32,9 @@ public class User {
     @NotBlank
     @NotNull
     private String password;
+
+    @ColumnDefault("ROLE_USER")
+    private String role;
 
     @ManyToMany
     @JoinTable
@@ -94,6 +101,14 @@ public class User {
 
     public String getStudiengang() {
         return studiengang;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setStudiengang(String studiengang) {
