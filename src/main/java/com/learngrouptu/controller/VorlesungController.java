@@ -1,10 +1,9 @@
 package com.learngrouptu.controller;
 
-import com.learngrouptu.models.Annonce;
-import com.learngrouptu.models.AnnonceRepository;
-import com.learngrouptu.models.Vorlesung;
-import com.learngrouptu.models.VorlesungRepository;
+import com.learngrouptu.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +22,8 @@ public class VorlesungController {
     private final AnnonceRepository annonceRepository;
 
     @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
     public VorlesungController(VorlesungRepository vorlesungRepository, AnnonceRepository annonceRepository) {
         this.vorlesungRepository = vorlesungRepository;
         this.annonceRepository = annonceRepository;
@@ -36,7 +37,7 @@ public class VorlesungController {
     }
 
 
-    @GetMapping("/vorlesungErstellen")
+    @GetMapping("/admin/vorlesungErstellen")
     public String showVorlesungErstellen(Vorlesung vorlesung) {
         return "vorlesungErstellen";
     }
@@ -133,5 +134,55 @@ public class VorlesungController {
     }
 
     private class VorlesungDuplicateException extends Throwable {
+    }
+
+    @PostMapping(value = "/vorlesungrequest")
+    public String requestVorlesung(@Valid Vorlesung vorlesung, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            if (result.getFieldError().getField().equals("cp")) {
+                model.addAttribute("cpKeineZahl", true);
+                return "vorlesungErstellen";
+            }
+            else {
+                return "redirect:vorlesungErstellen?error=true";
+            }
+        }
+        else {
+            try {
+                if (vorlesungRepository.findVorlesungByKursnr(vorlesung.getKursnr()) != null) {
+                    throw new VorlesungController.VorlesungDuplicateException();
+                }
+                sendRequestEmail(vorlesung);
+                return "redirect:home";
+            }
+            catch (VorlesungDuplicateException e) {
+                model.addAttribute("vorlesungDoppelt", true);
+                return "vorlesungErstellen";
+            }
+
+        }
+    }
+
+    private void sendRequestEmail(Vorlesung vorl) {
+        String from = "vladmihalea1111p@gmail.com";
+        String to = "l_cezanne19@cs.uni-kl.de";
+        //String to = "pam2-2021-LearngroupTU@cs.uni-kl.de";
+        String messageText = "Vorlesungsname: " + vorl.getTitel() + "\n" +
+                            "Vorlesungsnummer: " + vorl.getKursnr() + "\n" +
+                            "Studiengang: " + vorl.getStudiengang() + "\n" +
+                            "CP: " + vorl.getCp();
+
+        SimpleMailMessage message = new SimpleMailMessage();
+
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Vorlesungs Request");
+        message.setText(messageText);
+
+        mailSender.send(message);
+    }
+    @GetMapping("/vorlesungBeantragen")
+    public String showVorlesungBeantragen(Vorlesung vorlesung) {
+        return "vorlesungBeantragen";
     }
 }

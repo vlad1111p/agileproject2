@@ -91,6 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .antMatchers("/resetPassword*").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                //.antMatchers("/resources/templates/vorlesungErstellen*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
