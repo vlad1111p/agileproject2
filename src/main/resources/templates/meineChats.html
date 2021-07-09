@@ -104,17 +104,16 @@
                             <div th:id="'chat-page'+${chat.chatroomId}">
                                 <div class="chat-container">
 
-                                    <ul th:id="'messageArea'+${chat.chatroomId}">
+                                    <div th:id="'messageArea'+${chat.chatroomId}">
                                         <th:block th:each="chatMap : ${map}">
-                                            <table>
-                                                <tr th:each="chatMessage : ${chatMap.value}">
+                                                <li th:each="chatMessage : ${chatMap.value}" class="chat-message">
                                                     <span th:if="${chat.chatroomId == chatMessage.chatid}">
-                                                    <td th:text="${chatMessage.sender}"></td>
-                                                    <td th:text="${chatMessage.content}"></td>
+                                                        <span th:text="${chatMessage.sender}"></span>
+                                                        <p th:text="${chatMessage.content}"></p>
                                                     </span>
-                                            </table>
+                                                </li>
                                         </th:block>
-                                    </ul>
+                                    </div>
 
                                     <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">
                                         <div class="form-group">
