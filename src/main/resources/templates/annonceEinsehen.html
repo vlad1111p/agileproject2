@@ -91,17 +91,17 @@
   </header>
   <!-- Search in nullCase -->
   <div class="container">
-    <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
+    <form th:action="@{/searchAnnonce}" th:object="${annonceDTO}" class="search__container2" method="GET" >
       <p class="search__title">
         Schnellsuchfunktion:
       </p>
       <label for="vorlName">Vorlesungsname</label><br>
-      <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
-      <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+      <input type="text" class="search__input" id="vorlName" th:field="*{vorlName}" name="vorlName"><br>
+      <input type="radio" id="Lerngruppe" name="choice" th:field="*{choice}" value="Lerngruppe">
       <label for="Lerngruppe">Lerngruppe</label><br>
-      <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+      <input type="radio" id="Übungsgruppe" name="choice" th:field="*{choice}" value="Übungsgruppe">
       <label for="Übungsgruppe">Übungsgruppe</label><br>
-      <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+      <input type="radio" id="Beides" name="choice" value="Beides" th:field="*{choice}" checked="checked">
       <label for="Beides">Beides</label><br>
 
       <button id="button1" class="btn btn-primary">Suchen</button>
@@ -143,17 +143,17 @@
     </div>
     <div class="container">
       <div class="sticky-top">
-      <form th:action="@{/searchAnnonce}" class="search__container" method="GET" >
+      <form th:action="@{/searchAnnonce}" th:object="${annonceDTO}" class="search__container" method="GET" >
         <p class="search__title">
           Schnellsuchfunktion:
         </p>
         <label for="vorlName">Vorlesungsname</label><br>
-        <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
-        <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
+        <input type="text" class="search__input" id="vorlName" th:field="*{vorlName}" name="vorlName"><br>
+        <input type="radio" id="Lerngruppe" name="choice" th:field="*{choice}" value="Lerngruppe">
         <label for="Lerngruppe">Lerngruppe</label><br>
-        <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
+        <input type="radio" id="Übungsgruppe" name="choice" th:field="*{choice}" value="Übungsgruppe">
         <label for="Übungsgruppe">Übungsgruppe</label><br>
-        <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
+        <input type="radio" id="Beides" name="choice" value="Beides" th:field="*{choice}" checked="checked">
         <label for="Beides">Beides</label><br>
 
         <button id="button1" class="btn btn-primary">Suchen</button>

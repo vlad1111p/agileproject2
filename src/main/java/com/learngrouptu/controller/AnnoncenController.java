@@ -44,11 +44,14 @@ public class AnnoncenController {
 
     @GetMapping("/annonceEinsehen")
     public ModelAndView showAnnonceEinsehen(Model model,
-                                            @RequestParam(name = "annonceCreated", required = false) Boolean created) {
+                                            @RequestParam(name = "annonceCreated", required = false) Boolean created,
+                                            AnnonceDTO annonceDTO) {
         model.addAttribute("annoncen", annonceRepository.findAll());
         if (created != null && created) {
             model.addAttribute("annonceCreated", true);
         }
+        annonceDTO.setChoice("Beides");
+        model.addAttribute("annonceDTO", annonceDTO);
         ModelAndView mav = new ModelAndView("annonceEinsehen");
         mav.addAllObjects(model.asMap());
         return mav;
@@ -93,7 +96,8 @@ public class AnnoncenController {
 
     @GetMapping("/searchAnnonce")
     public String searchAnnonce(Model model, @RequestParam(name = "vorlName", required = false) String vorlName,
-                                @RequestParam(name = "choice", required = false) String choice) {
+                                @RequestParam(name = "choice", required = false) String choice,
+                                AnnonceDTO annonceDTO, BindingResult result) {
 
         List<Annonce> annonceList = getAnnoncesWithMatchingName(vorlName);
 

@@ -102,16 +102,16 @@
     </div>
     <div class="container">
         <div class="sticky-top">
-        <form action="/searchLecture" class="search__container" method="GET" >
+        <form action="/searchLecture" th:object="${vorlesungDTO}" class="search__container" method="GET" >
             <p class="search__title">
                 Schnellsuchfunktion:
             </p>
             <label for="VorlName">Titel</label><br>
-            <input type="text" class="search__input" id="VorlName" name="VorlName"><br>
+            <input type="text" class="search__input" th:field="*{titel}" id="VorlName" name="titel"><br>
             <label for="kursNr">Kursnummer</label><br>
-            <input type="text" class="search__input" id="kursNr" name="kursNr"><br>
+            <input type="text" class="search__input" th:field="*{kursnummer}" id="kursNr" name="kursnummer"><br>
             <label for="Studiengang">Studiengang</label><br>
-            <input type="text"  class="search__input" id="Studiengang" name="Studiengang"><br><br>
+            <input type="text"  class="search__input" th:field="*{studiengang}" id="Studiengang" name="studiengang"><br><br>
             <input id="button1" class="btn btn-primary" type="submit" value="Suchen">
         </form>
             </div>

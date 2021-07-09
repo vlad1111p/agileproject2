@@ -1,5 +1,6 @@
 package com.learngrouptu.controller;
 
+import com.learngrouptu.DTO.VorlesungDTO;
 import com.learngrouptu.models.*;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,8 @@ public class VorlesungController {
     @GetMapping("/vorlesungEinsehen")
     public ModelAndView showVorlesungEinsehen(Model model,
                                               @RequestParam(value = "vorlesungCreated", required = false) Boolean created,
-                                              @RequestParam(value = "vorlesungRequested", required = false) Boolean requested) {
+                                              @RequestParam(value = "vorlesungRequested", required = false) Boolean requested,
+                                              VorlesungDTO vorlesungDTO) {
         ModelAndView mav = new ModelAndView("vorlesungEinsehen");
 
         if (created != null && created) {
@@ -86,30 +88,32 @@ public class VorlesungController {
 
     @GetMapping("/searchLecture")
     public String searchLecture(Model model,
-                                @RequestParam(name="VorlName",required = false) String vorlName,
-                                @RequestParam(name="kursNr",required = false) String kursNr,
-                                @RequestParam(name="Studiengang",required = false) String studiengang) {
+                                @RequestParam(name="titel",required = false) String vorlName,
+                                @RequestParam(name="kursnummer",required = false) String kursNr,
+                                @RequestParam(name="studiengang",required = false) String studiengang,
+                                VorlesungDTO vorlesungDTO, BindingResult result) {
 
         List<Vorlesung> vorlList = vorlesungRepository.findAll();
 
-        if(!vorlName.equals("")) {
+        if(vorlName != null && !vorlName.equals("")) {
             vorlList = filterByTitelIgnoringCases(vorlName, vorlList);
             if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }
         }
-        if(!kursNr.equals("")){
+        if(kursNr != null && !kursNr.equals("")){
             vorlList = filterByKursNr(kursNr, vorlList);
             if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
-        if(!studiengang.equals("")){
+        if(studiengang != null && !studiengang.equals("")){
             vorlList = filterByStudiengang(studiengang, vorlList);
             if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
 
             model.addAttribute("vorlesungen", vorlList);
+            model.addAttribute("vorlesungDTO", vorlesungDTO);
         return "vorlesungEinsehen";
     }
 

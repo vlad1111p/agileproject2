@@ -7,11 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.sql.Date;
 
-@Entity
 public class AnnonceDTO {
-
-        @Id
-        @GeneratedValue
 
         private String vorlName;
 
