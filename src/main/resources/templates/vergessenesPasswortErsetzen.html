@@ -33,20 +33,30 @@
 <header class="masthead" id="masthead1"></header>
 <div class="container">
   <div class="col-12">
-    <h2>Trage hier deine E-Mail-Adresse ein:</h2>
+    <h2>Hier kannst du dein neues Passwort festlegen:</h2>
     <br />
     <div class="container" th:if="${oldpassworddoesnotmatch == true}">
       <div class="row">
         <div class="card">
           <div class="alert alert-primary" role="alert">
-           Die eingegebenen Passwörter stimmen nicht überein
+           Die eingegebenen Passwörter stimmen nicht überein.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container" th:if="${passwordsuccessfullychanged == true}">
+      <div class="row">
+        <div class="card">
+          <div class="alert alert-primary" role="alert">
+            Dein Passwort wurde erfolgreich geändert. Du kannst dich nun mit deinem neuen Passwort einloggen.
+            <a href="/login.html">Klicke hier um zum Login zu gelangen.</a>
           </div>
         </div>
       </div>
     </div>
     <!--/*@thymesVar id="passwordResetWithEmailDTO" type="com.learngrouptu.DTO.PasswordResetWithEmailDTO"*/-->
     <form th:action = "@{/reset_passwordfromemail}" th:object="${passwordResetWithEmailDTO}" name='reset_password-form' method='POST'>
-      <label for="email" class="form-label">Gib deinen Email an</label>
+      <label for="email" class="form-label">Gib hier deine Email ein</label>
       <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="">
       <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
       <br />
@@ -59,7 +69,7 @@
       <span th:if="${#fields.hasErrors('neuesPassword1')}" th:errors="*{neuesPassword1}"></span>
       <br />
 
-      <input name="reset_password-submit-button" class="btn btn-primary" type="submit" value="Abschicken" />
+      <input name="reset_password-submit-button" class="btn btn-primary" type="submit" value="Passwort ändern" />
     </form>
   </div>
 </div>

@@ -85,7 +85,7 @@ public class ProfileController {
         String userCurrentPassword = currUser.getPassword();
 
         Boolean userInputPasswordEncrypted = bCryptPasswordEncoder.matches(altesPassword, userCurrentPassword);
-        System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
+        //System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
         if (altesPassword.equals(altesPassword1)) {
 
             if (neuesPassword.equals(neuesPassword1)) {
@@ -124,7 +124,7 @@ public class ProfileController {
     }
 
     private void sendConfirmationEmail(User currUser) {
-        String from = "vladmihalea1111p@gmail.com";
+        String from = "pam2-2021-LearngroupTU@cs.uni-kl.de";
         String to = currUser.getEmail();
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -144,8 +144,6 @@ public class ProfileController {
 
     @GetMapping("/vergessenesPasswortErsetzen")
     public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO) {
-
-
         return "vergessenesPasswortErsetzen";
 
     }
@@ -154,7 +152,6 @@ public class ProfileController {
     public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO, UserDTO user) {
 
         String usermail = passwordResetWithEmailDTO.getEmail();
-        System.out.println(usermail);
         User currUser = userRepository.findUserByEmail(usermail);
 
 
@@ -168,7 +165,8 @@ public class ProfileController {
             sendConfirmationEmail(currUser);
 
 
-            return "redirect:vergessenesPasswortErsetzen";
+            model.addAttribute("passwordsuccessfullychanged", true);
+            return "vergessenesPasswortErsetzen";
         }else {
             model.addAttribute("oldpassworddoesnotmatch", true);
             return "vergessenesPasswortErsetzen";
@@ -181,7 +179,7 @@ public class ProfileController {
     public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
 
         String usermail = passwordResetDTO.getUsermail();
-        String from = "vladmihalea1111p@gmail.com";
+        String from = "pam2-2021-LearngroupTU@cs.uni-kl.de";
         String to = usermail;
         boolean ifUsermailExists = userRepository.existsByEmail(usermail);
 
@@ -193,9 +191,10 @@ public class ProfileController {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
         message.setTo(to);
-        message.setSubject("Password reset from LearngroupTU");
-        message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail." +
-                "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link:" +
+        message.setSubject("Passwort von LearngroupTU zurücksetzen");
+        message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail. " +
+                "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link: " +
+                //TODO: Link für VM
                 "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
 
         mailSender.send(message);
