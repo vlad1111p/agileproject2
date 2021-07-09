@@ -94,7 +94,7 @@
                                 th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
                                 th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
                             <span th:text="${chat.recipient}"></span><br>
-                            <span th:text="${chat.vorlesung}"></span>
+                            <span th:text="${chat.title}"></span>
                             <input type="hidden" id="chatroomid" th:value='${chat.chatroomId}'>
                             <input type="hidden" id="sender" th:value='${chat.sender}'>
                         </button>
