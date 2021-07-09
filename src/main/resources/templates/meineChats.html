@@ -80,16 +80,47 @@
         <div class="masthead-subheading"><br>Dies ist ein Button Test:<br> Klick auf den Brief oben
             <strong>rechts</strong>!
         </div>
-        <ul th:each="thing : ${map}">
-            <li th:text="${thing.chatroomId}"></li>
-            <li th:text="${thing.nachricht}"></li>
-        </ul>
-        <!--
-        <ul th:each="chat: ${alleChats}">
-            <li th:text="${chat.chatroomId}"></li>
+        <!--<ul th:each="ChatID,chatMess : ${map}">
+            <li th:text="${ChatID.key}"></li>  //works-->
 
+<!--
+        <ul th:each="Chat : ${map}">
+            <li th:text="'Key: ' + ${Chat.key} +
+             ', Value: ' + ${Chat.value}"></li>   //works-->
+        <ul th:each="entry, stats : ${map}" th:with="chatroomSet=${entry.value}">
+
+            <li th:text="${entry.key}"></li>
+            <li th:text="${entry.value}"></li>
+            <ul th:each="chat : ${chatroomSet}">
+             <!--   <li th:text="${chat.chat_message_id}"></li> -->
+            </ul>
+
+            </ul>
+
+        <table>
+            <tr th:each="chat : ${map}">
+                <!--<th th:text="${chat.key}" style="color: #0f5132">keyvalue</th>-->
+                <table>
+                    <tr th:each="chatMessage : ${chat.value}" style="color: #6f42c1">
+                        <td th:text="'ChatID: '+${chatMessage.chatid}" style="color: #0aa2c0"></td>
+                        <td th:text="'chat_message_id: '+${chatMessage.chatMessageId}" style="color: #0f5132"></td>
+                        <td th:text="'content: '+${chatMessage.content}" style="color: #BF1515">Some name</td>
+                    </tr>
+                </table>
+            </tr>
+        </table>
+
+<!-- Block TODO Chat+Sorted
+        <th:block th:each="chat : ${map}">
+            <table>
+                <tr th:each="chatMessage : ${chat.value}">
+                    <td th:text="${chatMessage.chatMessageId}"></td>
+                    <td th:text="${chatMessage.content}">Some name</td>
+            </table>
+        </th:block>
+ ENDE-->
         </ul>
-        -->
+
     </div>
 </header>
 
@@ -117,6 +148,18 @@
 
 
                                     <ul th:id="'messageArea'+${chat.chatroomId}">
+
+                                        <!--
+                                        <th:block th:each="chat : ${map}">
+                                            <table>
+                                                <tr th:each="chatMessage : ${chat.value}">
+                                                    <span th:if="${chat.chatroomId == chatMessage.chatid}">
+                                                    <td th:text="${chatMessage.chatMessageId}"></td>
+                                                    <td th:text="${chatMessage.content}"></td>
+                                                    </span>
+                                            </table>
+                                        </th:block>
+                                         ENDE -->
 
                                     </ul>
                                     <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">

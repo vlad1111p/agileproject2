@@ -41,6 +41,7 @@ public class ChatMessage {
     }
 
     public String getContent() {
+
         return content;
     }
 

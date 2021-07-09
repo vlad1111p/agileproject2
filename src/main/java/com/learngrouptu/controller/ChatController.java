@@ -41,6 +41,8 @@ public class ChatController {
         }
         model.put("map", map);
         System.out.println(map);
+
+
         return "meineChats";}
 
 
