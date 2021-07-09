@@ -149,17 +149,16 @@
 
                                     <ul th:id="'messageArea'+${chat.chatroomId}">
 
-                                        <!--
-                                        <th:block th:each="chat : ${map}">
+                                        <th:block th:each="chatMap : ${map}">
                                             <table>
-                                                <tr th:each="chatMessage : ${chat.value}">
+                                                <tr th:each="chatMessage : ${chatMap.value}">
                                                     <span th:if="${chat.chatroomId == chatMessage.chatid}">
                                                     <td th:text="${chatMessage.chatMessageId}"></td>
                                                     <td th:text="${chatMessage.content}"></td>
                                                     </span>
                                             </table>
                                         </th:block>
-                                         ENDE -->
+                                      <!--   ENDE -->
 
                                     </ul>
                                     <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">
