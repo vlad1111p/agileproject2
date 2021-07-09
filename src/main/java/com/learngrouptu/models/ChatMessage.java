@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 
 @Entity
-public class ChatMessage {
+public class ChatMessage implements Comparable<ChatMessage>{
 
     @Id
     @GeneratedValue
@@ -13,6 +13,8 @@ public class ChatMessage {
     private String content;
     private String sender;
     private Integer chatid;
+
+
 
     public enum MessageType {
         CHAT,
@@ -71,5 +73,10 @@ public class ChatMessage {
 
     public void setChatid(Integer chatid) {
         this.chatid = chatid;
+    }
+
+    @Override
+    public int compareTo(ChatMessage o) {
+        return (this.chatMessageId - o.chatMessageId);
     }
 }

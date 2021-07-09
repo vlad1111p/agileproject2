@@ -1,8 +1,6 @@
 package com.learngrouptu.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learngrouptu.models.*;
-import com.learngrouptu.services.AnnonceService;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -34,10 +32,7 @@ public class ChatController {
         HashMap map = new HashMap();
 
         for (Chatroom chatroom : alleChats){
-            //Set<ChatMessage> chatroomMessages = chatroom.getChatroomMessages();
-            map.put(new Integer(chatroom.getChatroomId()), chatroom.getChatroomMessages());
-            //System.out.println(chatroomMessages);
-            //model.put("chatroomMessages", chatroomMessages);
+            map.put(new Integer(chatroom.getChatroomId()), chatroom.sortChatroomMessages(chatroom.getChatroomMessages()));
         }
         model.put("map", map);
         System.out.println(map);

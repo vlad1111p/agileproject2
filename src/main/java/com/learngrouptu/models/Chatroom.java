@@ -4,10 +4,7 @@ package com.learngrouptu.models;
 import org.springframework.data.domain.Sort;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -23,7 +20,6 @@ public class Chatroom {
             cascade = CascadeType.ALL)
 
     private Set<ChatMessage> chatroomMessages;
-    //private SortedSet<ChatMessage>  ??
 
 
     public Chatroom(Integer chatroomId, String sender, String recipient) {
@@ -60,27 +56,20 @@ public class Chatroom {
     }
 
     public Set<ChatMessage> getChatroomMessages() {
-      //  Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC()) ? Sort.by
-
-       /* List<ChatMessage> messagesSorted = chatroomMessages.stream().sorted().collect(Collectors.toList());
-        Set<ChatMessage> sortedChatMessages = new HashSet<>();
-            for( ChatMessage m: messagesSorted)
-            {
-                sortedChatMessages.add(m);
-            }
-
-        */
-        /*
-        chatroomMessages.stream().sorted
-
-        Set<ChatMessage> chatMessages = new HashSet<ChatMessage>(chatroomMessages);
-        return chatMessages;
-*/
-       // return sortedChatMessages;
         return chatroomMessages;
     }
 
     public void setChatroomMessages(Set<ChatMessage> chatroomMessages) {
         this.chatroomMessages = chatroomMessages;
+    }
+
+    public Set<ChatMessage> sortChatroomMessages(Set<ChatMessage> chatroomMessages){
+        Set chatroomMessagesUnordered = chatroomMessages;
+
+        Set<ChatMessage> chatroomMessagesOrdered = new TreeSet<ChatMessage>(chatroomMessagesUnordered);
+        chatroomMessages = chatroomMessagesOrdered;
+
+        System.out.println(chatroomMessages);
+        return chatroomMessages;
     }
 }
