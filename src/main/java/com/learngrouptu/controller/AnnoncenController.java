@@ -6,6 +6,7 @@ import com.learngrouptu.models.Annonce;
 import com.learngrouptu.DTO.AnnonceDTO;
 import com.learngrouptu.models.AnnonceRepository;
 import com.learngrouptu.models.User;
+import com.learngrouptu.models.VorlesungRepository;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,13 +30,15 @@ import java.util.stream.Collectors;
 public class AnnoncenController {
 
     private final AnnonceRepository annonceRepository;
+    private final VorlesungRepository vorlesungRepository;
 
     @Autowired
     UserService userService;
 
     @Autowired
-    public AnnoncenController(AnnonceRepository annonceRepository) {
+    public AnnoncenController(AnnonceRepository annonceRepository, VorlesungRepository vorlesungRepository) {
         this.annonceRepository = annonceRepository;
+        this.vorlesungRepository = vorlesungRepository;
     }
 
 
@@ -64,6 +67,7 @@ public class AnnoncenController {
 
     @GetMapping("/annonceErstellen")
     public String showAnnonceErstellen(Model model, Annonce annonce) {
+        model.addAttribute("vorlesungen", vorlesungRepository.findAll());
         return "annonceErstellen";
     }
 

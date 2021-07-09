@@ -57,8 +57,10 @@
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
                 <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
-                <input id="vorlName" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
-                       type="text" required="true"  class="input1">
+                <select id="vorlNameSelect" placeholder="Vorlesung" th:case="null" th:field="*{vorlName}" th:value="vorlName1"
+                        type="text" required="true"  class="input1">
+                    <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
+                </select>
                 <input class="input1" type="text" id="vorlName" name="vorlName" th:case="*" th:value="${titelFromVorlesung}" required="true" placeholder="Vorlesung">
                 <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
             </div>
