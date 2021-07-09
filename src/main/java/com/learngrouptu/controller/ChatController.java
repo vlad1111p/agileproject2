@@ -22,6 +22,7 @@ public class ChatController {
     @Autowired UserService userService;
     @Autowired UserRepository userRepository;
     @Autowired ChatMessageRepository chatMessageRepository;
+    @Autowired AnnonceRepository annonceRepository;
 
     @GetMapping("/meineChats")
     public String showMyChats(Map<String, Object> model){
@@ -49,12 +50,17 @@ public class ChatController {
     public String startChat(@RequestParam Integer id, Model model) {
 
         User user = userRepository.findByUserAnnoncen_AnnonceId(id);
+        Annonce annonce = annonceRepository.findOneByAnnonceId(id);
         System.out.println(user.getUsername());
 
         Chatroom chatroom = new Chatroom();
         chatroom.setRecipient(user.getUsername());
         chatroom.setSender(userService.getCurrentUser().getUsername());
+        chatroom.setVorlesung(annonce.getVorlName());
         model.addAttribute("chatroom", chatroom);
+        System.out.println(chatroom.getChatroomId());
+        System.out.println(chatroom.getSender());
+        System.out.println(chatroom.getVorlesung());
         chatroomRepository.save(chatroom);
 
         return showChat();

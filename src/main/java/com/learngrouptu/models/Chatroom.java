@@ -15,6 +15,7 @@ public class Chatroom {
     private Integer chatroomId;
     private String sender;
     private String recipient;
+    private String vorlesung;
 
     @OneToMany(mappedBy = "chatroom", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
@@ -26,6 +27,7 @@ public class Chatroom {
         this.chatroomId = chatroomId;
         this.sender = sender;
         this.recipient = recipient;
+        this.vorlesung = vorlesung;
     }
 
     public Chatroom() {
@@ -71,5 +73,13 @@ public class Chatroom {
 
         System.out.println(chatroomMessages);
         return chatroomMessages;
+    }
+
+    public String getVorlesung() {
+        return vorlesung;
+    }
+
+    public void setVorlesung(String vorlesung) {
+        this.vorlesung = vorlesung;
     }
 }
