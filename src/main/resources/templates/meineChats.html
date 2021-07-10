@@ -83,9 +83,10 @@
     </div>
 </header>
 
+
+<!-- Start ChatBox  WEAS WIE WO STICKY-TOP? -->
 <div class="chatbox">
     <div class="chatbox_overview">
-        <!--DUMMY Chat (hardCoded -->
         <div class="accordion" id="accordionExample">
             <th:block th:each="chat : ${alleChats}">
                 <div class="accordion-item">
@@ -93,8 +94,17 @@
                         <button th:id="'button'+${chat.chatroomId}" class="accordion-button" type="button" data-bs-toggle="collapse"
                                 th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
                                 th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
+                            <table>
+                                <tr>
+                                    <td th:text="${chat.recipient}"></td>
+                                </tr>
+                                <tr>
+                                  <td th:text="${chat.vorlesung}"></td>
+                                </tr>
+                            </table>
+                            <!--
                             <span th:text="${chat.recipient}"></span><br>
-                            <span th:text="${chat.vorlesung}"></span>
+                            <span th:text="${chat.vorlesung}"></span> -->
                             <input type="hidden" id="chatroomid" th:value='${chat.chatroomId}'>
                             <input type="hidden" id="sender" th:value='${chat.sender}'>
                         </button>
@@ -110,7 +120,7 @@
                                                 <li th:each="chatMessage : ${chatMap.value}" class="chat-message">
                                                     <span th:if="${chat.chatroomId == chatMessage.chatid}">
                                                         <span th:text="${chatMessage.sender}"></span>
-                                                        <p th:text="${chatMessage.content}"></p>
+                                                        <p th:text="${chatMessage.content}" style="word-wrap: break-word;margin-right: 5px"></p>
                                                     </span>
                                                 </li>
                                         </th:block>
@@ -121,7 +131,7 @@
                                             <div class="input-group clearfix">
                                                 <input type="text" th:id="'message'+${chat.chatroomId}" placeholder="Type a message..."
                                                        autocomplete="off" class="form-control"/>
-                                                <button type="button" class="primary" onclick="return sendMessage()">Send</button>
+                                                <button type="button" class="btn-primary" onclick="return sendMessage()" style="padding: 5px;margin-right: 5px;margin-left: 5px">Send</button>
                                             </div>
                                         </div>
                                     </form>
@@ -134,16 +144,7 @@
         </div>
     </div>
 </div>
-
-</div>
-
-</div>
-</div>
-</div>
-
-</div>
-</div>
-
+<!-- End ChatBox -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
