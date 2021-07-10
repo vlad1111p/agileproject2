@@ -56,11 +56,11 @@ public class ChatController {
         Chatroom chatroom = new Chatroom();
         chatroom.setRecipient(user.getUsername());
         chatroom.setSender(userService.getCurrentUser().getUsername());
-        chatroom.setVorlesung(annonce.getVorlName());
+        chatroom.setTitle(annonce.getVorlName());
         model.addAttribute("chatroom", chatroom);
         System.out.println(chatroom.getChatroomId());
         System.out.println(chatroom.getSender());
-        System.out.println(chatroom.getVorlesung());
+        System.out.println(chatroom.getTitle());
         chatroomRepository.save(chatroom);
 
         return showChat();

@@ -1,11 +1,7 @@
 package com.learngrouptu.models;
 
-
-import org.springframework.data.domain.Sort;
-
 import javax.persistence.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Entity
 public class Chatroom {
@@ -15,7 +11,7 @@ public class Chatroom {
     private Integer chatroomId;
     private String sender;
     private String recipient;
-    private String vorlesung;
+    private String title;
 
     @OneToMany(mappedBy = "chatroom", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
@@ -27,7 +23,7 @@ public class Chatroom {
         this.chatroomId = chatroomId;
         this.sender = sender;
         this.recipient = recipient;
-        this.vorlesung = vorlesung;
+        this.title = title;
     }
 
     public Chatroom() {
@@ -75,11 +71,11 @@ public class Chatroom {
         return chatroomMessages;
     }
 
-    public String getVorlesung() {
-        return vorlesung;
+    public String getTitle() {
+        return title;
     }
 
-    public void setVorlesung(String vorlesung) {
-        this.vorlesung = vorlesung;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
