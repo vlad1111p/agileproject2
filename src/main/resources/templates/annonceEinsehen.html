@@ -13,9 +13,14 @@
   <!-- Google fonts-->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
-
+  <!-- Poppers necessary for Popovers-->
+  <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
   <!-- Pagination CSS -->
   <!--<link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">-->
+
+  <!--Icons  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="navbarIcons.css" rel="stylesheet">
 
 
   <!-- Core theme CSS (includes Bootstrap)-->
@@ -54,6 +59,15 @@
         }
       } );
     } );
+  </script>
+  <!-- Script for activating Popovers-->
+  <script type="text/javascript">
+    $(function () {
+      var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+      var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+      })
+    })
   </script>
 </head>
 <body id="page-top" th:switch="${annoncen}">
@@ -184,7 +198,12 @@
                   <td th:text="${annonce.vorlName}"></td>
                   <td th:text="${annonce.choice}"></td>
                   <td> <a class = "boring-link" th:text="${annonce.getErsteller().getUsername()}" th:href="@{/profilBesuchen(username=${annonce.getErsteller().getUsername()})}"></a></td>
-                  <td th:text="${annonce.nachricht}"></td>
+                  <!--<td th:text="${annonce.nachricht}"></td>-->
+                  <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="popover"
+                              data-bs-trigger="focus" data-bs-placement="bottom"
+                              th:attrappend="data-bs-content=${annonce.getNachricht()}">
+                    <i class="bi bi-envelope" style="color: black"></i>
+                  </button></td>
                   <td th:text="${annonce.datum}"></td>
                 </tr>
                 </tbody>
