@@ -20,8 +20,6 @@ public class Annonce {
 
     private String choice;
 
-    private String kontakt;
-
     private String nachricht;
 
     @UpdateTimestamp
@@ -34,13 +32,12 @@ public class Annonce {
 
     }
 
-    public Annonce(Integer annonceId, String vorlName, String choice, String kontakt, String nachricht, Date datum){
+    public Annonce(Integer annonceId, String vorlName, String choice, String nachricht, Date datum){
 
         super();
         this.annonceId = annonceId;
         this.vorlName = vorlName;
         this.choice = choice;
-        this.kontakt = kontakt;
         this.nachricht = nachricht;
         this.datum = datum;
     }
@@ -49,7 +46,6 @@ public class Annonce {
     public Integer getAnnonceId(){return annonceId;}
     public String getVorlName(){return vorlName;}
     public String getChoice(){return choice;}
-    public String getKontakt(){return kontakt;}
     public String getNachricht(){return nachricht;}
     public Date getDatum(){return datum;}
     public User getErsteller() {
@@ -62,7 +58,6 @@ public class Annonce {
         this.vorlName = vorlName;
     }
     public void setChoice(String choice){this.choice = choice;}
-    public void setKontakt(String kontakt){this.kontakt = kontakt;}
     public void setNachricht(String nachricht){this.nachricht = nachricht;}
     public void setDatum(Date datum){this.datum = datum;}
     public void setErsteller(Set<User> ersteller) {

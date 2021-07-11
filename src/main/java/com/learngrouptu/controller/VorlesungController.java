@@ -81,10 +81,10 @@ public class VorlesungController {
     }
 
     @GetMapping("/vorlesungsgruppesuchen")
-    public String searchAnnoncenFromVorlesung(Model model, @RequestParam("titel") String titel) {
-        List<Annonce> filteredAnnoncen = annonceRepository.findAllByVorlName(titel);
-        model.addAttribute("annoncen", filteredAnnoncen);
-        return "annonceEinsehen";
+    public ModelAndView searchAnnoncenFromVorlesung(Model model, @RequestParam("titel") String titel) {
+        ModelAndView mav = new ModelAndView("redirect:annonceEinsehen");
+        mav.addObject("searchVorl", titel);
+        return mav;
     }
 
     @GetMapping("/searchLecture")

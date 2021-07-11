@@ -45,12 +45,22 @@ public class AnnoncenController {
     @GetMapping("/annonceEinsehen")
     public ModelAndView showAnnonceEinsehen(Model model,
                                             @RequestParam(name = "annonceCreated", required = false) Boolean created,
+                                            @RequestParam(name = "searchVorl", required = false) String searchVorl,
                                             AnnonceDTO annonceDTO) {
+        annonceDTO.setChoice("Beides");
+
+        if (searchVorl != null && searchVorl != "") {
+            annonceDTO.setVorlName(searchVorl);
+            // suche nach Annonce mit gesuchtem Vorlesungsname
+            return searchAnnonce(model, searchVorl, "Beides", annonceDTO, null);
+        }
+
         model.addAttribute("annoncen", annonceRepository.findAll());
+
         if (created != null && created) {
             model.addAttribute("annonceCreated", true);
         }
-        annonceDTO.setChoice("Beides");
+
         model.addAttribute("annonceDTO", annonceDTO);
         ModelAndView mav = new ModelAndView("annonceEinsehen");
         mav.addAllObjects(model.asMap());
@@ -99,24 +109,28 @@ public class AnnoncenController {
     }
 
     @GetMapping("/searchAnnonce")
-    public String searchAnnonce(Model model, @RequestParam(name = "vorlName", required = false) String vorlName,
+    public ModelAndView searchAnnonce(Model model, @RequestParam(name = "vorlName", required = false) String vorlName,
                                 @RequestParam(name = "choice", required = false) String choice,
                                 AnnonceDTO annonceDTO, BindingResult result) {
 
+        ModelAndView mav = new ModelAndView("annonceEinsehen");
         List<Annonce> annonceList = getAnnoncesWithMatchingName(vorlName);
 
         if (annonceList.isEmpty()) {
             addSearchAttributesToModel(model, vorlName, choice);
-            return "annonceEinsehen";
+            mav.addAllObjects(model.asMap());
+            return mav;
         } else if (choice.equals("Beides")) {
             model.addAttribute("annoncen", annonceList);
-            return "annonceEinsehen";
+            mav.addAllObjects(model.asMap());
+            return mav;
         } else {
             annonceList = annonceList.stream()
                     .filter(annonce -> annonce.getChoice().equals(choice))
                     .collect(Collectors.toList());
             model.addAttribute("annoncen", annonceList);
-            return "annonceEinsehen";
+            mav.addAllObjects(model.asMap());
+            return mav;
         }
 
 
@@ -150,7 +164,6 @@ public class AnnoncenController {
     private void configureCurrentAnnonce(Annonce annonce, Annonce currentAnnonce) {
         currentAnnonce.setVorlName(annonce.getVorlName());
         currentAnnonce.setChoice(annonce.getChoice());
-        currentAnnonce.setKontakt(annonce.getKontakt());
         currentAnnonce.setNachricht(annonce.getNachricht());
     }
 

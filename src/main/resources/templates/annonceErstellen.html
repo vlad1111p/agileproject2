@@ -65,17 +65,11 @@
                     <option value=""></option>
                     <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
                 </select>
-                <select type="text" id="vorlNameSelect" name="vorlName" th:case="*" th:value="${titelFromVorlesung}" required="true" placeholder="Wähle eine Vorlesung aus ...">
+                <select type="text" id="vorlNameSelect" name="vorlName" th:case="*" required="true" placeholder="Wähle eine Vorlesung aus ...">
                     <option th:value="${titelFromVorlesung}" th:text="${titelFromVorlesung}"></option>
                     <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
                 </select>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
-            </div>
-
-            <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="kontakt">Wie kann man dich erreichen?</label>
-                <input class="input1" type="text" id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email">
-                <span class="shadow-input1" th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
             </div>
 
             <div id="choice" class="wrap-input1">
