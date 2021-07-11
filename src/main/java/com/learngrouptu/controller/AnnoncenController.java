@@ -2,11 +2,8 @@ package com.learngrouptu.controller;
 
 import com.learngrouptu.Exceptions.AnnonceDoesNotExistException;
 import com.learngrouptu.Exceptions.UsernameDoesNotExistException;
-import com.learngrouptu.models.Annonce;
+import com.learngrouptu.models.*;
 import com.learngrouptu.DTO.AnnonceDTO;
-import com.learngrouptu.models.AnnonceRepository;
-import com.learngrouptu.models.User;
-import com.learngrouptu.models.VorlesungRepository;
 import com.learngrouptu.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -152,14 +149,33 @@ public class AnnoncenController {
     }
 
     @PostMapping("annonceAendern")
-    public String annonceAendern(Model model, @RequestParam(name = "annonceId", required = true) Integer annonceId) throws AnnonceDoesNotExistException {
+    public ModelAndView annonceAendern(Model model, @RequestParam(name = "annonceId", required = true) Integer annonceId) throws AnnonceDoesNotExistException {
+        ModelAndView mav = new ModelAndView("annonceAendern");
+        Annonce annonce = annonceRepository.findAnnonceByAnnonceId(annonceId);
+        if (annonce == null) {
+            throw new AnnonceDoesNotExistException();
+        } else {
+            List<Vorlesung> vorlesungen = vorlesungRepository.findAll();
+            // Hier muss gefiltert werden, da sonst die aktuelle Vorlesung nicht als Default angezeigt wird
+            vorlesungen = vorlesungen.stream()
+                    .filter(vorlesung -> !vorlesung.getTitel().equals(annonce.getVorlName()))
+                    .collect(Collectors.toList());
+            mav.addObject("vorlesungen", vorlesungen);
+            mav.addObject("annonce", annonce);
+            return mav;
+        }
+    }
+
+    /*@GetMapping("annonceAendern")
+    public ModelAndView showAnnonceAendern(Model model, @RequestParam(name = "annonceId", required = true) Integer annonceId) throws AnnonceDoesNotExistException {
+        ModelAndView mav = new ModelAndView("annonceAendern");
         if (annonceRepository.findAnnonceByAnnonceId(annonceId) == null) {
             throw new AnnonceDoesNotExistException();
         } else {
-            model.addAttribute("annonce", annonceRepository.findAnnonceByAnnonceId(annonceId));
-            return "annonceAendern";
+            mav.addObject("annonce", annonceRepository.findAnnonceByAnnonceId(annonceId));
+            return mav;
         }
-    }
+    }*/
 
     private void configureCurrentAnnonce(Annonce annonce, Annonce currentAnnonce) {
         currentAnnonce.setVorlName(annonce.getVorlName());

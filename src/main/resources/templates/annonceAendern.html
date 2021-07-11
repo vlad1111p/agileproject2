@@ -17,6 +17,10 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link href="/css/styles.css" rel="stylesheet">
     <!--===============================================================================================-->
+    <!--Scripts for Selectize (Dropdown mit Suchfunktion)-->
+    <script language="JavaScript" type="text/javascript" src="/vendor/jquery/jquery-3.6.0.min.js"></script>
+    <script src="/js/selectize.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/selectize.legacy.css" />
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -56,16 +60,12 @@
 				</span>
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
-                <input id="vorlName" placeholder="Vorlesung" th:field="*{vorlName}"
-                       type="text" required="true"  class="input1">
-                <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
-            </div>
-
-            <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="kontakt">Wie kann man dich erreichen?</label>
-                <input class="input1" type="text" id="kontakt" th:field="*{kontakt}" name="kontakt" placeholder="z.B. Email">
-                <span class="shadow-input1" th:if="${#fields.hasErrors('kontakt')}" th:errors="*{kontakt}"></span>
+                <label for="vorlNameSelect">Für welche Vorlesung suchst du KommilitonInnen?</label>
+                <select id="vorlNameSelect" placeholder="Wähle eine Vorlesung aus ..." th:field="*{vorlName}"
+                        required="true"  class="">
+                    <option selected="true" th:value="${annonce.getVorlName()}" th:text="${annonce.getVorlName()}"></option>
+                    <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
+                </select>
             </div>
 
             <div id="choice" class="wrap-input1">
@@ -126,6 +126,10 @@
 
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
-
+<script>
+    $("#vorlNameSelect").selectize({
+        dropdownParent: "body",
+    });
+</script>
 </body>
 </html>
