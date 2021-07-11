@@ -17,6 +17,30 @@
 
   <link href="/css/searchBar.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
+
+  <!-- Scripts for Pagination (Tabelle über mehrere Seiten) -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#annoncen_table').DataTable( {
+        pagingType: "simple_numbers",
+        searching: false,
+        order: [ [ 3, 'desc' ] ],
+        language: {
+          "lengthMenu": "Zeige _MENU_ Annoncen pro Seite",
+          "info": "Zeige Seite _PAGE_ von _PAGES_",
+          "infoEmpty": "Keine Annoncen vorhanden",
+          paginate: {
+            "first":      "Erste",
+            "last":       "Letzte",
+            "next":       "Nächste",
+            "previous":   "Vorherige"
+          },
+        }
+      } );
+    } );
+  </script>
 </head>
 <body id="page-top">
 <!-- Navigation-->
@@ -87,13 +111,15 @@
               <h5 class="card-title m-b-0">Übersicht über meine Annoncen</h5>
             </div>
             <div class="table-responsive">
-              <table class="table">
+              <table class="table" id="annoncen_table">
                 <thead class="thead-light">
                 <tr>
                   <th scope="col">Vorlesungsname</th>
                   <th scope="col">Gruppentyp</th>
                   <th scope="col">Nachricht</th>
                   <th scope="col">Datum</th>
+                  <th scope="col">Löschen</th>
+                  <th scope="col">Bearbeiten</th>
                   <!-- <th scope="col"></th> -->
                 </tr>
                 </thead>

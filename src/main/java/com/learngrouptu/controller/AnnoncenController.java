@@ -51,8 +51,8 @@ public class AnnoncenController {
             // suche nach Annonce mit gesuchtem Vorlesungsname
             return searchAnnonce(model, searchVorl, "Beides", annonceDTO, null);
         }
-
-        model.addAttribute("annoncen", annonceRepository.findAll());
+        List<Annonce> annonceList = annonceRepository.findAll();
+        model.addAttribute("annoncen", annonceList);
 
         if (created != null && created) {
             model.addAttribute("annonceCreated", true);
