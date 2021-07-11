@@ -69,8 +69,12 @@ public class AnnoncenController {
     }
 
     @GetMapping("/annonceErstellen")
-    public String showAnnonceErstellen(Model model, Annonce annonce) {
+    public String showAnnonceErstellen(Model model, Annonce annonce,
+                                       @RequestParam(name="titelFromVorlesung", required = false) String vorl) {
         model.addAttribute("vorlesungen", vorlesungRepository.findAll());
+        if (vorl != null && vorl != "") {
+            model.addAttribute("titelFromVorlesung", vorl);
+        }
         return "annonceErstellen";
     }
 

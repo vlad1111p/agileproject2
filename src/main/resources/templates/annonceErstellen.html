@@ -59,13 +59,16 @@
 				</span>
 
             <div class="wrap-input1 validate-input" data-validate = "Name is required">
-                <label for="vorlName">Für welche Vorlesung suchst du KommilitonInnen?</label>
-                <select id="vorlNameSelect" placeholder="Wähle eine Vorlesung aus ..." th:case="null" th:field="*{vorlName}" value="Vorlesung"
+                <label for="vorlNameSelect">Für welche Vorlesung suchst du KommilitonInnen?</label>
+                <select id="vorlNameSelect" placeholder="Wähle eine Vorlesung aus ..." th:case="null" th:field="*{vorlName}"
                         required="true"  class="" style = "display: none;">
                     <option value=""></option>
                     <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
                 </select>
-                <input class="input1" type="text" id="vorlName" name="vorlName" th:case="*" th:value="${titelFromVorlesung}" required="true" placeholder="Vorlesung">
+                <select type="text" id="vorlNameSelect" name="vorlName" th:case="*" th:value="${titelFromVorlesung}" required="true" placeholder="Wähle eine Vorlesung aus ...">
+                    <option th:value="${titelFromVorlesung}" th:text="${titelFromVorlesung}"></option>
+                    <option th:each="vorlesung : ${vorlesungen}" th:value="${vorlesung.getTitel()}" th:text="${vorlesung.getTitel()}"></option>
+                </select>
                 <span class="shadow-input1" th:if="${#fields.hasErrors('vorlName')}" th:errors="*{vorlName}"></span>
             </div>
 

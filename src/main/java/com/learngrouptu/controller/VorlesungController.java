@@ -74,9 +74,10 @@ public class VorlesungController {
     }
 
     @GetMapping("/vorlesungsgruppeerstellen")
-    public String createAnnonceFromVorlesung(Model model, Annonce annonce, @RequestParam("id") Integer id) {
-        model.addAttribute("titelFromVorlesung", vorlesungRepository.getOne(id).getTitel());
-        return "annonceErstellen";
+    public ModelAndView createAnnonceFromVorlesung(Model model, Annonce annonce, @RequestParam("id") Integer id) {
+        ModelAndView mav = new ModelAndView("redirect:annonceErstellen");
+        mav.addObject("titelFromVorlesung", vorlesungRepository.getOne(id).getTitel());
+        return mav;
     }
 
     @GetMapping("/vorlesungsgruppesuchen")
