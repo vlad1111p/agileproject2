@@ -103,12 +103,12 @@ public class VorlesungController {
             }
         }
         if(kursNr != null && !kursNr.equals("")){
-            vorlList = filterByKursNr(kursNr, vorlList);
+            vorlList = filterByKursNrIgnoringCases(kursNr, vorlList);
             if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
         if(studiengang != null && !studiengang.equals("")){
-            vorlList = filterByStudiengang(studiengang, vorlList);
+            vorlList = filterByStudiengangIgnoringCases(studiengang, vorlList);
             if (vorlList.isEmpty()){
                 return "vorlesungEinsehen";
             }}
@@ -187,9 +187,9 @@ public class VorlesungController {
         return "vorlesungBeantragen";
     }
 
-    private List<Vorlesung> filterByStudiengang(String studiengang, List<Vorlesung> vorlList) {
+    private List<Vorlesung> filterByStudiengangIgnoringCases(String studiengang, List<Vorlesung> vorlList) {
         vorlList = vorlList.stream()
-                .filter(vorl -> vorl.getStudiengang().contains(studiengang))
+                .filter(vorl -> vorl.getStudiengang().toLowerCase().contains(studiengang.toLowerCase()))
                 .collect(Collectors.toList());
         return vorlList;
     }
@@ -204,9 +204,9 @@ public class VorlesungController {
         }
     }
 
-    private List<Vorlesung> filterByKursNr(String kursNr, List<Vorlesung> vorlList) {
+    private List<Vorlesung> filterByKursNrIgnoringCases(String kursNr, List<Vorlesung> vorlList) {
         vorlList = vorlList.stream()
-                .filter(vorl -> vorl.getKursnr().contains(kursNr))
+                .filter(vorl -> vorl.getKursnr().toLowerCase().contains(kursNr.toLowerCase()))
                 .collect(Collectors.toList());
         return vorlList;
     }

@@ -72,26 +72,23 @@
 <!-- Masthead-->
 <header class="masthead" id="masthead1" >
     <div class="container">
-        <div class="masthead-subheading" id="textforwrong">Hast du deine Vorlesung nicht gefunden? Beantrage hier, diese Vorlesung hinzuzufügen. (Wir werden diese prüfen und sobald wie möglich hinzufügen.)</div>
+        <div class="masthead-subheading" id="textforwrong">Hast du deine Vorlesung nicht gefunden? <br /> Beantrage hier, diese Vorlesung hinzuzufügen. (Wir werden diese prüfen und sobald wie möglich hinzufügen.)</div>
         <a class="btn btn-primary btn-xl text-uppercase" href="/vorlesungBeantragen" th:href="@{/vorlesungBeantragen}">Vorlesung beantragen</a>
     </div>
 </header>
     <!-- Search in nullCase -->
     <div class="container">
-        <form th:action="@{/searchAnnonce}" class="search__container2" method="GET" >
+        <form action="/searchLecture" th:object="${vorlesungDTO}" class="search__container2" method="GET" >
             <p class="search__title">
                 Schnellsuchfunktion:
             </p>
-            <label for="vorlName">Vorlesungsname</label><br>
-            <input type="text" class="search__input" id="vorlName" name="vorlName"><br>
-            <input type="radio" id="Lerngruppe" name="choice" value="Lerngruppe">
-            <label for="Lerngruppe">Lerngruppe</label><br>
-            <input type="radio" id="Übungsgruppe" name="choice" value="Übungsgruppe">
-            <label for="Übungsgruppe">Übungsgruppe</label><br>
-            <input type="radio" id="Beides" name="choice" value="Beides" checked="checked">
-            <label for="Beides">Beides</label><br>
-
-            <button id="button1" class="btn btn-primary">Suchen</button>
+            <label for="VorlName">Titel</label><br>
+            <input type="text" class="search__input" th:field="*{titel}" id="VorlName" name="titel"><br>
+            <label for="kursNr">Kursnummer</label><br>
+            <input type="text" class="search__input" th:field="*{kursnummer}" id="kursNr" name="kursnummer"><br>
+            <label for="Studiengang">Studiengang</label><br>
+            <input type="text"  class="search__input" th:field="*{studiengang}" id="Studiengang" name="studiengang"><br><br>
+            <input id="button1" class="btn btn-primary" type="submit" value="Suchen">
         </form>
     </div>
     <!--endSearch in nullCase -->
