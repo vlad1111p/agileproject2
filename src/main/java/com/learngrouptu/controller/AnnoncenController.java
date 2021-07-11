@@ -77,9 +77,15 @@ public class AnnoncenController {
 
     @GetMapping("/annonceErstellen")
     public String showAnnonceErstellen(Model model, Annonce annonce,
-                                       @RequestParam(name="titelFromVorlesung", required = false) String vorl) {
+                                       @RequestParam(name="titelFromVorlesung", required = false) String vorl,
+                                       @RequestParam(name="vorlName", required = false) String titelFromSearch) {
         model.addAttribute("vorlesungen", vorlesungRepository.findAll());
-        if (vorl != null && vorl != "") {
+        Boolean isTitelFromSearchInVorlesungen = vorlesungRepository.findAll().stream()
+                .map(vorlesung -> vorlesung.getTitel())
+                .collect(Collectors.toList())
+                .contains(titelFromSearch);
+        if ((vorl != null && vorl != "") ||
+                (titelFromSearch != null && titelFromSearch != "" && isTitelFromSearchInVorlesungen)) {
             model.addAttribute("titelFromVorlesung", vorl);
         }
         return "annonceErstellen";
