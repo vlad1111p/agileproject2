@@ -72,11 +72,12 @@
         <button class="btn btn-secondary" type="submit">Logout</button>
     </form>
 </nav>
-
 <header class="masthead0">
     <div class="container">
-        <div class="masthead-heading">MEINE CHATS
+        <div class="loginLabel masthead-heading">MEINE CHATS
         </div>
+        <div class="masthead-subheading">Hier kannst du deine Chats einsehen.
+            Zudem geben die Reiter dir einen Hinweis: mit wem du chattest und um welche Vorlesung es geht</div>
     </div>
 </header>
 
@@ -99,6 +100,10 @@
                                   <td th:text="${chat.title}"></td>
                                 </tr>
                             </table>
+                            <script type="text/javascript">
+                                var button= 'button'+[[${chat.chatroomId}]];
+
+                            </script>
                             <!--
                             <span th:text="${chat.recipient}"></span><br>
                             <span th:text="${chat.vorlesung}"></span> -->
@@ -156,7 +161,7 @@
 
 <script type="text/javascript">
     document.getElementById("chatboxButton").click();
-
+    document.getElementById(button).click();
 </script>
 
 
