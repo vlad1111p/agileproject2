@@ -108,7 +108,7 @@
                             <span th:text="${chat.recipient}"></span><br>
                             <span th:text="${chat.vorlesung}"></span> -->
                             <input type="hidden" id="chatroomid" th:value='${chat.chatroomId}'>
-                            <input type="hidden" id="sender" th:value='${chat.sender}'>
+                            <input type="hidden" id="sender" th:value='${userName}'>
                         </button>
                     </h2>
                     <div th:id="'ID'+${chat.chatroomId}" class="accordion-collapse collapse" aria-labelledby="test"

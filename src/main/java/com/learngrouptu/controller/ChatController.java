@@ -38,6 +38,8 @@ public class ChatController {
         model.put("map", map);
         System.out.println(map);
 
+        model.put("userName", user.getUsername());
+
 
         return "meineChats";}
 
