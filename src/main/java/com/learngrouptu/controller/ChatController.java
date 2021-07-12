@@ -63,7 +63,7 @@ public class ChatController {
         System.out.println(chatroom.getTitle());
         chatroomRepository.save(chatroom);
 
-        return showChat();
+        return "redirect:meineChats";
     }
 
 
