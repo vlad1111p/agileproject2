@@ -192,8 +192,9 @@
                   <th scope="col">Vorlesungsname</th>
                   <th scope="col">Gruppentyp</th>
                   <th scope="col">ErstellerIn</th>
-                  <th scope="col">Weitere Infos</th>
                   <th scope="col">Datum</th>
+                  <th scope="col" class="text-center">Weitere Infos</th>
+                  <th scope="col" class="text-center">Kontaktieren</th>
                  <!-- <th scope="col"></th> -->
                 </tr>
                 </thead>
@@ -204,15 +205,17 @@
                   <td th:text="${annonce.choice}"></td>
                   <td> <a class = "boring-link" th:text="${annonce.getErsteller().getUsername()}" th:href="@{/profilBesuchen(username=${annonce.getErsteller().getUsername()})}"></a></td>
                   <!--<td th:text="${annonce.nachricht}"></td>-->
-                  <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="popover"
+                  <td th:text="${annonce.datum}"></td>
+                  <td class="text-center"><button type="button" class="btn btn-outline-secondary" data-bs-toggle="popover"
                               data-bs-trigger="focus" data-bs-placement="bottom"
                               th:attrappend="data-bs-content=${annonce.getNachricht()}">
                     <i class="bi bi-envelope" style="color: black"></i>
                   </button></td>
-                  <td th:text="${annonce.datum}"></td>
-                  <td>
+                  <td class="text-center">
                     <form th:action="@{/startChat(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
-                      <button id="delete" type="submit">Kontakt</button>
+                      <button id="delete" type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-chat-text" style="color: black"></i>
+                      </button>
                     </form>
                   </td>
                 </tr>
