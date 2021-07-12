@@ -13,13 +13,19 @@ public class PasswordResetWithEmailDTO {
 
     public PasswordResetWithEmailDTO(String neuesPassword, String neuesPassword1, String email) {
         super();
-
+        this.email = email;
         this.neuesPassword = neuesPassword;
         this.neuesPassword1 = neuesPassword1;
-        this.email = email;
+
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
     public String getNeuesPassword() {
         return neuesPassword;
     }
@@ -36,11 +42,5 @@ public class PasswordResetWithEmailDTO {
         this.neuesPassword1 = neuesPassword1;
     }
 
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
