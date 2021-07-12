@@ -102,6 +102,10 @@
                                   <td th:text="${chat.title}"></td>
                                 </tr>
                             </table>
+                            <script type="text/javascript">
+                                var button= 'button'+[[${chat.chatroomId}]];
+
+                            </script>
                             <!--
                             <span th:text="${chat.recipient}"></span><br>
                             <span th:text="${chat.vorlesung}"></span> -->
@@ -159,8 +163,7 @@
 
 <script type="text/javascript">
     document.getElementById("chatboxButton").click();
-
-
+    document.getElementById(button).click();
 </script>
 
 
