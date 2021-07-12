@@ -56,8 +56,8 @@
                     erstellen</a></li>
                 <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen
                     einsehen</a></li>
-                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine
-                    Annoncen</b></a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine
+                    Annoncen</a></li>
                 <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen
                     einsehen</a></li>
                 <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung
@@ -65,7 +65,7 @@
             </ul>
         </div>
     </div>
-    <span class="chatbox_toggle"><button>
+    <span class="chatbox_toggle"><button id="chatboxButton">
     <a href="#" id="chats"><i
             class="bi bi-envelope"></i></a>
     </button></span>
@@ -77,8 +77,7 @@
 
 <header class="masthead0">
     <div class="container">
-        <div class="masthead-subheading"><br>Dies ist ein Button Test:<br> Klick auf den Brief oben
-            <strong>rechts</strong>!
+        <div class="masthead-heading">MEINE CHATS
         </div>
     </div>
 </header>
@@ -156,4 +155,11 @@
 
 
 </body>
+
+<script type="text/javascript">
+    document.getElementById("chatboxButton").click();
+
+</script>
+
+
 </html>
