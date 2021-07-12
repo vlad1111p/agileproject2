@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- old Head
+    <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/index.css">
+    <link href="/css/table.css" rel="stylesheet">
+    <title>Meine Annoncen</title>
+     </head>
+     -->
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+        <title>LearngroupTU</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/LGTU4.ico"/>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet"
+              type="text/css"/>
+        <!-- Core theme CSS (includes Bootstrap)-->
+
+        <link href="/css/searchBar.css" rel="stylesheet">
+        <link href="/css/styles.css" rel="stylesheet">
+        <!--ChatBox   -->
+        <link href="/css/chatBox.css" rel="stylesheet">
+        <!--Icons  -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link href="navbarIcons.css" rel="stylesheet">
+        <link href="/css/chatBox.css" rel="stylesheet">
+        <!-- test -->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </head>
+
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="containerNavbar">
+        <!-- <a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img src="assets/img/logoTu2.png" alt="..." /></a>   -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="navbar-brand" id="logotukl2" href="/home" th:href="@{/home}"><img
+                        src="assets/img/logoTu2.png" alt="..."/></a></li>
+                <li class="nav-item"><a class="nav-link " href="/home" th:href="@{/home}">Startseite</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce
+                    erstellen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen
+                    einsehen</a></li>
+                <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine
+                    Annoncen</b></a></li>
+                <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen
+                    einsehen</a></li>
+                <li class="nav-item"><a class="nav-link" href="/vorlesungErstellen" th:href="@{/vorlesungErstellen}">Vorlesung
+                    hinzufügen</a></li>
+            </ul>
+        </div>
+    </div>
+    <span class="chatbox_toggle"><button>
+    <a href="#" id="chats"><i
+            class="bi bi-envelope"></i></a>
+    </button></span>
+    <button><a href="/profilEinstellen" id="profil" th:href="@{/profilEinstellen}" class="btn-primary"><i class="bi bi-person"></i></a></button>
+    <form style="margin-right: 2%" class="d-flex" action="perform_logout">
+        <button class="btn btn-secondary" type="submit">Logout</button>
+    </form>
+</nav>
+
+<header class="masthead0">
+    <div class="container">
+        <div class="masthead-subheading"><br>Dies ist ein Button Test:<br> Klick auf den Brief oben
+            <strong>rechts</strong>!
+        </div>
+    </div>
+</header>
+
+
+<!-- Start ChatBox  WEAS WIE WO STICKY-TOP? -->
+<div class="chatbox">
+    <div class="chatbox_overview">
+        <div class="accordion" id="accordionExample">
+            <th:block th:each="chat : ${alleChats}">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="test">
+                        <button th:id="'button'+${chat.chatroomId}" class="accordion-button" type="button" data-bs-toggle="collapse"
+                                th:data-bs-target="'#ID'+${chat.chatroomId}" aria-expanded="false"
+                                th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
+                            <table>
+                                <tr>
+                                    <td th:text="${chat.recipient}"></td>
+                                </tr>
+                                <tr>
+                                  <td th:text="${chat.title}"></td>
+                                </tr>
+                            </table>
+                            <!--
+                            <span th:text="${chat.recipient}"></span><br>
+                            <span th:text="${chat.vorlesung}"></span> -->
+                            <input type="hidden" id="chatroomid" th:value='${chat.chatroomId}'>
+                            <input type="hidden" id="sender" th:value='${chat.sender}'>
+                        </button>
+                    </h2>
+                    <div th:id="'ID'+${chat.chatroomId}" class="accordion-collapse collapse" aria-labelledby="test"
+                         data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <div th:id="'chat-page'+${chat.chatroomId}">
+                                <div class="chat-container">
+
+                                    <div th:id="'messageArea'+${chat.chatroomId}">
+                                        <th:block th:each="chatMap : ${map}">
+                                                <li th:each="chatMessage : ${chatMap.value}" class="chat-message">
+                                                    <span th:if="${chat.chatroomId == chatMessage.chatid}">
+                                                        <span th:text="${chatMessage.sender}"></span>
+                                                        <p th:text="${chatMessage.content}" style="word-wrap: break-word;margin-right: 5px"></p>
+                                                    </span>
+                                                </li>
+                                        </th:block>
+                                    </div>
+
+                                    <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">
+                                        <div class="form-group">
+                                            <div class="input-group clearfix">
+                                                <input type="text" th:id="'message'+${chat.chatroomId}" placeholder="Type a message..."
+                                                       autocomplete="off" class="form-control"/>
+                                                <button type="button" class="btn-primary" onclick="return sendMessage()" style="padding: 5px;margin-right: 5px;margin-left: 5px">Send</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </th:block>
+        </div>
+    </div>
+</div>
+<!-- End ChatBox -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/meineChats.js"></script>
+<script src="js/ChatBox.js"></script>
+<script src="js/appChat.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
+
+
+</body>
+</html>

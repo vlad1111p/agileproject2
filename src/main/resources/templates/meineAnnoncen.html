@@ -17,6 +17,9 @@
 
   <link href="/css/searchBar.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet">
+  <!--Icons  -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="navbarIcons.css" rel="stylesheet">
 
   <!-- Scripts for Pagination (Tabelle über mehrere Seiten) -->
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -58,11 +61,15 @@
         <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}">Annoncen einsehen</a></li>
         <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}"><b>Meine Annoncen</b></a></li>
-        <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}">Profil einstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
       </ul>
     </div>
   </div>
+  <span class="chatbox_toggle"><button>
+    <a href="/meineChats" id="chats" th:href="@{/meineChats}"><!--class="chatbox_toggle"--><i
+            class="bi bi-envelope"></i></a>
+    </button></span>
+  <button><a href="/profilEinstellen" id="profil" th:href="@{/profilEinstellen}" class="btn-primary"><i class="bi bi-person"></i></a></button>
   <form style="margin-right: 2%" class="d-flex" action="perform_logout">
     <button class="btn btn-secondary" type="submit">Logout</button>
   </form>

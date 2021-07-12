@@ -86,11 +86,16 @@
         <li class="nav-item"><a class="nav-link " href="/annonceErstellen" th:href="@{/annonceErstellen}">Annonce erstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/annonceEinsehen" th:href="@{/annonceEinsehen}"><b>Annoncen einsehen</b></a></li>
         <li class="nav-item"><a class="nav-link " href="/meineAnnoncen" th:href="@{/meineAnnoncen}">Meine Annoncen</a></li>
-        <li class="nav-item"><a class="nav-link " href="/profilEinstellen" th:href="@{/profilEinstellen}">Profil einstellen</a></li>
         <li class="nav-item"><a class="nav-link " href="/vorlesungEinsehen" th:href="@{/vorlesungEinsehen}">Vorlesungen einsehen</a></li>
       </ul>
     </div>
   </div>
+ <!-- <a href="/meineChats" th:href="@{/meineChats}"><i class="bi bi-envelope navbarIcon"></i></a> -->
+  <span class="chatbox_toggle"><button>
+    <a href="/meineChats" th:href="@{/meineChats}" id="chats"><i
+            class="bi bi-envelope"></i></a>
+    </button></span>
+  <button><a href="/profilEinstellen" id="profil" th:href="@{/profilEinstellen}" class="btn-primary"><i class="bi bi-person"></i></a></button>
   <form style="margin-right: 2%" class="d-flex" action="perform_logout">
     <button class="btn btn-secondary" type="submit">Logout</button>
   </form>
@@ -205,6 +210,11 @@
                     <i class="bi bi-envelope" style="color: black"></i>
                   </button></td>
                   <td th:text="${annonce.datum}"></td>
+                  <td>
+                    <form th:action="@{/startChat(id=${annonce.annonceId})}" method="post" th:object="${annonce}">
+                      <button id="delete" type="submit">Kontakt</button>
+                    </form>
+                  </td>
                 </tr>
                 </tbody>
               </table>
