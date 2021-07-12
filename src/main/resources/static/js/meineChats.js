@@ -109,12 +109,12 @@ function onMessageReceived(payload) {
     } else {
         messageElement.classList.add('chat-message');
 
-        var avatarElement = document.createElement('i');
-        var avatarText = document.createTextNode(message.sender[0]);
-        avatarElement.appendChild(avatarText);
-        avatarElement.style['background-color'] = getAvatarColor(message.sender);
+        //var avatarElement = document.createElement('i');
+        //var avatarText = document.createTextNode(message.sender[0]);
+        //avatarElement.appendChild(avatarText);
+        //avatarElement.style['background-color'] = getAvatarColor(message.sender);
 
-        messageElement.appendChild(avatarElement);
+        //messageElement.appendChild(avatarElement);
 
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.sender);
@@ -132,7 +132,7 @@ function onMessageReceived(payload) {
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
-
+/*
 function getAvatarColor(messageSender) {
     var hash = 0;
     for (var i = 0; i < messageSender.length; i++) {
@@ -141,4 +141,4 @@ function getAvatarColor(messageSender) {
 
     var index = Math.abs(hash % colors.length);
     return colors[index];
-}
+}*/
