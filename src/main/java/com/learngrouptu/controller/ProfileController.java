@@ -156,6 +156,7 @@ public class ProfileController {
         System.out.println(encryptedusermail);
         String decrypteduseremail=AES.decrypt(encryptedusermail,secretKey);
         System.out.println(decrypteduseremail);
+        System.out.println(AES.decrypt("9XNt3IMqbJAEWdL1AUNtg==",secretKey));
         User currUser = userRepository.findUserByEmail(decrypteduseremail);
 
 
