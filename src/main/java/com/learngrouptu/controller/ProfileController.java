@@ -156,7 +156,7 @@ public class ProfileController {
         System.out.println(encryptedusermail);
         String decrypteduseremail=AES.decrypt(encryptedusermail,secretKey);
         System.out.println(decrypteduseremail);
-        System.out.println(AES.decrypt("9XNt3IMqbJAEWdL1AUNtg==",secretKey));
+
         User currUser = userRepository.findUserByEmail(decrypteduseremail);
 
 
@@ -201,7 +201,7 @@ public class ProfileController {
                 "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link: " +
                 //TODO: Link für VM
                 "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
-
+        System.out.println(AES.decrypt("-9XNt3IMqbJAEWdL1AUNtg", secretKey));
         mailSender.send(message);
 
 

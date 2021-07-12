@@ -54,7 +54,7 @@ public class AES {
             setKey(secret);
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5PADDING");
             cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
+            return new String(cipher.doFinal(Base64.getUrlDecoder().decode(strToDecrypt)));
         }
         catch (Exception e)
         {
