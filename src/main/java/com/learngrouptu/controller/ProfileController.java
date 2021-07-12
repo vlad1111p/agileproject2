@@ -2,6 +2,7 @@ package com.learngrouptu.controller;
 
 import com.learngrouptu.DTO.PasswordDTO;
 import com.learngrouptu.DTO.PasswordResetDTO;
+import com.learngrouptu.DTO.PasswordResetWithEmailDTO;
 import com.learngrouptu.DTO.UserDTO;
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.Exceptions.UsernameDoesNotExistException;
@@ -21,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProfileController {
+    final String secretKey = "qazwsx123456";
     private final UserRepository userRepository;
-
     @Autowired
     UserService userService;
     @Autowired
@@ -86,7 +87,7 @@ public class ProfileController {
         String userCurrentPassword = currUser.getPassword();
 
         Boolean userInputPasswordEncrypted = bCryptPasswordEncoder.matches(altesPassword, userCurrentPassword);
-        System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
+        //System.out.println(userCurrentPassword + " " + userInputPasswordEncrypted + " " + altesPassword + " " + altesPassword1 + " " + neuesPassword + " " + neuesPassword1);
         if (altesPassword.equals(altesPassword1)) {
 
             if (neuesPassword.equals(neuesPassword1)) {
@@ -124,35 +125,95 @@ public class ProfileController {
 
     }
 
-    @GetMapping("/passwortVergessen")
-    public String resetPassword(Model model, User user, PasswordResetDTO password) {
-        model.addAttribute("user", userService.getCurrentUser());
-        return "passwortVergessen";
-    }
-
-    @PostMapping("/reset_password")
-    public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
-
-        String usermail = passwordResetDTO.getUsermail();
-
-        String from = "vladmihalea1111p@gmail.com";
-        String to = usermail;
+    private void sendConfirmationEmail(User currUser) {
+        String from = "pam2-2021-LearngroupTU@cs.uni-kl.de";
+        String to = currUser.getEmail();
 
         SimpleMailMessage message = new SimpleMailMessage();
 
         message.setFrom(from);
         message.setTo(to);
-        message.setSubject("Password reset from LearngroupTU");
-        message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail." +
-                "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link:" +
-                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + usermail);
+        message.setSubject("Password change from LearngroupTU");
+        message.setText("You just have successfully changed your password.");
 
         mailSender.send(message);
+    }
 
-        return "login";
+    @GetMapping("/passwortVergessen")
+    public String resetPassword(Model model, PasswordResetDTO password) {
+        return "passwortVergessen";
+    }
+
+    @GetMapping("/vergessenesPasswortErsetzen")
+    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO,@RequestParam(name = "mail") String mailSender) {
+        model.addAttribute("encryptedemail",mailSender );
+        return "vergessenesPasswortErsetzen";
+
+    }
+
+    @PostMapping("/reset_passwordfromemail")
+    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO, UserDTO user) {
+
+        String encryptedusermail = passwordResetWithEmailDTO.getEmail();
+        System.out.println(encryptedusermail);
+        String decrypteduseremail=AES.decrypt(encryptedusermail,secretKey);
+        System.out.println(decrypteduseremail);
+
+        User currUser = userRepository.findUserByEmail(decrypteduseremail);
+
+
+        String neuesPassword = passwordResetWithEmailDTO.getNeuesPassword();
+        String neuesPassword1 = passwordResetWithEmailDTO.getNeuesPassword1();
+        if(neuesPassword.equals(neuesPassword1)) {
+            String encryptedNeuesPassword = bCryptPasswordEncoder.encode(neuesPassword);
+            currUser.setPassword(encryptedNeuesPassword);
+            userRepository.save(currUser);
+
+            sendConfirmationEmail(currUser);
+
+
+            model.addAttribute("passwordsuccessfullychanged", true);
+            return "vergessenesPasswortErsetzen";
+        }else {
+            model.addAttribute("oldpassworddoesnotmatch", true);
+            return "vergessenesPasswortErsetzen";
+        }
+
+    }
+
+
+    @PostMapping("/reset_password")
+    public String resetPassword(Model model, PasswordResetDTO passwordResetDTO, UserDTO user) {
+
+        String usermail = passwordResetDTO.getUsermail();
+        String from = "pam2-2021-LearngroupTU@cs.uni-kl.de";
+        String to = usermail;
+        boolean ifUsermailExists = userRepository.existsByEmail(usermail);
+
+        if (!ifUsermailExists) {
+            model.addAttribute("oldpassworddoesnotmatch", true);
+            return "passwortVergessen";
+        }
+
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(from);
+        message.setTo(to);
+        message.setSubject("Passwort von LearngroupTU zurücksetzen");
+        message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail. " +
+                "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link: " +
+                //TODO: Link für VM
+                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
+        System.out.println(AES.decrypt("-9XNt3IMqbJAEWdL1AUNtg", secretKey));
+        mailSender.send(message);
+
+
+        model.addAttribute("correctinput", true);
+        return "passwortVergessen";
 
 
     }
+
+
 
     private void configuteCurrUser(UserDTO user, User currUser) throws AbschlussNotAllowedException {
         String studiengang = user.getStudiengang();
@@ -165,20 +226,6 @@ public class ProfileController {
         currUser.setAbschluss(abschluss);
 
         currUser.setBio(bio);
-    }
-
-    private void sendConfirmationEmail(User currUser) {
-        String from = "vladmihalea1111p@gmail.com";
-        String to = currUser.getEmail();
-
-        SimpleMailMessage message = new SimpleMailMessage();
-
-        message.setFrom(from);
-        message.setTo(to);
-        message.setSubject("Password change from LearngroupTU");
-        message.setText("You just have successfully changed your password.");
-
-        mailSender.send(message);
     }
 
 }

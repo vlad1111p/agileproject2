@@ -33,10 +33,33 @@
 <header class="masthead" id="masthead1"></header>
 <div class="container">
     <div class="col-12">
-        <h2>Trage hier deine E-Mail-Adresse ein:</h2>
+        <h2>Passwort zurücksetzen:</h2>
+        <br>
+        <p>Um dein Passwort zurücksetzen zu können, trage bitte hier deine E-Mail Adresse ein. Wir schicken dir dann eine Mail mit einem Link zu einer
+        Seite zu, auf der du dein neues Passwort festlegen kannst.</p>
         <br />
+        <div class="container" th:if="${oldpassworddoesnotmatch == true}">
+            <div class="row">
+                <div class="card">
+                    <div class="alert alert-primary" role="alert">
+                        Es ist ein Fehler aufgetreten. Bitte versuch es erneut.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" th:if="${correctinput == true}">
+            <div class="row">
+                <div class="card">
+                    <div class="alert alert-primary" role="alert">
+                        Dir wurde eine E-Mail zugeschickt.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <form th:action = "@{/reset_password}" th:object="${passwordResetDTO}" name='reset_password-form' method='POST'>
-            <label for="usermail" class="form-label">Gib deinen Username an</label>
+            <label for="usermail" class="form-label">Gib hier deine E-Mail Adresse an:</label>
             <input type="email" class="form-control" th:field="*{usermail}" id="usermail" placeholder="">
             <span th:if="${#fields.hasErrors('usermail')}" th:errors="*{usermail}"></span>
             <br />
