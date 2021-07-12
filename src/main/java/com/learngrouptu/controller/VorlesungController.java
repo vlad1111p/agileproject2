@@ -218,17 +218,18 @@ public class VorlesungController {
     }
 
     private void sendRequestEmail(Vorlesung vorl) {
-        String from = "vladmihalea1111p@gmail.com";
-        String to = "l_cezanne19@cs.uni-kl.de";
+        String from = "pam2-2021-LearngroupTU@cs.uni-kl.de";
+        String to = "pam2-2021-LearngroupTU@cs.uni-kl.de";
         User currUser = userService.getCurrentUser();
         String username = currUser.getUsername();
-        //String to = "pam2-2021-LearngroupTU@cs.uni-kl.de"; TODO für Livebetrieb sollte diese Mailadresse genutzt werden
         String messageTextHead = "Es wurde eine neue Vorlesung von " + username + " beantragt: \n";
         String messageTextBody = "Vorlesungsname: " + vorl.getTitel() + "\n" +
                 "Vorlesungsnummer: " + vorl.getKursnr() + "\n" +
                 "Studiengang: " + vorl.getStudiengang() + "\n" +
-                "CP: " + vorl.getCp();
-        String messageText = messageTextHead + messageTextBody;
+                "CP: " + vorl.getCp() + "\n";
+        String messageTextBottom = "Um die Vorlesung anzulegen, klicke auf den folgenden Link: " +
+                "http://scilab-0095.informatik.uni-kl.de:8080/admin/vorlesungErstellen";
+        String messageText = messageTextHead + messageTextBody + messageTextBottom;
 
         SimpleMailMessage message = new SimpleMailMessage();
 

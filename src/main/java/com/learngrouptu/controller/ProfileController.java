@@ -6,6 +6,7 @@ import com.learngrouptu.DTO.PasswordResetWithEmailDTO;
 import com.learngrouptu.DTO.UserDTO;
 import com.learngrouptu.Exceptions.AbschlussNotAllowedException;
 import com.learngrouptu.Exceptions.UsernameDoesNotExistException;
+import com.learngrouptu.encryption.AES;
 import com.learngrouptu.models.User;
 import com.learngrouptu.models.UserRepository;
 import com.learngrouptu.services.UserService;
@@ -156,7 +157,7 @@ public class ProfileController {
 
         String encryptedusermail = passwordResetWithEmailDTO.getEmail();
         System.out.println(encryptedusermail);
-        String decrypteduseremail=AES.decrypt(encryptedusermail,secretKey);
+        String decrypteduseremail= AES.decrypt(encryptedusermail,secretKey);
         System.out.println(decrypteduseremail);
 
         User currUser = userRepository.findUserByEmail(decrypteduseremail);
@@ -202,7 +203,7 @@ public class ProfileController {
         message.setText("Du hast eine Anfrage geschickt, um dein Passwort zurückzusetzen. Wenn du diese Anfrage nicht gestellt hast, ignoriere diese Mail. " +
                 "Um dein Passwort zurückzusetzen, klicke auf den folgenden Link: " +
                 //TODO: Link für VM
-                "http://localhost:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
+                "http://scilab-0095.informatik.uni-kl.de:8080/vergessenesPasswortErsetzen?mail=" + AES.encrypt(usermail, secretKey));
         System.out.println(AES.decrypt("-9XNt3IMqbJAEWdL1AUNtg", secretKey));
         mailSender.send(message);
 
