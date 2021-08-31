@@ -94,7 +94,8 @@
                                 th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
                             <table>
                                 <tr>
-                                    <td th:text="${chat.recipient}"></td>
+                                    <td th:if="${chat.sender == userName}" th:text="'An ' + ${chat.recipient}"></td>
+                                    <td th:if="${chat.recipient == userName}" th:text="'Von ' + ${chat.sender}"></td>
                                 </tr>
                                 <tr>
                                   <td th:text="${chat.title}"></td>
