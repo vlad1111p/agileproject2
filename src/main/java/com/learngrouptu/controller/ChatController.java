@@ -51,19 +51,26 @@ public class ChatController {
     @PostMapping("/startChat")
     public String startChat(@RequestParam Integer id, Model model) {
 
-        User user = userRepository.findByUserAnnoncen_AnnonceId(id);
+        User recipient = userRepository.findByUserAnnoncen_AnnonceId(id);
+        User sender = userService.getCurrentUser();
         Annonce annonce = annonceRepository.findOneByAnnonceId(id);
-        System.out.println(user.getUsername());
+        String title = annonce.getVorlName();
+        System.out.println(recipient.getUsername());
 
-        Chatroom chatroom = new Chatroom();
-        chatroom.setRecipient(user.getUsername());
-        chatroom.setSender(userService.getCurrentUser().getUsername());
-        chatroom.setTitle(annonce.getVorlName());
-        model.addAttribute("chatroom", chatroom);
-        System.out.println(chatroom.getChatroomId());
-        System.out.println(chatroom.getSender());
-        System.out.println(chatroom.getTitle());
-        chatroomRepository.save(chatroom);
+        Optional<Chatroom> existingChatroom = chatroomRepository
+                .findChatroomBySenderAndRecipientAndAndTitle(sender.getUsername(), recipient.getUsername(), title);
+
+        if (existingChatroom.isEmpty()) {
+            Chatroom chatroom = new Chatroom();
+            chatroom.setRecipient(recipient.getUsername());
+            chatroom.setSender(sender.getUsername());
+            chatroom.setTitle(title);
+            model.addAttribute("chatroom", chatroom);
+            System.out.println(chatroom.getChatroomId());
+            System.out.println(chatroom.getSender());
+            System.out.println(chatroom.getTitle());
+            chatroomRepository.save(chatroom);
+        }
 
         return "redirect:meineChats";
     }
