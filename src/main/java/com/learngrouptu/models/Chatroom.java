@@ -1,7 +1,11 @@
 package com.learngrouptu.models;
 
+import org.apache.tomcat.jni.Local;
+
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
+import java.sql.Date;
 
 @Entity
 public class Chatroom {
@@ -71,11 +75,57 @@ public class Chatroom {
         return chatroomMessages;
     }
 
+    public List<ChatMessage> sortChatroomMessages() {
+        List<ChatMessage> orderedMessages = new ArrayList<ChatMessage>();
+        orderedMessages.addAll(this.getChatroomMessages());
+        orderedMessages.sort(Comparator.comparing(ChatMessage::getTimestamp));
+        return orderedMessages;
+    }
+
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public java.sql.Date getLastActivity() throws NoActivityYetException {
+        if (this.getChatroomMessages().isEmpty()) {
+            throw new NoActivityYetException();
+        }
+        List<ChatMessage> orderedMessages = sortChatroomMessages();
+        ChatMessage lastMessage = orderedMessages.get(orderedMessages.size()-1);
+        return lastMessage.getTimestamp();
+    }
+
+    public boolean chatroomTooOld() {
+        long millis=System.currentTimeMillis();
+        LocalDate now = (new java.sql.Date(millis)).toLocalDate();
+        try {
+            LocalDate then = getLastActivity().toLocalDate();
+            System.out.println("Then:" + java.sql.Date.valueOf(then.minusDays(1)).getTime());
+            System.out.println("now.minusDays:" + java.sql.Date.valueOf(now.minusDays(30)).getTime());
+            return now.minusDays(30)
+                    .isAfter(then);
+        }
+        catch (NoActivityYetException e) {
+            return false;
+        }
+
+        
+    }
+
+    public void init() {
+        ChatMessage startMessage = new ChatMessage();
+        startMessage.setChatroom(this);
+        startMessage.setChatid(this.getChatroomId());
+        startMessage.setSender("System"); // todo wir sollten wahrscheinlich den Username System verbieten
+        startMessage.setType(ChatMessage.MessageType.CHAT);
+        startMessage.setContent("Dieser Chat wird nach 30 Tagen Inaktivität gelöscht!");
+        chatroomMessages.add(startMessage);
+    }
+
+    private class NoActivityYetException extends Throwable {
     }
 }
