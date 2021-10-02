@@ -96,6 +96,12 @@
                                 <tr>
                                     <td th:if="${chat.sender == userName}" th:text="'An ' + ${chat.recipient}"></td>
                                     <td th:if="${chat.recipient == userName}" th:text="'Von ' + ${chat.sender}"></td>
+                                    <td>
+                                        <form th:action="@{/deleteChat(chatroomId=${chat.getChatroomId()})}" method="post" th:object="${chat}">
+                                            <button type="submit" class="btn btn-outline-primary">
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                                 <tr>
                                   <td th:text="${chat.title}"></td>

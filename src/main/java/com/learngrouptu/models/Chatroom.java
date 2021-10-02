@@ -8,6 +8,7 @@ import java.util.*;
 import java.sql.Date;
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Chatroom {
 
     @Id
@@ -18,10 +19,17 @@ public class Chatroom {
     private String title;
 
     @OneToMany(mappedBy = "chatroom", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-
+            cascade = CascadeType.PERSIST)
     private Set<ChatMessage> chatroomMessages;
 
+    public enum Status {
+        ALIVE,
+        DEAD_FOR_SENDER,
+        DEAD_FOR_RECIPIENT,
+        DEAD_FOR_ALL
+    }
+
+    private Status status;
 
     public Chatroom(Integer chatroomId, String sender, String recipient) {
         this.chatroomId = chatroomId;
@@ -55,6 +63,14 @@ public class Chatroom {
 
     public void setRecipient(String recipient) {
         this.recipient = recipient;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public Set<ChatMessage> getChatroomMessages() {
@@ -112,18 +128,6 @@ public class Chatroom {
         catch (NoActivityYetException e) {
             return false;
         }
-
-        
-    }
-
-    public void init() {
-        ChatMessage startMessage = new ChatMessage();
-        startMessage.setChatroom(this);
-        startMessage.setChatid(this.getChatroomId());
-        startMessage.setSender("System"); // todo wir sollten wahrscheinlich den Username System verbieten
-        startMessage.setType(ChatMessage.MessageType.CHAT);
-        startMessage.setContent("Dieser Chat wird nach 30 Tagen Inaktivität gelöscht!");
-        chatroomMessages.add(startMessage);
     }
 
     private class NoActivityYetException extends Throwable {
