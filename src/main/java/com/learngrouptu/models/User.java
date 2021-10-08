@@ -13,6 +13,7 @@ import java.util.Set;
 
 @Entity
 @DynamicInsert
+@Table(name="\"user\"")
 public class User {
 
     @Id
@@ -32,8 +33,7 @@ public class User {
     @NotBlank
     @NotNull
     private String password;
-
-    @ColumnDefault("ROLE_USER")
+    @Column(columnDefinition = "varchar(255) default 'ROLE_USER'")
     private String role;
 
     @ManyToMany

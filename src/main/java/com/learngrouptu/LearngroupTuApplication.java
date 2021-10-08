@@ -1,5 +1,6 @@
 package com.learngrouptu;
 
+import org.hibernate.Session;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -14,6 +15,7 @@ public class LearngroupTuApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LearngroupTuApplication.class, args);
+//        Session session = HibernateUtil.getSessionFactory().openSession();
     }
 }
 
