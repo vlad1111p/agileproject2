@@ -135,12 +135,12 @@
                                         </th:block>
                                     </div>
 
-                                    <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm">
+                                    <form th:id="'messageForm'+${chat.chatroomId}" name="messageForm" nameForm="messageForm" onSubmit="return false;">
                                         <div class="form-group">
                                             <div class="input-group clearfix">
                                                 <input type="text" th:id="'message'+${chat.chatroomId}" placeholder="Type a message..."
                                                        autocomplete="off" class="form-control"/>
-                                                <button type="button" class="btn-primary" onclick="return sendMessage()" style="padding: 5px;margin-right: 5px;margin-left: 5px">Send</button>
+                                                <button th:id="'sendButton'+${chat.chatroomId}" type="button" class="btn-primary" th:onclick="|sendMessage()|" style="padding: 5px;margin-right: 5px;margin-left: 5px">Send</button>
                                             </div>
                                         </div>
                                     </form>
