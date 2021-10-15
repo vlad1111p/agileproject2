@@ -94,7 +94,6 @@
                                     th:aria-controls="'ID'+${chat.chatroomId}" th:onclick="|connect('${chat.chatroomId}')|"> <!--onclick="connect(this.id)"-->
                                 <table>
                                         <tr>
-                                            <!-- TODO continue here with colspan-->
                                             <td th:if="${chat.sender == userName}" th:text="'An ' + ${chat.recipient}"></td>
                                             <td th:if="${chat.recipient == userName}" th:text="'Von ' + ${chat.sender}"></td>
                                         </tr>
@@ -102,15 +101,11 @@
                                           <td th:text="${chat.title}"></td>
                                         </tr>
                                 </table>
-
-                                <div style="align-self: flex-end">
-                                    <form style="align-self: flex-end" th:action="@{/deleteChat(chatroomId=${chat.getChatroomId()})}" method="post" th:object="${chat}">
-                                        <button type="submit" class="btn btn-warning">
-                                            <p class="text-white">Chat löschen</p>
-                                        </button>
-                                    </form>
-
-                                </div>
+                                <form style="align-self: flex-end" th:action="@{/deleteChat(chatroomId=${chat.getChatroomId()})}" method="post" th:object="${chat}">
+                                    <button type="submit" class="btn btn-warning">
+                                        <p class="text-white">Chat löschen</p>
+                                    </button>
+                                </form>
 
                                 <script type="text/javascript">
                                     var button= 'button'+[[${chat.chatroomId}]];
