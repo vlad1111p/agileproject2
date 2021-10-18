@@ -81,8 +81,8 @@ public class ChatController {
         String title = annonce.getVorlName();
         System.out.println(recipient.getUsername());
 
-        Optional<Chatroom> existingChatroom = chatroomRepository
-                .findChatroomBySenderAndRecipientAndAndTitle(sender.getUsername(), recipient.getUsername(), title);
+        List<Chatroom> existingChatroom = chatroomRepository
+                .findChatroomsBySenderAndRecipientAndAndTitle(sender.getUsername(), recipient.getUsername(), title);
 
         if (existingChatroom.isEmpty()) {
             Chatroom chatroom = new Chatroom();
