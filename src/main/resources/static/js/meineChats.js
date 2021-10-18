@@ -72,6 +72,25 @@ function onError(error) {
 
 }
 
+// Checks if a value is a number
+function isNumeric(value) {
+    return /^\d+$/.test(value);
+}
+
+/* Allows sending messages by pressing Enter */
+document.querySelectorAll('*[id^="message"]')
+    .forEach(item => {
+        var chatroomId = item.id.slice(7) // 7 is length of 'message'
+        if (isNumeric(chatroomId)) {
+            item.addEventListener("keyup", function(event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    console.log("Pressed Enter.")
+                    sendMessage()
+                }
+            });
+        }
+    })
 
 function sendMessage(event) {
 
@@ -83,6 +102,7 @@ function sendMessage(event) {
             messageArea.removeChild(messageArea.firstChild);
         }
     } else if (messageContent && stompClient) {
+        console.log("Korrekt")
         var chatMessage = {
             sender: username,
             content: messageInput.value,
@@ -142,3 +162,4 @@ function getAvatarColor(messageSender) {
     var index = Math.abs(hash % colors.length);
     return colors[index];
 }*/
+

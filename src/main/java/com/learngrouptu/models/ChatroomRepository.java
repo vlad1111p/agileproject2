@@ -10,9 +10,11 @@ import java.util.Set;
 @Repository
 public interface ChatroomRepository extends JpaRepository<Chatroom, Integer> {
 
+    Chatroom findChatroomByChatroomId(Integer id);
     Set<Chatroom> findAllBySender(String sender);
     Set<Chatroom> findAllByRecipient(String recipient);
     Set<Chatroom> findAllBySenderOrRecipient(String Sender, String Recipient);
+    void deleteChatroomByChatroomId(Integer chatroomId);
     Optional<Chatroom> findChatroomBySenderAndRecipientAndAndTitle(String sender, String recipient, String title);
 
 }

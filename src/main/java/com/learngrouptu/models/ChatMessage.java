@@ -1,6 +1,10 @@
 package com.learngrouptu.models;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.sql.Date;
 
 
 @Entity
@@ -13,8 +17,8 @@ public class ChatMessage implements Comparable<ChatMessage>{
     private String content;
     private String sender;
     private Integer chatid;
-
-
+    @CreationTimestamp
+    private Date timestamp;
 
     public enum MessageType {
         CHAT,
@@ -73,6 +77,10 @@ public class ChatMessage implements Comparable<ChatMessage>{
 
     public void setChatid(Integer chatid) {
         this.chatid = chatid;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
     }
 
     @Override
