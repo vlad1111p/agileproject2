@@ -81,10 +81,14 @@ public class ChatController {
         String title = annonce.getVorlName();
         System.out.println(recipient.getUsername());
 
-        List<Chatroom> existingChatroom = chatroomRepository
+        // Look for existing similar Chatrooms
+        List<Chatroom> existingChatrooms = chatroomRepository
                 .findChatroomsBySenderAndRecipientAndAndTitle(sender.getUsername(), recipient.getUsername(), title);
 
-        if (existingChatroom.isEmpty()) {
+        // Filter out Chatrooms that are deleted
+        existingChatrooms = filterChatroomsForDisplayed(existingChatrooms);
+
+        if (existingChatrooms.isEmpty()) {
             Chatroom chatroom = new Chatroom();
             configureChatroom(recipient, annonce, chatroom);
             model.addAttribute("chatroom", chatroom);
@@ -99,6 +103,16 @@ public class ChatController {
         }
 
         return "redirect:meineChats";
+    }
+
+    private List<Chatroom> filterChatroomsForDisplayed(List<Chatroom> existingChatrooms) {
+        return existingChatrooms.stream()
+                .filter(chatroom ->
+                        chatroom.getStatus()
+                                .equals(Chatroom.Status.ALIVE) ||
+                        chatroom.getStatus()
+                                .equals(Chatroom.Status.DEAD_FOR_RECIPIENT))
+                .collect(Collectors.toList());
     }
 
     private void configureChatroom(User user, Annonce annonce, Chatroom chatroom) {
