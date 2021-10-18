@@ -97,7 +97,8 @@ public class ChatController {
             System.out.println(chatroom.getTitle());
             chatroom = chatroomRepository.save(chatroom);
             ChatMessage systemMessage = new ChatMessage();
-            String content = "Dieser Chat wird nach 30 Tagen Inaktivität gelöscht!";
+            String content = "Dieser Chat wird nach 30 Tagen Inaktivität gelöscht! " +
+                    "Beachte, dass Nutzernamen frei gewählt werden können und Personen sich als andere ausgeben können.";
             configureSystemMessage(content, systemMessage);
             sendMessage(chatroom.getChatroomId().toString(), systemMessage);
         }
