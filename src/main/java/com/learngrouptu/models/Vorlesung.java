@@ -13,7 +13,7 @@ public class Vorlesung implements Serializable {
 
 
 
-
+        
     @Id
     @GeneratedValue
     private Integer vorlesungid;

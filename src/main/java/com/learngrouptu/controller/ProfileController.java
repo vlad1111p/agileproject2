@@ -146,14 +146,17 @@ public class ProfileController {
     }
 
     @GetMapping("/vergessenesPasswortErsetzen")
-    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO,@RequestParam(name = "mail") String mailSender) {
+    public String resetPasswordFromEmail(Model model,
+                                         PasswordResetWithEmailDTO passwordResetWithEmailDTO,
+                                         @RequestParam(name = "mail") String mailSender) {
         model.addAttribute("encryptedemail",mailSender );
         return "vergessenesPasswortErsetzen";
 
     }
 
     @PostMapping("/reset_passwordfromemail")
-    public String resetPasswordFromEmail(Model model, PasswordResetWithEmailDTO passwordResetWithEmailDTO, UserDTO user) {
+    public String resetPasswordFromEmail(Model model,
+                                         PasswordResetWithEmailDTO passwordResetWithEmailDTO, UserDTO user) {
 
         String encryptedusermail = passwordResetWithEmailDTO.getEmail();
         System.out.println(encryptedusermail);
